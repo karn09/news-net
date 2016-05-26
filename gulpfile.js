@@ -143,7 +143,8 @@ gulp.task('generateServiceWorker', function(callback) {
         '/angular-ui-router/release/angular-ui-router.js': ['node_modules/angular-ui-router/release/angular-ui-router.js'],
         '/angular-ui-bootstrap/ui-bootstrap.js': ['node_modules/angular-ui-bootstrap/ui-bootstrap.js'],
         '/angular-ui-bootstrap/ui-bootstrap-tpls.js': ['node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.js'],
-        '/socket.io-client/socket.io.js': ['node_modules/socket.io-client/socket.io.js']
+        '/socket.io-client/socket.io.js': ['node_modules/socket.io-client/socket.io.js'],
+        '/bootstrap/dist/css/bootstrap.css': ['node_modules/bootstrap/dist/css/bootstrap.css']
     }
 
     //Add in our html templates
