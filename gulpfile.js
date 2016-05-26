@@ -135,19 +135,24 @@ gulp.task('generateServiceWorker', function(callback) {
 
   var rootDir = 'public';
 
-
-  swPrecache.write(path.join(rootDir, 'service-worker.js'), {
-    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif}'],
-    stripPrefix: rootDir,
-    dynamicUrlToDependencies: {
+  //Libraries our project depends on.
+  var dependencies = {
         '/lodash/index.js': ['node_modules/lodash/index.js'],
         '/angular/angular.js': ['node_modules/angular/angular.js'],
         '/angular-animate/angular-animate.js': ['node_modules//angular-animate/angular-animate.js'],
         '/angular-ui-router/release/angular-ui-router.js': ['node_modules/angular-ui-router/release/angular-ui-router.js'],
         '/angular-ui-bootstrap/ui-bootstrap.js': ['node_modules/angular-ui-bootstrap/ui-bootstrap.js'],
         '/angular-ui-bootstrap/ui-bootstrap-tpls.js': ['node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.js'],
-        '/socket.io-client/socket.io.js': ['node_modules/socket.io-client/socket.io.js']
+        '/socket.io-client/socket.io.js': ['node_modules/socket.io-client/socket.io.js'],
+        '/about': ['public/js/about/about.html']
     }
+
+    //Add in our html templates
+
+  swPrecache.write(path.join(rootDir, 'service-worker.js'), {
+    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif}'],
+    stripPrefix: rootDir,
+    dynamicUrlToDependencies: dependencies
   }, callback);
 });
 
