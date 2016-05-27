@@ -1,10 +1,14 @@
-app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) {
+app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, $mdSidenav) {
 
     return {
         restrict: 'E',
         scope: {},
         templateUrl: 'js/common/directives/navbar/navbar.html',
         link: function (scope) {
+
+            scope.toggle = function() {
+              $mdSidenav("left").toggle();
+            };
 
             scope.items = [
                 { label: 'Home', state: 'home' },
