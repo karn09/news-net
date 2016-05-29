@@ -4,10 +4,13 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
         restrict: 'E',
         scope: {},
         templateUrl: 'js/common/directives/navbar/navbar.html',
-        link: function (scope) {
+        link: function (scope, element) {
 
             scope.toggle = function() {
-              $mdSidenav("left").toggle();
+              $mdSidenav("left").toggle()
+                .then(function() {
+                  // btn.toggleClass('md-focused')
+                });
             };
 
             scope.items = [
