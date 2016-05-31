@@ -53,6 +53,30 @@ gulp.task('buildJS', ['lintJS'], function () {
         .pipe(gulp.dest('./public'));
 });
 
+//ST Additions / Modifications
+gulp.task('buildCSS', function () {
+
+    var sassCompilation = sass();
+    sassCompilation.on('error', console.error.bind(console));
+
+    return gulp.src('./browser/scss/main.scss')
+        .pipe(plumber({
+            errorHandler: notify.onError('SASS processing failed! Check your gulp process.')
+        }))
+        .pipe(sassCompilation)
+        .pipe(rename('style.css'))
+        .pipe(gulp.dest('./public'));
+});
+
+gulp.task('copyHTML', function(){
+    return gulp.src(['./browser/html/**/*.html'], {base: './browser/'})
+    .pipe(gulp.dest('./public'))
+})
+
+
+// Testing
+// --------------------------------------------------------------
+
 gulp.task('testServerJS', function () {
     require('babel-register');
 	return gulp.src('./tests/server/**/*.js', {
@@ -84,48 +108,6 @@ gulp.task('testBrowserJS', function (done) {
     }, done);
 });
 
-gulp.task('buildCSS', function () {
-
-    var sassCompilation = sass();
-    sassCompilation.on('error', console.error.bind(console));
-
-    return gulp.src('./browser/scss/main.scss')
-        .pipe(plumber({
-            errorHandler: notify.onError('SASS processing failed! Check your gulp process.')
-        }))
-        .pipe(sassCompilation)
-        .pipe(rename('style.css'))
-        .pipe(gulp.dest('./public'));
-});
-
-gulp.task('copyHTML', function(){
-    return gulp.src(['./browser/js/**/*.html'], {base: './browser/'})
-    .pipe(gulp.dest('./public'))
-})
-
-
-// Production tasks
-// --------------------------------------------------------------
-
-gulp.task('buildCSSProduction', function () {
-    return gulp.src('./browser/scss/main.scss')
-        .pipe(sass())
-        .pipe(rename('style.css'))
-        .pipe(minifyCSS())
-        .pipe(gulp.dest('./public'))
-});
-
-gulp.task('buildJSProduction', function () {
-    return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
-        .pipe(concat('main.js'))
-        .pipe(babel())
-        .pipe(ngAnnotate())
-        .pipe(uglify())
-        .pipe(gulp.dest('./public'));
-});
-
-gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction']);
-
 // Service Worker Generation
 // --------------------------------------------------------------
 
@@ -155,6 +137,31 @@ gulp.task('generateServiceWorker', function(callback) {
     dynamicUrlToDependencies: dependencies
   }, callback);
 });
+
+
+
+// Production tasks
+// --------------------------------------------------------------
+
+gulp.task('buildCSSProduction', function () {
+    return gulp.src('./browser/scss/main.scss')
+        .pipe(sass())
+        .pipe(rename('style.css'))
+        .pipe(minifyCSS())
+        .pipe(gulp.dest('./public'))
+});
+
+gulp.task('buildJSProduction', function () {
+    return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
+        .pipe(concat('main.js'))
+        .pipe(babel())
+        .pipe(ngAnnotate())
+        .pipe(uglify())
+        .pipe(gulp.dest('./public'));
+});
+
+gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction']);
+
 
 
 // Composed tasks
