@@ -26,8 +26,7 @@ var schema = new mongoose.Schema({
         id: String
     },    
     pages: [{
-        //type: mongoose.Schema.Types.ObjectId, ref: 'Page'
-        type: String
+        type: mongoose.Schema.Types.ObjectId, ref: 'Page'
     }],
     comments: [{
         type: mongoose.Schema.Types.ObjectId, ref: 'Comment'

@@ -7,7 +7,7 @@ var Comment = mongoose.model('Comment');
 
 router.get('/', function(req, res, next){
 	Comment.find({})
-	//.populate('page')
+	.populate('page')
 	.then(function(comments){
 		res.json(comments);
 	}, next);
@@ -16,7 +16,7 @@ router.get('/', function(req, res, next){
 
 router.get('/:id', function(req, res, next){
 	Comment.find({_id: req.params.id})
-	//.populate('page')
+	.populate('page')
 	.then(function(comment){
 		res.json(comment);
 	}, next);

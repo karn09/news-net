@@ -5,8 +5,7 @@ var schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
     },
     page: {
-        //type: mongoose.Schema.Types.ObjectId, ref: 'Page'
-        type: String
+        type: mongoose.Schema.Types.ObjectId, ref: 'Page'
     },
     text: {
     	type: String

@@ -8,7 +8,13 @@ app.factory('ParserFactory', function($http){
 		//console.log("encoded: ", encoded);
 		return $http.get("/api/parser/" + encoded)
 		.then(function(result){
-			return result.data;
+			//return result.data;
+			console.log("parser result: ", result.data);
+			return $http.post("/api/pages", result.data)
+			.then(function(response){
+				console.log("post response: ", response.data);
+				return response.data;
+			})
 		});
 	};
 
