@@ -22,11 +22,13 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = mongoose.model('User');
+var Comment = mongoose.model('Comment');
 
 var wipeCollections = function () {
     var removeUsers = User.remove({});
+    var removeComments = Comment.remove({});
     return Promise.all([
-        removeUsers
+        removeUsers, removeComments
     ]);
 };
 
@@ -47,12 +49,38 @@ var seedUsers = function () {
 
 };
 
+var seedComments = function() {
+    var comments; 
+    return User.findOne({email: 'obama@gmail.com'}).exec()
+    .then(function(user){
+        comments = [
+            {
+                user: user._id,
+                text: "awesome article",
+                dateStamp: Date.now()
+            },
+            {
+                user: user._id,
+                text: "can't agree more",
+                dateStamp: Date.now()
+            }
+        ]
+        return Comment.create(comments);
+    })
+};
+
+
+
+
 connectToDb
     .then(function () {
         return wipeCollections();
     })
     .then(function () {
         return seedUsers();
+    })
+    .then(function(){
+        return seedComments();
     })
     .then(function () {
         console.log(chalk.green('Seed successful!'));
