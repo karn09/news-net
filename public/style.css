@@ -66,37 +66,6 @@ navbar {
   margin-top: 40px;
   text-align: center; }
 
-#about {
-  margin: 0 auto;
-  width: 90%; }
-  #about:after {
-    content: "";
-    display: table;
-    clear: both; }
-  #about p {
-    width: 40%;
-    margin: 0 auto;
-    text-align: justify;
-    font-size: 22px;
-    font-weight: 300;
-    float: left; }
-  #about .carousel {
-    float: right;
-    width: 55%;
-    overflow: hidden;
-    margin: 0 auto; }
-    #about .carousel .carousel-inner {
-      height: 500px !important; }
-    #about .carousel .carousel-control {
-      background: none; }
-    #about .carousel .carousel-indicators {
-      display: none; }
-    #about .carousel img {
-      max-width: 100%;
-      max-height: 500px;
-      display: block;
-      margin: 0 auto; }
-
 tutorial-section {
   display: block;
   width: 90%;
