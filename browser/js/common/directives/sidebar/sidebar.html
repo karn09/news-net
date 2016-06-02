@@ -3,33 +3,34 @@
         <h1 class="md-toolbar-tools">Sidenav left</h1>
     </md-toolbar>
     <md-content layout-padding>
-        <md-list>
-            <md-list-item ng-click="null">
-                <div class="md-list-item-text">
-                    My List
-                </div>
-            </md-list-item>
-            <md-divider></md-divider>
-            <md-list-item ng-click="null">
-                <div class="md-list-item-text">
-                    Latest
-                </div>
-            </md-list-item>
-            <md-divider></md-divider>                    
-            <md-list-item>
-                <div class="md-list-item-text container">
-                    <br>
-                    Categories
-                    <form>
-                        <md-input-container class="md-icon-float">
-                            <input type="text" ng-model="data" placeholder="Category Title">
-                        </md-input-container>
-                        <md-button class="md-raised md-fab md-mini">+</md-button>
-                    </form>
-                </div>                
-            </md-list-item>
-            <md-divider></md-divider>                
-        </md-list>
+        
+        <ul>
+            <li>Home</li>
+            <li>My Collections</li>      
+            <li>My Subscriptions</li>
+            <li>My Folders</li>            
+        </ul>
+        <md-divider></md-divider>
+        <a href="#">SUBSCRIPTIONS</a>
+        <ul>
+            <li>Sports</li>
+            <li>Arts</li>
+            <li>Science</li>
+        </ul>                        
+        <md-divider></md-divider>
+        <a href="#">FOLDERS</a>
+        <ul>
+            <li>awesome_folder</li>
+            <li>for_research</li>
+            <li>for_thesis</li>
+            <li>awesome_folder</li>
+            <li>for_research</li>
+            <li>for_thesis</li>
+            <li>awesome_folder</li>
+            <li>for_research</li>
+            <li>for_thesis</li>                        
+        </ul>                         
+
 
     </md-content>
 </md-sidenav>
