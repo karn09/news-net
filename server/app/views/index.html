@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <base href="/" />
     <title>Fullstack Academy Generated Application</title>
@@ -17,11 +18,14 @@
     <script src="/socket.io-client/socket.io.js"></script>
     <script src="/main.js"></script>
 </head>
+
 <body ng-app="FullstackGeneratedApp">
-  <md-content>
-    <navbar></navbar>
-    <div id="main" ui-view></div>
-  </md-content>
-  <sidebar></sidebar>
+    <md-content >
+        <navbar></navbar>
+        <div layout="row" layout-sm="column" layout-wrap ui-view></div>
+    </md-content>
+
+    <sidebar></sidebar>
 </body>
+
 </html>
