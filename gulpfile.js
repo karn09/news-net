@@ -53,6 +53,30 @@ gulp.task('buildJS', ['lintJS'], function () {
         .pipe(gulp.dest('./public'));
 });
 
+//ST Additions / Modifications
+gulp.task('buildCSS', function () {
+
+    var sassCompilation = sass();
+    sassCompilation.on('error', console.error.bind(console));
+
+    return gulp.src('./browser/scss/main.scss')
+        .pipe(plumber({
+            errorHandler: notify.onError('SASS processing failed! Check your gulp process.')
+        }))
+        .pipe(sassCompilation)
+        .pipe(rename('style.css'))
+        .pipe(gulp.dest('./public'));
+});
+
+gulp.task('copyHTML', function(){
+    return gulp.src(['./browser/html/**/*.html'], {base: './browser/'})
+    .pipe(gulp.dest('./public'))
+})
+
+
+// Testing
+// --------------------------------------------------------------
+
 gulp.task('testServerJS', function () {
     require('babel-register');
 	return gulp.src('./tests/server/**/*.js', {
@@ -84,19 +108,41 @@ gulp.task('testBrowserJS', function (done) {
     }, done);
 });
 
-gulp.task('buildCSS', function () {
+// Service Worker Generation
+// --------------------------------------------------------------
 
-    var sassCompilation = sass();
-    sassCompilation.on('error', console.error.bind(console));
+gulp.task('generateServiceWorker', function(callback) {
+  var path = require('path');
+  var swPrecache = require('sw-precache');
 
-    return gulp.src('./browser/scss/main.scss')
-        .pipe(plumber({
-            errorHandler: notify.onError('SASS processing failed! Check your gulp process.')
-        }))
-        .pipe(sassCompilation)
-        .pipe(rename('style.css'))
-        .pipe(gulp.dest('./public'));
+  var rootDir = 'public';
+
+  //Libraries our project depends on.
+    var dependencies = {
+        '/lodash/index.js': ['node_modules/lodash/index.js'],
+        '/angular/angular.js': ['node_modules/angular/angular.js'],
+        '/angular-animate/angular-animate.js': ['node_modules//angular-animate/angular-animate.js'],
+        '/angular-ui-router/release/angular-ui-router.js': ['node_modules/angular-ui-router/release/angular-ui-router.js'],
+        '/angular-ui-bootstrap/ui-bootstrap.js': ['node_modules/angular-ui-bootstrap/ui-bootstrap.js'],
+        '/angular-ui-bootstrap/ui-bootstrap-tpls.js': ['node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.js'],
+        '/socket.io-client/socket.io.js': ['node_modules/socket.io-client/socket.io.js'],
+        '/bootstrap/dist/css/bootstrap.css': ['node_modules/bootstrap/dist/css/bootstrap.css']
+    }
+
+    var runtimeCachingOptions = [{
+      urlPattern: /^http:\/\/localhost:1337\/api\/pages/,
+      handler: 'fastest'
+    }]
+
+  swPrecache.write(path.join(rootDir, 'service-worker.js'), {
+    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif}'],
+    stripPrefix: rootDir,
+    dynamicUrlToDependencies: dependencies, 
+    runtimeCaching: runtimeCachingOptions
+  }, callback);
 });
+
+
 
 // Production tasks
 // --------------------------------------------------------------
@@ -120,16 +166,19 @@ gulp.task('buildJSProduction', function () {
 
 gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction']);
 
+
+
 // Composed tasks
 // --------------------------------------------------------------
 
 gulp.task('build', function () {
     if (process.env.NODE_ENV === 'production') {
-        runSeq(['buildJSProduction', 'buildCSSProduction']);
+        runSeq(['buildJSProduction', 'buildCSSProduction', 'copyHTML', 'generateServiceWorker']);
     } else {
-        runSeq(['buildJS', 'buildCSS']);
+        runSeq(['buildJS', 'buildCSS', 'copyHTML', 'generateServiceWorker']);
     }
 });
+
 
 gulp.task('default', function () {
 
@@ -146,6 +195,9 @@ gulp.task('default', function () {
     });
 
     gulp.watch('server/**/*.js', ['lintJS']);
+
+    //Copy files to public when html changed
+    gulp.watch('browser/**/*.html', ['copyHTML']);
 
     // Reload when a template (.html) file changes.
     gulp.watch(['browser/**/*.html', 'server/app/views/*.html'], ['reload']);
