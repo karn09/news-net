@@ -126,7 +126,10 @@ gulp.task('generateServiceWorker', function(callback) {
         '/angular-ui-bootstrap/ui-bootstrap.js': ['node_modules/angular-ui-bootstrap/ui-bootstrap.js'],
         '/angular-ui-bootstrap/ui-bootstrap-tpls.js': ['node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.js'],
         '/socket.io-client/socket.io.js': ['node_modules/socket.io-client/socket.io.js'],
-        '/bootstrap/dist/css/bootstrap.css': ['node_modules/bootstrap/dist/css/bootstrap.css']
+        '/bootstrap/dist/css/bootstrap.css': ['node_modules/bootstrap/dist/css/bootstrap.css'],
+        '/angular-material/angular-material.js': ['node_modules/angular-material/angular-material.js'],
+        '/angular-aria/angular-aria.js': ['node_modules/angular-aria/angular-aria.js'],
+        '/angular-material/angular-material.css': ['node_modules/angular-material/angular-material.css'],
     }
 
     var runtimeCachingOptions = [{
@@ -137,7 +140,7 @@ gulp.task('generateServiceWorker', function(callback) {
   swPrecache.write(path.join(rootDir, 'service-worker.js'), {
     staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif}'],
     stripPrefix: rootDir,
-    dynamicUrlToDependencies: dependencies, 
+    dynamicUrlToDependencies: dependencies,
     runtimeCaching: runtimeCachingOptions
   }, callback);
 });
