@@ -186,21 +186,25 @@ gulp.task('default', function () {
 
     // Run when anything inside of browser/js changes.
     gulp.watch('browser/js/**', function () {
-        runSeq('buildJS', 'reload');
+        runSeq('buildJS', 'reload', 'generateServiceWorker');
     });
 
     // Run when anything inside of browser/scss changes.
     gulp.watch('browser/scss/**', function () {
-        runSeq('buildCSS', 'reloadCSS');
+        runSeq('buildCSS', 'reloadCSS', 'generateServiceWorker');
     });
 
     gulp.watch('server/**/*.js', ['lintJS']);
 
     //Copy files to public when html changed
-    gulp.watch('browser/**/*.html', ['copyHTML']);
+    gulp.watch('browser/**/*.html', function(){
+        runSeq('copyHTML', 'generateServiceWorker')
+    });
 
     // Reload when a template (.html) file changes.
-    gulp.watch(['browser/**/*.html', 'server/app/views/*.html'], ['reload']);
+    gulp.watch(['browser/**/*.html', 'server/app/views/*.html'], function(){
+        runSeq('reload', 'generateServiceWorker')
+    });
 
     // Run server tests when a server file or server test file changes.
     gulp.watch(['tests/server/**/*.js'], ['testServerJS']);
