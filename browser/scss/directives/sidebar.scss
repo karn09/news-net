@@ -1,14 +1,67 @@
 sidebar {
+
+	.sidebar-box {
+		width: 19%;
+	}
 	
+	.sidebar-title {
+		font-family: 'Playfair Display', serif;
+		font-weight: 700;		
+	}
+
+	.sidebar-subtitle {
+		font-family: 'Playfair Display', serif;
+		font-weight: 700;
+		a {
+			color: #000099;			
+			.glyphicon {
+				margin-left: 6px; 
+			}			
+		}
+		.menu-up {
+			position: absolute;
+			right: 20px;
+		}			
+	}
+
 	.sidebar-list {
 
 		a {
-			color: red;
 			text-decoration: none;
-			li:hover {
-				background-color: blue;
+			font-family: 'Playfair Display', serif;
+			font-weight: 700;
+			li {
+				color: #455A64;
+				padding: 7px;
+				-webkit-transition: background-color 0.3s, color 0.3s;
+				&:hover {
+					color: white;
+					background-color: #607D8B;
+				}
+				.glyphicon {
+					margin-right: 10px; 
+				}
+			}
+		}
+	}
+
+	.sublist {
+		a {
+			li {
+				font-weight: bold;
+				padding-top: 1px;
+				padding-bottom: 1px;
 			}
 		}
 	}
 
 }
+
+
+
+
+
+
+
+
+
