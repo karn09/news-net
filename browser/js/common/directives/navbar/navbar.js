@@ -1,16 +1,13 @@
-app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, $mdSidenav) {
+app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, $mdSidenav, $mdInkRipple) {
 
     return {
         restrict: 'E',
         scope: {},
-        templateUrl: 'html/common/directives/navbar/navbar.html',
+        templateUrl: 'js/common/directives/navbar/navbar.html',
         link: function (scope, element) {
 
             scope.toggle = function() {
-              $mdSidenav("left").toggle()
-                .then(function() {
-                  // btn.toggleClass('md-focused')
-                });
+                $mdSidenav("left").toggle();
             };
 
             scope.items = [
