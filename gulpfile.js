@@ -121,10 +121,11 @@ gulp.task('generateServiceWorker', function(callback) {
   var swPrecache = require('sw-precache');
 
   var rootDir = 'public';
-2
+
   //Libraries our project depends on.
     var dependencies = {
         '/lodash/index.js': ['node_modules/lodash/index.js'],
+        '/jquery/dist/jquery.js': ['node_modules/lodash/index.js'],
         '/angular/angular.js': ['node_modules/angular/angular.js'],
         '/angular-animate/angular-animate.js': ['node_modules//angular-animate/angular-animate.js'],
         '/angular-ui-router/release/angular-ui-router.js': ['node_modules/angular-ui-router/release/angular-ui-router.js'],
@@ -143,7 +144,7 @@ gulp.task('generateServiceWorker', function(callback) {
     }]
 
   swPrecache.write(path.join(rootDir, 'service-worker.js'), {
-    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,ico}'],
+    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,ico,svg}'],
     stripPrefix: rootDir,
     dynamicUrlToDependencies: dependencies,
     runtimeCaching: runtimeCachingOptions
