@@ -19,6 +19,10 @@ body {
   margin: 0 auto;
 }
 
+.floatRight {
+  float: right;
+}
+
 @import 'directives/main';
 @import 'home/main';
 @import 'tutorial/main';
