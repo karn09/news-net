@@ -1,16 +1,48 @@
-<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
+<md-sidenav class="md-sidenav-left md-whiteframe-z2 sidebar-box" md-component-id="left">
     <md-toolbar class="md-theme-light">
-        <h1 class="md-toolbar-tools">Sidenav left</h1>
+        <h1 class="md-toolbar-tools sidebar-title">Menu</h1>
     </md-toolbar>
-    <md-content layout-padding>
-        <form>
-            <md-input-container>
-                <label for="testInput">Test input</label>
-                <input type="text" id="testInput" ng-model="data" md-autofocus>
-            </md-input-container>
-        </form>
-        <md-button ng-click="close()" class="md-primary">
-            Close Sidenav left
-        </md-button>
+    <md-content layout-padding class="sidebar-content">
+        
+        <ul class="sidebar-list">
+            <a href="#"><li><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home</li></a>
+            <a href="#"><li><span class="glyphicon glyphicon-book" aria-hidden="true"></span>My Collections</li></a>      
+            <a href="#"><li><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>My Subscriptions</li></a>
+            <a href="#"><li><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>My Folders</li></a>            
+        </ul>
+        <md-divider></md-divider>
+
+        <div class="sidebar-subtitle">
+            <a href="#">SUBSCRIPTIONS<span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+            <a href="#" class="menu-up" id="subscriptions-icon"><span class="glyphicon glyphicon-menu-up"></span></a>
+        </div>
+
+        <ul class="sidebar-list sublist" id="subscriptions">
+            <a href="#"><li>Sports</li></a>
+            <a href="#"><li>Arts</li></a>
+            <a href="#"><li>Science</li></a>
+        </ul> 
+
+        <md-divider></md-divider>
+
+        <div class="sidebar-subtitle">
+            <a href="#">FOLDERS<span class="glyphicon glyphicon-cog" aria-hidden="true"></span></a>
+            <a href="#" class="menu-up" id="folders-icon"><span class="glyphicon glyphicon-menu-up"></span></a>
+        </div>
+
+        <ul class="sidebar-list sublist" id="folders">
+            <a href="#"><li>awesome_folder</li></a>
+            <a href="#"><li>for_research</li></a>
+            <a href="#"><li>for_thesis</li></a>
+            <a href="#"><li>awesome_folder</li></a>
+            <a href="#"><li>for_research</li></a>
+            <a href="#"><li>for_thesis</li></a>
+            <a href="#"><li>awesome_folder</li></a>
+            <a href="#"><li>for_research</li></a>
+            <a href="#"><li>for_thesis</li></a>                        
+        </ul>                         
+
+        <md-divider></md-divider>
+
     </md-content>
 </md-sidenav>
