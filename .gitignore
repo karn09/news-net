@@ -1,8 +1,8 @@
 .idea
 node_modules
 npm-debug.log
-public/app
-public/icons
+public/app/
+public/icons/
 public/service-worker.js
 .DS_Store
 coverage
