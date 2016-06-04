@@ -2,7 +2,7 @@ app.config(function ($stateProvider) {
 
     $stateProvider.state('parser', {
         url: '/parser',
-        templateUrl: 'html/parser/parser.html',
+        templateUrl: 'app/parser/parser.html',
         controller: 'ParserCtrl'
     });
 
