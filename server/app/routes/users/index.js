@@ -6,8 +6,6 @@ var mongoose = require('mongoose');
 var Promise = require('bluebird');
 
 var User = mongoose.model('User');
-//var Page = mongoose.model('Page');
-var Comment = mongoose.model('Comment');
 
 router.get('/', function(req, res, next){
 	User.find({},{email: 1, pages: 1})
