@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <base href="/" />
     <title>News Net</title>
     <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/angular-material/angular-material.css" />
     <link rel="stylesheet" type="text/css" href="/app/style.css" />
     <script src="/lodash/index.js"></script>
     <script src="/angular/angular.js"></script>
     <script src="/angular-animate/angular-animate.js"></script>
     <script src="/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="/angular-material/angular-material.js"></script>
+    <script src="/angular-aria/angular-aria.js"></script>
     <script src="/angular-ui-bootstrap/ui-bootstrap.js"></script>
     <script src="/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/socket.io-client/socket.io.js"></script>
     <script src="/service-worker-registration.js"></script>
     <script src="/app/main.js"></script>
 </head>
-<body ng-app="FullstackGeneratedApp">
-    <navbar></navbar>
-    <div id="main" ui-view></div>
+
+<body layout-row  ng-app="FullstackGeneratedApp">
+    <!-- <md-content> -->
+        <navbar></navbar>
+
+        <!-- flex-xs="100" flex-gt-sm="30" wrap  -->
+        <div layout-wrap layout="row" layout-xs="column" ui-view></div>
+
+    <!-- </md-content> -->
+
+    <sidebar></sidebar>
 </body>
+
 </html>

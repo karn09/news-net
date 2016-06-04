@@ -1,10 +1,17 @@
-app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) {
+app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, $mdSidenav) {
 
     return {
         restrict: 'E',
         scope: {},
         templateUrl: 'app/common/directives/navbar/navbar.html',
-        link: function (scope) {
+        link: function (scope, element) {
+
+            scope.toggle = function() {
+              $mdSidenav("left").toggle()
+                .then(function() {
+                  // btn.toggleClass('md-focused')
+                });
+            };
 
             scope.items = [
                 { label: 'Home', state: 'home' },
