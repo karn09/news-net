@@ -2,7 +2,7 @@ app.config(function($stateProvider){
 
 	$stateProvider.state('pages', {
 	    url: '/pages',
-	    templateUrl: 'html/pages/pages.html', //Still need to make
+	    templateUrl: 'app/pages/pages.html', //Still need to make
 	    controller: 'PagesCtrl'
 	});
 

@@ -22,6 +22,12 @@ var schema = new mongoose.Schema({
     url: {
         type: String
     },
+    category: [{
+        type: String
+    }],
+    numSaved: {
+        type: Number
+    }
 });
 
 
