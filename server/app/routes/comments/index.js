@@ -7,7 +7,7 @@ var Comment = mongoose.model('Comment');
 
 router.get('/', function(req, res, next){
 	Comment.find({})
-	.populate('page')
+	.populate(['page', 'user'])
 	.then(function(comments){
 		res.json(comments);
 	}, next);
@@ -16,12 +16,28 @@ router.get('/', function(req, res, next){
 
 router.get('/:id', function(req, res, next){
 	Comment.find({_id: req.params.id})
-	.populate('page')
+	.populate(['page', 'user'])
 	.then(function(comment){
 		res.json(comment);
 	}, next);
 });
 
+
+router.get('/page/:id', function(req, res, next){
+	Comment.find({page: req.params.id})
+	.populate(['page', 'user'])
+	.then(function(comments){
+		res.json(comments);
+	}, next);
+});
+
+router.get('/user/:id', function(req, res, next){
+	Comment.find({user: req.params.id})
+	.populate(['page', 'user'])
+	.then(function(comments){
+		res.json(comments);
+	}, next);
+});
 
 router.post('/', function(req, res, next){
 	var newComment = new Comment({
