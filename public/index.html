@@ -22,22 +22,17 @@
     <script src="/app/main.js"></script>
 </head>
 
-<body layout-row  ng-app="FullstackGeneratedApp">
+<body layout="column" ng-app="FullstackGeneratedApp">
     <!-- <md-content> -->
-        <navbar></navbar>
-
-        <!-- flex-xs="100" flex-gt-sm="30" wrap  -->
-        <div layout-wrap layout="row" layout-xs="column" ui-view></div>
-
-        <footer>
-          <speed-dial></speed-dial>
-        </footer>
-    <!-- </md-content> -->
-
+    <navbar></navbar>
     <sidebar></sidebar>
+    <speed-dial></speed-dial>
 
-
-
+    <md-content>
+        <div layout-wrap layout="row" layout-xs="column" ui-view>
+        </div>
+    </md-content>
 
 </body>
+
 </html>
