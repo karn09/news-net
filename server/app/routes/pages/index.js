@@ -70,13 +70,17 @@ router.post('/', function(req, res, next){
 
 //Get all pages for category
 router.get('/category/:categoryId', function(req, res, next){
-
+    Category.findOne({_id: req.params.id})
+    .populate(['pages'])
+    .then(function(category){
+        res.send(category.pages);
+    })
 })
 
 
 //Create new page with category
 router.post('category/:categoryNameOrId', function(req, res, next){
-    
+
 })
 
 

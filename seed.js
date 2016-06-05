@@ -67,10 +67,32 @@ var seedCategories = function() {
         },
         {
             description: 'Technology',
-            type: 'public'
+            type: 'public',
         },
     ];
     return Category.create(categories);
+}
+
+var seedPages = function(){
+    var pages = [
+        {
+            title: 'Fake Article',
+            url: 'http://www.google.com',
+            leadImageUrl: 'http://apiw.org/wp-content/uploads/2014/10/news.jpg',
+            excerpt: "This is a fake article",
+            content: "This is a fake article. I am using it to test some features of the site."
+        }
+    ]
+
+    return Category.findOne({description: 'Technology'})
+    .then(function(category){
+        return Page.create(pages)
+        .then(function(pages){
+            console.log("\n\nPages: ", pages, "\n\n Category: ", category)
+            category.pages.push(pages[0]);
+            return category.save();
+        })
+    })
 }
 
 
@@ -83,6 +105,9 @@ connectToDb
     })
     .then(function () {
         return seedCategories();
+    })
+    .then(function(){
+        return seedPages();
     })
     .then(function () {
         console.log(chalk.green('Seed successful!'));
