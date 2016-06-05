@@ -5,14 +5,14 @@ var schema = new mongoose.Schema({
     	type: String
     },
     datePublished: {
-        type: String 
+        type: String
     },
     domain: {
         type: String
-    }, 
+    },
     excerpt: {
         type: String
-    },   
+    },
     leadImageUrl: {
         type: String
     },
@@ -22,6 +22,12 @@ var schema = new mongoose.Schema({
     url: {
         type: String
     },
+    userCount: {
+        type: Number
+    },
+    category: [{
+        type: String
+    }],
 });
 
 

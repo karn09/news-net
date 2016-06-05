@@ -1,7 +1,10 @@
 .idea
 node_modules
 npm-debug.log
-public/html
+public/app/
+public/icons/
 public/service-worker.js
 .DS_Store
 coverage
+secrets.js
+.editorconfig

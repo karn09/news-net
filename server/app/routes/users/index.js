@@ -6,12 +6,10 @@ var mongoose = require('mongoose');
 var Promise = require('bluebird');
 
 var User = mongoose.model('User');
-//var Page = mongoose.model('Page');
-var Comment = mongoose.model('Comment');
 
 router.get('/', function(req, res, next){
-	User.find({},{email: 1, pages: 1, comments: 1})
-	.populate('comments')
+	User.find({},{email: 1, pages: 1})
+	.populate('pages')
 	.then(function(users){
 		res.json(users);
 	})
@@ -20,7 +18,7 @@ router.get('/', function(req, res, next){
 
 router.get('/:id', function(req, res, next){
 	User.find({_id: req.params.id})
-	.populate('comments')
+	.populate('pages')
 	.then(function(user){
 		res.json(user);
 	})
@@ -48,7 +46,7 @@ router.put('/addPage/:id', function(req, res, next){
 	})
 	.then(function(response){
 		res.send(response);
-	}, next);	
+	}, next);
 });
 
 
@@ -60,7 +58,7 @@ router.put('/addComment/:id', function(req, res, next){
 	})
 	.then(function(response){
 		res.send(response);
-	}, next);	
+	}, next);
 });
 
 

@@ -26,12 +26,12 @@ gulp.task('reload', function () {
 });
 
 gulp.task('reloadCSS', function () {
-    return gulp.src('./public/style.css').pipe(livereload());
+    return gulp.src('./public/app/style.css').pipe(livereload());
 });
 
 gulp.task('lintJS', function () {
 
-    return gulp.src(['./browser/js/**/*.js', './server/**/*.js'])
+    return gulp.src(['./browser/app/**/*.js', './server/**/*.js'])
         .pipe(plumber({
             errorHandler: notify.onError('Linting FAILED! Check your gulp process.')
         }))
@@ -42,7 +42,7 @@ gulp.task('lintJS', function () {
 });
 
 gulp.task('buildJS', ['lintJS'], function () {
-    return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
+    return gulp.src(['./browser/app/app.js', './browser/app/**/*.js'])
         .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(concat('main.js'))
@@ -50,7 +50,7 @@ gulp.task('buildJS', ['lintJS'], function () {
             presets: ['es2015']
         }))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('./public'));
+        .pipe(gulp.dest('./public/app'));
 });
 
 //ST Additions / Modifications
@@ -65,11 +65,16 @@ gulp.task('buildCSS', function () {
         }))
         .pipe(sassCompilation)
         .pipe(rename('style.css'))
-        .pipe(gulp.dest('./public'));
+        .pipe(gulp.dest('./public/app'));
+});
+
+gulp.task('copyIcons', function(){
+    return gulp.src(['./browser/icons/**/*.svg'], {base: './browser/'})
+    .pipe(gulp.dest('./public'))
 });
 
 gulp.task('copyHTML', function(){
-    return gulp.src(['./browser/html/**/*.html'], {base: './browser/'})
+    return gulp.src(['./browser/app/**/*.html'], {base: './browser/'})
     .pipe(gulp.dest('./public'))
 })
 
@@ -120,6 +125,7 @@ gulp.task('generateServiceWorker', function(callback) {
   //Libraries our project depends on.
     var dependencies = {
         '/lodash/index.js': ['node_modules/lodash/index.js'],
+        '/jquery/dist/jquery.js': ['node_modules/lodash/index.js'],
         '/angular/angular.js': ['node_modules/angular/angular.js'],
         '/angular-animate/angular-animate.js': ['node_modules//angular-animate/angular-animate.js'],
         '/angular-ui-router/release/angular-ui-router.js': ['node_modules/angular-ui-router/release/angular-ui-router.js'],
@@ -129,7 +135,7 @@ gulp.task('generateServiceWorker', function(callback) {
         '/bootstrap/dist/css/bootstrap.css': ['node_modules/bootstrap/dist/css/bootstrap.css'],
         '/angular-material/angular-material.js': ['node_modules/angular-material/angular-material.js'],
         '/angular-aria/angular-aria.js': ['node_modules/angular-aria/angular-aria.js'],
-        '/angular-material/angular-material.css': ['node_modules/angular-material/angular-material.css'],
+        '/angular-material/angular-material.css': ['node_modules/angular-material/angular-material.css']
     }
 
     var runtimeCachingOptions = [{
@@ -138,7 +144,7 @@ gulp.task('generateServiceWorker', function(callback) {
     }]
 
   swPrecache.write(path.join(rootDir, 'service-worker.js'), {
-    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif}'],
+    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,ico,svg}'],
     stripPrefix: rootDir,
     dynamicUrlToDependencies: dependencies,
     runtimeCaching: runtimeCachingOptions
@@ -159,15 +165,15 @@ gulp.task('buildCSSProduction', function () {
 });
 
 gulp.task('buildJSProduction', function () {
-    return gulp.src(['./browser/js/app.js', './browser/js/**/*.js'])
+    return gulp.src(['./browser/app/app.js', './browser/app/**/*.js'])
         .pipe(concat('main.js'))
         .pipe(babel())
         .pipe(ngAnnotate())
         .pipe(uglify())
-        .pipe(gulp.dest('./public'));
+        .pipe(gulp.dest('./public/app'));
 });
 
-gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction']);
+gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction', 'copyIcons', 'copyHTML']);
 
 
 
@@ -176,9 +182,9 @@ gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction']);
 
 gulp.task('build', function () {
     if (process.env.NODE_ENV === 'production') {
-        runSeq(['buildJSProduction', 'buildCSSProduction', 'copyHTML', 'generateServiceWorker']);
+        runSeq(['buildJSProduction', 'buildCSSProduction', 'copyIcons', 'copyHTML', 'generateServiceWorker']);
     } else {
-        runSeq(['buildJS', 'buildCSS', 'copyHTML', 'generateServiceWorker']);
+        runSeq(['buildJS', 'buildCSS', 'copyIcons', 'copyHTML', 'generateServiceWorker']);
     }
 });
 
@@ -187,23 +193,32 @@ gulp.task('default', function () {
 
     gulp.start('build');
 
-    // Run when anything inside of browser/js changes.
-    gulp.watch('browser/js/**', function () {
-        runSeq('buildJS', 'reload');
+    // Run when any JS file inside /browser changes.
+    gulp.watch('browser/**/*.js', function () {
+        runSeq('buildJS', 'reload', 'generateServiceWorker');
     });
 
     // Run when anything inside of browser/scss changes.
     gulp.watch('browser/scss/**', function () {
-        runSeq('buildCSS', 'reloadCSS');
+        runSeq('buildCSS', 'reloadCSS', 'generateServiceWorker');
     });
 
     gulp.watch('server/**/*.js', ['lintJS']);
 
-    //Copy files to public when html changed
-    gulp.watch('browser/**/*.html', ['copyHTML']);
+    //Add icons to public dist folder
+    gulp.watch('browser/**/*.svg', function(){
+        runSeq('copyIcons', 'generateServiceWorker')
+    })
+
+    //Copy files to public when html changes
+    gulp.watch('browser/**/*.html', function(){
+        runSeq('copyHTML', 'generateServiceWorker')
+    });
 
     // Reload when a template (.html) file changes.
-    gulp.watch(['browser/**/*.html', 'server/app/views/*.html'], ['reload']);
+    gulp.watch(['browser/**/*.html', 'server/app/views/*.html'], function(){
+        runSeq('reload', 'generateServiceWorker')
+    });
 
     // Run server tests when a server file or server test file changes.
     gulp.watch(['tests/server/**/*.js'], ['testServerJS']);
