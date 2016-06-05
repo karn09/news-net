@@ -1,5 +1,21 @@
 md-card {
 	.md-card-image {
-		height: 300px;
+		height: 190px !important;
 	}
+
+	.md-headline {
+		font-family: 'Lora', serif;
+		font-weight: 700;
+		font-style: italic;
+		font-size: 30px;
+		color: #455A64;	
+	}
+
+	#content {
+		font-family: 'Roboto Slab', serif;
+		font-weight: 400;
+		font-size: 13px;
+		color: #455A64;			
+	}
+
 }

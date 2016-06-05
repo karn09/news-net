@@ -1,4 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Playfair+Display:400,700);
+@import url(https://fonts.googleapis.com/css?family=Lora:700italic,700,400italic,400);
+@import url(https://fonts.googleapis.com/css?family=Lora:700italic,700,400italic,400|Roboto+Slab:400,300);
 * {
   box-sizing: border-box; }
 
@@ -100,7 +102,20 @@ sidebar .sublist a li {
   padding-bottom: 1px; }
 
 md-card .md-card-image {
-  height: 300px; }
+  height: 190px !important; }
+
+md-card .md-headline {
+  font-family: 'Lora', serif;
+  font-weight: 700;
+  font-style: italic;
+  font-size: 30px;
+  color: #455A64; }
+
+md-card #content {
+  font-family: 'Roboto Slab', serif;
+  font-weight: 400;
+  font-size: 13px;
+  color: #455A64; }
 
 #home fullstack-logo {
   padding-top: 30px;

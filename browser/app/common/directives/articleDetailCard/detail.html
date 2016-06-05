@@ -1,15 +1,15 @@
 <md-card>
-    <img src="http://apiw.org/wp-content/uploads/2014/10/news.jpg" class="md-card-image" alt="image caption">
+    <a ui-sref="article"><img src="http://apiw.org/wp-content/uploads/2014/10/news.jpg" class="md-card-image" alt="image caption"></a>
     <md-card-title>
         <md-card-title-text>
-            <span class="md-headline">Icon action buttons</span>
+            <a ui-sref="article" id="title"><span class="md-headline">Icon action buttons</span></a>
         </md-card-title-text>
     </md-card-title>
     <md-card-content>
-    <p>
-        The titles of Washed Out's breakthrough song and the first single from Paracosm share the
-        two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
-    </p>
+        <p id="content">
+            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+        </p>
     </md-card-content>
     <md-card-actions layout="row" layout-align="end center">
         <md-button class="md-icon-button" aria-label="Favorite">

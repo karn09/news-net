@@ -19,7 +19,7 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('ArticleViewCtrl', function($scope, current, $compile) {
-  $scope.current = current;
-  $scope.title = current.title;
-  $scope.content = current.content;
+    $scope.current = current;
+    $scope.title = current.title;
+    $scope.content = current.content;
 });
