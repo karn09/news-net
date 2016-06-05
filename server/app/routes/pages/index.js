@@ -71,9 +71,8 @@ router.post('/', function(req, res, next){
                             })
                     }
                 })
-        })
-});
-
+            })
+})
 
 router.delete('/:id', function(req, res, next){
 	Page.findOneAndRemove({_id: req.params.id})

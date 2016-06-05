@@ -24,13 +24,16 @@ var connectToDb = require('./server/db');
 var User = mongoose.model('User');
 var Comment = mongoose.model('Comment');
 var Page = mongoose.model('Page');
+var Category = mongoose.model('Category');
 
 var wipeCollections = function () {
     var removeUsers = User.remove({});
     var removeComments = Comment.remove({});
     var removePages = Page.remove({});
+    var removeCategories = Category.remove({});
+
     return Promise.all([
-        removeUsers, removeComments, removePages
+        removeUsers, removeComments, removePages, removeCategories
     ]);
 };
 
@@ -51,7 +54,24 @@ var seedUsers = function () {
 
 };
 
+var seedCategories = function() {
 
+    var categories = [
+        {
+            description: 'Sports',
+            type: 'public'
+        },
+        {
+            description: 'Arts',
+            type: 'public'
+        },
+        {
+            description: 'Technology',
+            type: 'public'
+        },
+    ];
+    return Category.create(categories);
+}
 
 
 connectToDb
@@ -60,6 +80,9 @@ connectToDb
     })
     .then(function () {
         return seedUsers();
+    })
+    .then(function () {
+        return seedCategories();
     })
     .then(function () {
         console.log(chalk.green('Seed successful!'));
