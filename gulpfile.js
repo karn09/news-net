@@ -16,6 +16,7 @@ var mocha = require('gulp-mocha');
 var karma = require('karma').server;
 var istanbul = require('gulp-istanbul');
 var notify = require('gulp-notify');
+var clean = require('gulp-clean');
 
 // Development tasks
 // --------------------------------------------------------------
@@ -69,13 +70,18 @@ gulp.task('buildCSS', function () {
 });
 
 gulp.task('copyIcons', function(){
-    return gulp.src(['./browser/icons/**/*.svg'], {base: './browser/'})
+    return gulp.src(['./browser/assets/icons/**/*.svg'], {base: './browser/'})
     .pipe(gulp.dest('./public'))
 });
 
 gulp.task('copyHTML', function(){
     return gulp.src(['./browser/app/**/*.html'], {base: './browser/'})
     .pipe(gulp.dest('./public'))
+})
+
+gulp.task('clean', function(){
+    return gulp.src(['./public/html', './public/js', './public/main.js', './public/style.css', './public/icons'], {read: false})
+    .pipe(clean());
 })
 
 

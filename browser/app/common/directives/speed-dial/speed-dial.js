@@ -21,13 +21,13 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope) {
 			console.log(scope)
 			scope.items = [{
 				name: "Add URL",
-				icon: "/icons/ic_add_white_36px.svg",
+				icon: "/assets/icons/ic_add_white_36px.svg",
 				type: "url",
 				direction: "top"
 			}, {
 				name: "Add Category",
 				type: "category",
-				icon: "/icons/ic_playlist_add_white_36px.svg",
+				icon: "/assets/icons/ic_playlist_add_white_36px.svg",
 				direction: "bottom"
 			}];
 

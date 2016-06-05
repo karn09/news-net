@@ -71,8 +71,9 @@
     "supertest": "^0.15.0"
   },
   "devDependencies": {
-    "sw-precache": "^3.1.1",
+    "gulp-clean": "^0.3.2",
     "supertest": "^0.15.0",
+    "sw-precache": "^3.1.1",
     "x-ray": "^2.3.0"
   }
 }
