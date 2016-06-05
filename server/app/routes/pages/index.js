@@ -29,7 +29,9 @@ router.post('/', function(req, res, next){
     //4. if not, create new page
     //5. update user object with new page
 
-    User.findOne({_id: req.body.userid})
+    //Shouldn't we use req.session.passport.user?
+    var sessionUserId = req.session.passport.user;
+    User.findOne({_id: sessionUserId})
         .then(function(user){
             Page.findOne({url: req.body.url})
                 .then(function(page){
@@ -69,9 +71,8 @@ router.post('/', function(req, res, next){
                             })
                     }
                 })
-        })
-});
-
+            })
+})
 
 router.delete('/:id', function(req, res, next){
 	Page.findOneAndRemove({_id: req.params.id})
