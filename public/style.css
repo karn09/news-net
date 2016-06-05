@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Playfair+Display:400,700);
 * {
   box-sizing: border-box; }
 
@@ -56,6 +57,47 @@ navbar {
     navbar .welcome a {
       color: #f30046;
       cursor: pointer; }
+
+sidebar .sidebar-box {
+  width: 19%; }
+
+sidebar .sidebar-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700; }
+
+sidebar .sidebar-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700; }
+  sidebar .sidebar-subtitle a {
+    color: #000099; }
+    sidebar .sidebar-subtitle a .glyphicon {
+      margin-left: 6px; }
+  sidebar .sidebar-subtitle .menu-up {
+    position: absolute;
+    right: 20px;
+    -webkit-transition: transform 0.5s; }
+
+sidebar .sidebar-list a {
+  text-decoration: none;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700; }
+  sidebar .sidebar-list a li {
+    color: #455A64;
+    padding: 7px;
+    -webkit-transition: background-color 0.3s, color 0.3s; }
+    sidebar .sidebar-list a li:hover {
+      color: white;
+      background-color: #607D8B; }
+    sidebar .sidebar-list a li .glyphicon {
+      margin-right: 10px; }
+
+sidebar .sublist a li {
+  font-weight: bold;
+  padding-top: 1px;
+  padding-bottom: 1px; }
+
+md-card .md-card-image {
+  height: 300px; }
 
 #home fullstack-logo {
   padding-top: 30px;
