@@ -28,7 +28,7 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope) {
 				name: "Add Category",
 				type: "category",
 				icon: "/icons/ic_playlist_add_white_36px.svg",
-				direction: "top"
+				direction: "bottom"
 			}];
 
 
