@@ -41,7 +41,10 @@ router.post('/', function(req, res, next){
                             .then(function(updatedPage){
                                 user.pages.push(updatedPage._id);
                                 console.log("updated user pages: ", user.pages);
-                                return user.save();
+                                user.save()
+                                    .then(function(response){
+                                        res.send(updatedPage);
+                                    })
                             })
                     } else {
                         var newPage = new Page({
@@ -59,13 +62,13 @@ router.post('/', function(req, res, next){
                                 console.log("created new page: ", page);
                                 user.pages.push(page._id);
                                 console.log("updated user pages: ", user.pages);
-                                return user.save();
+                                user.save()
+                                    .then(function(response){
+                                        res.send(page);
+                                    })
                             })
                     }
                 })
-        })
-        .then(function(response){
-            res.send(response);
         })
 });
 
