@@ -1,4 +1,4 @@
-app.directive('speedDial', function () {
+app.directive('speedDial', function ($mdDialog) {
 	return {
 		restrict: 'E',
 		scope: {},
@@ -10,11 +10,22 @@ app.directive('speedDial', function () {
 			scope.hover = false;
       scope.items = [{
 				name: "Add URL",
-				icon: "/icons/ic_add_white_36px.svg"
+				icon: "/icons/ic_add_white_36px.svg",
+				direction: "top"
 			}, {
 				name: "Add Category",
-				icon: "/icons/ic_playlist_add_white_36px.svg"
+				icon: "/icons/ic_playlist_add_white_36px.svg",
+				direction: "top"
 			}];
+
+			scope.openDialog = function($event, item) {
+				$mdDialog.show({
+					clickOutSideToClose: true,
+					controller: 'dialogFormCtrl',
+					templateUrl: '/html/popup-dialog/popup-dialog.html',
+					targetEvent: $event
+				})
+			}
 
 		}
 	}
