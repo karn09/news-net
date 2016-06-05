@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
 app.config(function ($stateProvider) {
     $stateProvider.state('article', {
         url: '/article',
-        templateUrl: 'html/article-view/article-view.html',
+        templateUrl: 'app/article-view/article-view.html',
         resolve: {
           current: function(ArticleViewFactory) {
             return ArticleViewFactory.getArticleById();
