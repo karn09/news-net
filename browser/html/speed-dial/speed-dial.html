@@ -1,57 +1,14 @@
-<!-- <md-fab-speed-dial class="md-fab md-fab-bottom-right" md-open="false" md-direction="left" class="md-fling" ng-mouseenter="isOpen=true" ng-mouseleave="isOpen=false">
+<md-fab-speed-dial ng-hide="hidden" md-direction="left" md-open="isOpen" class="md-scale md-fab-bottom-right" ng-class="{ 'md-hover-full' : hover }" ng-mousenter="isOpen=true" ng-mouseleave="isOpen=false">
     <md-fab-trigger>
-        <md-button aria-label="Add...">
-            <md-icon md-svg-icon="/icons/more_vert.svg"></md-icon>
+        <md-button class="md-fab md-mini md-warn">
+            <md-icon md-svg-src="/icons/ic_menu_white_36px.svg"></md-icon>
         </md-button>
     </md-fab-trigger>
     <md-fab-actions>
-        <md-button aria-label="Add User">
-            <md-icon md-svg-icon="/icons/menu.svg"></md-icon>
-        </md-button>
-        <md-button aria-label="Add Group">
-            <md-icon md-svg-icon="/icons/menu.svg"></md-icon>
-        </md-button>
+        <div ng-repeat="item in items">
+            <md-button class="md-fab md-mini  md-raised md-primary">
+                <md-icon md-svg-src="{{item.icon}}"></md-icon>
+            </md-button>
+        </div>
     </md-fab-actions>
-</md-fab-speed-dial> -->
-
-
-<!-- <md-button class="md-fab md-fab-bottom-right" aria-label="FAB">
-  <md-icon md-svg-src="your/icon.svg"></md-icon>
-</md-button> -->
-
-<md-fab-speed-dial ng-hide="hidden" md-direction="left" md-open="isOpen" class="md-scale md-fab-bottom-right" ng-class="{ 'md-hover-full' : hover }" ng-mousenter="isOpen=true" ng-mouseleave="isOpen=false">
-  <md-fab-trigger>
-    <md-button class="md-fab md-mini md-warn">
-      <md-icon md-svg-src="/icons/menu.svg"></md-icon>
-    </md-button>
-  </md-fab-trigger>
-  <md-fab-actions>
-    <md-button class="md-fab md-mini  md-raised md-primary">
-      <md-icon md-svg-src="/icons/add.svg"></md-icon>
-    </md-button>
-    <md-button class="md-fab md-mini md-raised md-warn">
-      <md-icon md-svg-src="/icons/category_add.svg"></md-icon>
-    </md-button>
-  </md-fab-actions>
 </md-fab-speed-dial>
-
-<!-- <md-fab-toolbar class="md-fab-bottom-right" md-open="isOpen" count="count" md-direction="left">
-    <md-fab-trigger class="align-with-text">
-        <md-button aria-label="menu" class="md-fab md-primary">
-            <md-icon md-svg-src="icons/menu.svg"></md-icon>
-        </md-button>
-    </md-fab-trigger>
-    <md-toolbar>
-        <md-fab-actions class="md-toolbar-tools">
-            <md-button aria-label="comment" class="md-icon-button">
-                <md-icon md-svg-src="img/icons/ic_comment_24px.svg"></md-icon>x
-            </md-button>
-            <md-button aria-label="label" class="md-icon-button">
-                <md-icon md-svg-src="img/icons/ic_label_24px.svg"></md-icon>
-            </md-button>
-            <md-button aria-label="photo" class="md-icon-button">
-                <md-icon md-svg-src="img/icons/ic_photo_24px.svg"></md-icon>
-            </md-button>
-        </md-fab-actions>
-    </md-toolbar>
-</md-fab-toolbar> -->
