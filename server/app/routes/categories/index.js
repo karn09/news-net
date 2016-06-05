@@ -36,7 +36,7 @@ router.post('/', function(req, res, next){
         });
 });
 
-
+//Add existing page to category
 router.put('/addPage/:id', function(req, res, next){
    Category.findOne({_id: req.params.id})
        .then(function(category){

@@ -4,6 +4,7 @@ module.exports = router;
 var mongoose = require('mongoose');
 var Page = mongoose.model('Page');
 var User = mongoose.model('User');
+var Category = mongoose.model('Category');
 
 
 router.get('/', function(req, res, next){
@@ -23,13 +24,6 @@ router.get('/:id', function(req, res, next){
 
 
 router.post('/', function(req, res, next){
-    //1. get user object
-    //2. check if page already exists
-    //3. if yes, increment the count on the page
-    //4. if not, create new page
-    //5. update user object with new page
-
-    //Shouldn't we use req.session.passport.user?
     var sessionUserId = req.session.passport.user;
     User.findOne({_id: sessionUserId})
         .then(function(user){
@@ -73,6 +67,18 @@ router.post('/', function(req, res, next){
                 })
             })
 })
+
+//Get all pages for category
+router.get('/category/:categoryId', function(req, res, next){
+
+})
+
+
+//Create new page with category
+router.post('category/:categoryNameOrId', function(req, res, next){
+    
+})
+
 
 router.delete('/:id', function(req, res, next){
 	Page.findOneAndRemove({_id: req.params.id})
