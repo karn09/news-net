@@ -5,7 +5,9 @@ app.directive('speedDial', function() {
     templateUrl: 'html/speed-dial/speed-dial.html',
     link: function (scope, element, attribute) {
       scope.isOpen = false;
-      scope.hello = "world"
+      scope.count = 0;
+      scope.hidden = false;
+      scope.hover = false;
     }
   }
 })
