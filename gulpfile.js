@@ -68,6 +68,11 @@ gulp.task('buildCSS', function () {
         .pipe(gulp.dest('./public/app'));
 });
 
+gulp.task('copyIcons', function(){
+    return gulp.src(['./browser/icons/**/*.svg'], {base: './browser/'})
+    .pipe(gulp.dest('./public'))
+});
+
 gulp.task('copyHTML', function(){
     return gulp.src(['./browser/app/**/*.html'], {base: './browser/'})
     .pipe(gulp.dest('./public'))
@@ -116,17 +121,21 @@ gulp.task('generateServiceWorker', function(callback) {
   var swPrecache = require('sw-precache');
 
   var rootDir = 'public';
-2
+
   //Libraries our project depends on.
     var dependencies = {
         '/lodash/index.js': ['node_modules/lodash/index.js'],
+        '/jquery/dist/jquery.js': ['node_modules/lodash/index.js'],
         '/angular/angular.js': ['node_modules/angular/angular.js'],
         '/angular-animate/angular-animate.js': ['node_modules//angular-animate/angular-animate.js'],
         '/angular-ui-router/release/angular-ui-router.js': ['node_modules/angular-ui-router/release/angular-ui-router.js'],
         '/angular-ui-bootstrap/ui-bootstrap.js': ['node_modules/angular-ui-bootstrap/ui-bootstrap.js'],
         '/angular-ui-bootstrap/ui-bootstrap-tpls.js': ['node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.js'],
         '/socket.io-client/socket.io.js': ['node_modules/socket.io-client/socket.io.js'],
-        '/bootstrap/dist/css/bootstrap.css': ['node_modules/bootstrap/dist/css/bootstrap.css']
+        '/bootstrap/dist/css/bootstrap.css': ['node_modules/bootstrap/dist/css/bootstrap.css'],
+        '/angular-material/angular-material.js': ['node_modules/angular-material/angular-material.js'],
+        '/angular-aria/angular-aria.js': ['node_modules/angular-aria/angular-aria.js'],
+        '/angular-material/angular-material.css': ['node_modules/angular-material/angular-material.css']
     }
 
     var runtimeCachingOptions = [{
@@ -135,9 +144,9 @@ gulp.task('generateServiceWorker', function(callback) {
     }]
 
   swPrecache.write(path.join(rootDir, 'service-worker.js'), {
-    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,ico}'],
+    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,ico,svg}'],
     stripPrefix: rootDir,
-    dynamicUrlToDependencies: dependencies, 
+    dynamicUrlToDependencies: dependencies,
     runtimeCaching: runtimeCachingOptions
   }, callback);
 });
@@ -164,7 +173,7 @@ gulp.task('buildJSProduction', function () {
         .pipe(gulp.dest('./public/app'));
 });
 
-gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction']);
+gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction', 'copyIcons', 'copyHTML']);
 
 
 
@@ -173,9 +182,9 @@ gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction']);
 
 gulp.task('build', function () {
     if (process.env.NODE_ENV === 'production') {
-        runSeq(['buildJSProduction', 'buildCSSProduction', 'copyHTML', 'generateServiceWorker']);
+        runSeq(['buildJSProduction', 'buildCSSProduction', 'copyIcons', 'copyHTML', 'generateServiceWorker']);
     } else {
-        runSeq(['buildJS', 'buildCSS', 'copyHTML', 'generateServiceWorker']);
+        runSeq(['buildJS', 'buildCSS', 'copyIcons', 'copyHTML', 'generateServiceWorker']);
     }
 });
 
@@ -195,6 +204,11 @@ gulp.task('default', function () {
     });
 
     gulp.watch('server/**/*.js', ['lintJS']);
+
+    //Add icons to public dist folder
+    gulp.watch('browser/**/*.svg', function(){
+        runSeq('copyIcons', 'generateServiceWorker')
+    })
 
     //Copy files to public when html changes
     gulp.watch('browser/**/*.html', function(){

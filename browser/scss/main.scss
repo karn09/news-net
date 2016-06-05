@@ -19,7 +19,12 @@ body {
   margin: 0 auto;
 }
 
+.floatRight {
+  float: right;
+}
+
 @import 'directives/main';
 @import 'home/main';
 @import 'tutorial/main';
 @import 'login/main';
+@import url(https://fonts.googleapis.com/css?family=Playfair+Display:400,700);
