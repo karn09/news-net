@@ -13,6 +13,7 @@ app.controller('ParserCtrl', function ($scope, $state, ParserFactory, Session) {
     $scope.parseUrl = function () {
 
         //console.log("inside parserCtrl parseUrl: session user: ", Session.user._id);
+
         ParserFactory.parseUrl($scope.url, Session.user._id)
         .then(function(response){
             console.log(response);

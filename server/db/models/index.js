@@ -4,3 +4,4 @@
 require('./user');
 require('./comment');
 require('./page');
+require('./category');

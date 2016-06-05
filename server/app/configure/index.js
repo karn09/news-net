@@ -23,4 +23,5 @@ module.exports = function (app) {
     app.use('/api/users', require('../routes/users'));
     app.use('/api/parser', require('../routes/parser'));
     app.use('/api/pages', require('../routes/pages'));
+    app.use('/api/categories', require('../routes/categories'));
 };
