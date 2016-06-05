@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
 
 app.controller('mySubscriptionsCtrl', function($scope) {
 
-	$(".menu-up").click(function(){
+	$(".subscriptions-menu-up").click(function(){
 		var id = '#' + $(this).attr('id').slice(0,-8);
 		if($(this).css('transform')	!== 'none'){
 			$(this).css("transform", "");
