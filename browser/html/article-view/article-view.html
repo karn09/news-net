@@ -1,0 +1,16 @@
+<!-- {{content}} -->
+<md-content layout="row" layout-align="center center">
+    <md-card flex-xs="100" flex-gt-sm="75">
+        <md-card-header>
+            <md-card-avatar>
+                <img ng-src="{{current.leadImageUrl}}"alt="">
+            </md-card-avatar>
+            <md-card-header-test>
+              <md-card-title-text><span class="md-headline">{{current.title}}</span></md-card-title-text>
+            </md-card-header-test>
+        </md-card-header>
+        <md-card-content>
+            <div bind-compiled-html="content"></div>
+        </md-card-content>
+    </md-card>
+</md-content>

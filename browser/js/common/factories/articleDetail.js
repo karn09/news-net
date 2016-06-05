@@ -1,4 +1,4 @@
-app.factory('articleDetailFactory', function() {
+app.factory('articleDetailFactory', function($http) {
   var detailObj = {};
 
   detailObj.fetchAllByCategory = function(category) {
