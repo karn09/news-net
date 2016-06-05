@@ -9,6 +9,9 @@ body {
   padding-top: 60px;
   margin: 0 auto; }
 
+.floatRight {
+  float: right; }
+
 fullstack-logo {
   display: block; }
   fullstack-logo img {
@@ -95,6 +98,9 @@ sidebar .sublist a li {
   font-weight: bold;
   padding-top: 1px;
   padding-bottom: 1px; }
+
+md-card .md-card-image {
+  height: 300px; }
 
 #home fullstack-logo {
   padding-top: 30px;
