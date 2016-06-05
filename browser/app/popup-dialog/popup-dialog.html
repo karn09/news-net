@@ -1,9 +1,13 @@
 <md-dialog>
     <md-toolbar>
-        <div class="md-toolbar-tools">Add URL</div>
+        <div class="md-toolbar-tools">{{item.name}}</div>
+
     </md-toolbar>
     <md-dialog-content layout-padding>
-        Add URL
+        <md-input-container>
+            <label>{{item.name}}</label>
+            <input ng-model="data">
+        </md-input-container>
     </md-dialog-content>
     <div class="md-actions">
         <md-button aria-label="Close dialog" ng-click="dialog.close()" class="md-primary">

@@ -1,3 +1,9 @@
 app.controller('dialogFormCtrl', function($mdDialog) {
-  // this.item = item;
+  console.log(this)
+  this.close = function() {
+    $mdDialog.cancel();
+  };
+  this.submit = function() {
+    $mdDialog.hide();
+  }
 })
