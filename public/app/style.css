@@ -1,6 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Playfair+Display:400,700);
-@import url(https://fonts.googleapis.com/css?family=Lora:700italic,700,400italic,400);
-@import url(https://fonts.googleapis.com/css?family=Lora:700italic,700,400italic,400|Roboto+Slab:400,300);
+@import url(https://fonts.googleapis.com/css?family=Lora:700italic,700,400italic,400|Roboto+Slab:400,300|Playfair+Display:400,700|Lobster);
 * {
   box-sizing: border-box; }
 
@@ -169,3 +167,39 @@ tutorial-section-menu {
 #login-form {
   width: 60%;
   margin: 0 auto; }
+
+#subscriptions-container md-divider {
+  margin-top: 35px;
+  border-color: #607D8B; }
+
+#subscriptions-container .menu-up-container {
+  border-bottom-left-radius: 2em;
+  border-bottom-right-radius: 2em;
+  background-color: #607D8B;
+  padding: 5px;
+  float: left; }
+
+#subscriptions-container .menu-up {
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  -webkit-transition: transform 0.5s; }
+
+#subscriptions-container .title {
+  float: left;
+  position: absolute;
+  left: 44%;
+  padding: 5px;
+  background-color: #607D8B;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  width: 12%;
+  text-align: center;
+  font-size: 15px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700; }
+  #subscriptions-container .title a {
+    color: white; }
+
+#subscriptions-container .cards-container {
+  margin-top: 50px; }
