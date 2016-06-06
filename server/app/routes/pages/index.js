@@ -23,7 +23,11 @@ router.get('/category/', function(req, res, next){
         Category.findById(req.query.id)
         .populate(['pages'])
         .then(function(category){
-            res.send(category.pages);
+            if(category){
+                res.send(category.pages);  
+            }else{
+                res.send("Category with id: " + req.query.id + " not found.")
+            } 
         })
 
     }else if(req.query.name){
@@ -31,14 +35,16 @@ router.get('/category/', function(req, res, next){
         Category.findOne({description: req.query.name})
         .populate(['pages'])
         .then(function(category){
-            res.send(category.pages);
+            if(category){
+                res.send(category.pages);  
+            }else{
+                res.send("Category with name: " + req.query.name + " not found.")
+            } 
         })
 
     }else{
         res.send("Please provide a category name or ID.")
     }
-
-    res.send("Category not found.")
 
 })
 
