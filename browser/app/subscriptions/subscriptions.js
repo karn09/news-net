@@ -1,12 +1,12 @@
 app.config(function ($stateProvider) {
-	$stateProvider.state('mySubscriptions', {
+	$stateProvider.state('subscriptions', {
 		url: '/subscriptions',
-		templateUrl: 'app/my-subscriptions/my-subscriptions.html',
-		controller: 'mySubscriptionsCtrl'
+		templateUrl: 'app/subscriptions/subscriptions.html',
+		controller: 'SubscriptionsCtrl'
 	});
 });
 
-app.controller('mySubscriptionsCtrl', function($scope) {
+app.controller('SubscriptionsCtrl', function($scope) {
 
 	$(".subscriptions-menu-up").click(function(){
 		var id = '#' + $(this).attr('id').slice(0,-8);
