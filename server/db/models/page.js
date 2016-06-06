@@ -14,7 +14,7 @@ var schema = new mongoose.Schema({
         type: String
     },
     leadImageUrl: {
-        type: String, default: '/assets/images/news.jpg'
+        type: String, set: setImg, default: '/assets/images/news.jpg'
     },
     title: {
         type: String
@@ -27,5 +27,9 @@ var schema = new mongoose.Schema({
     }
 });
 
+function setImg(v) {
+    if (v === null ) return '/assets/images/news.jpg';
+    return v;
+}
 
 mongoose.model('Page', schema);
