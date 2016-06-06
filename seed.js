@@ -136,7 +136,7 @@ var seedPages = function(){
 
     
 
-    return Category.findOne({description: 'Technology'})
+    return Category.findOne({description: 'Sports'})
     .then(function(category){
         return Page.create(sports)
         .then(function(pages){

@@ -7,7 +7,7 @@ var Category = mongoose.model('Category');
 
 router.get('/', function(req, res, next){
     Category.find({})
-        .populate(['page', 'user'])
+        .populate('pages')
         .then(function(categories){
             res.json(categories);
         }, next);
@@ -15,8 +15,8 @@ router.get('/', function(req, res, next){
 
 
 router.get('/:id', function(req, res, next){
-    Category.find({_id: req.params.id})
-        .populate(['page', 'user'])
+    Category.findById(req.params.id)
+        .populate('pages')
         .then(function(category){
             res.json(category);
         }, next);

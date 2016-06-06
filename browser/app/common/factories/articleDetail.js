@@ -22,6 +22,13 @@ app.factory('ArticlesFactory', function($http) {
     })
   };
 
+  detailObj.fetchCategories = function(){
+    return $http.get("/api/categories/")
+    .then(function(response){
+      return response.data;
+    })
+  }
+
   detailObj.fetchOneById = function(id) {
     return $http.get("/api/pages/" + id)
     .then(function(response){
@@ -35,7 +42,7 @@ app.factory('ArticlesFactory', function($http) {
 
   //Remove article from user's list, not delete.
   detailObj.removeArticleByID = function(id) {
-    $http.put('/users/removePage/' + id)
+    return $http.put('/users/removePage/' + id)
     .then(function(response){
       return response.data;
     })
