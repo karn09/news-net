@@ -13,12 +13,11 @@ app.config(function ($stateProvider) {
 
 app.controller('SubscriptionsCtrl', function($scope, categories) {
 
-	console.log("categories", categories);
 	$scope.categories = categories;
-	console.log("$scope.categories", $scope.categories)
 
 	$(".subscriptions-menu-up").click(function(){
 		var id = '#' + $(this).attr('id').slice(0,-8);
+		console.log("this", this, "id", id)
 		if($(this).css('transform')	!== 'none'){
 			$(this).css("transform", "");
 			$(id).show(400);
