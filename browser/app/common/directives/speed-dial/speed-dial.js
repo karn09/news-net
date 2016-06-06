@@ -18,7 +18,6 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope) {
 			scope.count = 0;
 			scope.hidden = false;
 			scope.hover = false;
-			console.log(scope)
 			scope.items = [{
 				name: "Add URL",
 				icon: "/assets/icons/ic_add_white_36px.svg",
