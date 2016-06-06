@@ -95,7 +95,6 @@ var seedPages = function(){
     .then(function(category){
         return Page.create(pages)
         .then(function(pages){
-            console.log("\n\nPages: ", pages, "\n\n Category: ", category)
             category.pages.push(pages[0]);
             return category.save();
         })

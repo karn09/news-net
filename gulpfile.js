@@ -69,8 +69,13 @@ gulp.task('buildCSS', function () {
         .pipe(gulp.dest('./public/app'));
 });
 
-gulp.task('copyIcons', function(){
-    return gulp.src(['./browser/assets/icons/**/*.svg'], {base: './browser/'})
+gulp.task('copyImages', function(){
+    return gulp.src([
+        './browser/assets/icons/**/*.svg',
+        './browser/assets/images/**/*.jpg',
+        './browser/assets/images/**/*.png'
+        ], 
+        {base: './browser/'})
     .pipe(gulp.dest('./public'))
 });
 
@@ -184,7 +189,7 @@ gulp.task('buildJSProduction', function () {
         .pipe(gulp.dest('./public/app'));
 });
 
-gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction', 'copyIcons', 'copyFonts', 'copyHTML', 'generateServiceWorker']);
+gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction', 'copyImages', 'copyFonts', 'copyHTML', 'generateServiceWorker']);
 
 
 
@@ -193,9 +198,9 @@ gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction', 'copyIc
 
 gulp.task('build', function () {
     if (process.env.NODE_ENV === 'production') {
-        runSeq(['buildJSProduction', 'buildCSSProduction', 'copyIcons', 'copyFonts', 'copyHTML', 'generateServiceWorker']);
+        runSeq(['buildJSProduction', 'buildCSSProduction', 'copyImages', 'copyFonts', 'copyHTML', 'generateServiceWorker']);
     } else {
-        runSeq(['buildJS', 'buildCSS', 'copyIcons', 'copyFonts', 'copyHTML', 'generateServiceWorker']);
+        runSeq(['buildJS', 'buildCSS', 'copyImages', 'copyFonts', 'copyHTML', 'generateServiceWorker']);
     }
 });
 
@@ -216,9 +221,9 @@ gulp.task('default', function () {
 
     gulp.watch('server/**/*.js', ['lintJS']);
 
-    //Add icons to public dist folder
-    gulp.watch('browser/**/*.svg', function(){
-        runSeq('copyIcons', 'generateServiceWorker')
+    //Add icons and images to public dist folder
+    gulp.watch(['browser/**/*.svg', 'browser/**/*.png', 'browser/**/*.jpg'], function(){
+        runSeq('copyImages', 'generateServiceWorker')
     })
 
     gulp.watch('/browser/assets/fonts/*.css', function(){

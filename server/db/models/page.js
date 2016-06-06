@@ -14,7 +14,7 @@ var schema = new mongoose.Schema({
         type: String
     },
     leadImageUrl: {
-        type: String
+        type: String, default: '/assets/images/news.jpg'
     },
     title: {
         type: String
