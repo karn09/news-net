@@ -49,6 +49,22 @@ router.put('/addPage/:id', function(req, res, next){
 	}, next);
 });
 
+router.put('/removePage/:pageId', function(req, res, next){
+	User.findOne({_id: req.session.passport.user})
+	.then(function(user){
+		var index = user.pages.indexOf(req.params.pageId);
+		if(index > -1){
+			user.pages.splice(index, 1);
+			return user.save();
+		}else{
+			res.send("Error Deleting: Page not found.")
+		}
+	})
+	.then(function(response){
+		res.send(response);
+	}, next);
+});
+
 
 router.put('/addComment/:id', function(req, res, next){
 	User.findOne({_id: req.params.id})

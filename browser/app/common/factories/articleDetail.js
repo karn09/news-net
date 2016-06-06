@@ -1,4 +1,4 @@
-app.factory('articleDetailFactory', function($http) {
+app.factory('ArticlesFactory', function($http) {
   var detailObj = {};
 
   detailObj.fetchAll = function(){
@@ -8,8 +8,18 @@ app.factory('articleDetailFactory', function($http) {
     })
   }
 
-  detailObj.fetchAllByCategory = function(category) {
-    // return all titles and summaries associated with current category
+  //Can either provide name or id as parameter (i.e. obj = {name: "Technology"})
+  detailObj.fetchAllByCategory = function(obj) {
+    var urlString = "/api/pages/category?"
+    for(var key in obj){
+      var queryParameter = key + "=" + obj[key];
+      urlString += queryParameter;
+    }
+
+    return $http.get(urlString)
+    .then(function(response){
+      return response.data;
+    })
   };
 
   detailObj.fetchOneById = function(id) {
@@ -19,12 +29,16 @@ app.factory('articleDetailFactory', function($http) {
     })
   };
 
-  detailObj.addArticle = function(category) {
+  detailObj.addArticle = function(url, category) {
     // add one article to category
   };
 
-  detailObj.removeArticleByID = function() {
-    // remove on article by ID
+  //Remove article from user's list, not delete.
+  detailObj.removeArticleByID = function(id) {
+    $http.put('/users/removePage/' + id)
+    .then(function(response){
+      return response.data;
+    })
   };
 
   detailObj.saveArticleByUrl = function(url, category) {

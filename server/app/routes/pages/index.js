@@ -15,7 +15,7 @@ router.get('/', function(req, res, next){
 });
 
 //Get all pages for a given category
-//Usage: /api/pages/category?id=<Category ID> or ?name=<Category Name>. If both, will default to ID.
+//Usage: /api/pages/category?id=<Category ID> or ?name=<Category Name>. If both, will ignore name.
 router.get('/category/', function(req, res, next){
 
     if(req.query.id){

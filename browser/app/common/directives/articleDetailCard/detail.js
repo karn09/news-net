@@ -1,11 +1,9 @@
 app.directive('articleDetail', function() {
   return {
     restrict: 'E',
-    scope: {},
+    scope: {
+    	article: '='
+    },
     templateUrl: 'app/common/directives/articleDetailCard/detail.html',
-    link: function (scope, element, attribute) {
-
-    }
-
   }
 })

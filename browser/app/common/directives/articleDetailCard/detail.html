@@ -2,7 +2,7 @@
     <a ui-sref="article"><img src="http://apiw.org/wp-content/uploads/2014/10/news.jpg" class="md-card-image" alt="image caption"></a>
     <md-card-title>
         <md-card-title-text>
-            <a ui-sref="article" id="title"><span class="md-headline">Icon action buttons</span></a>
+            <a ui-sref="article" id="title"><span class="md-headline">{{article.title}}</span></a>
         </md-card-title-text>
     </md-card-title>
     <md-card-content>
@@ -19,7 +19,7 @@
             <md-icon md-svg-icon="assets/icons/menu.svg"></md-icon>
         </md-button>
         <md-button class="md-icon-button" aria-label="Share">
-            <md-icon md-svg-icon="img/icons/share-arrow.svg"></md-icon>
+            <md-icon md-svg-icon="assets/icons/share-arrow.svg"></md-icon>
         </md-button>
     </md-card-actions>
 </md-card>

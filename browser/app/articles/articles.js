@@ -1,7 +1,13 @@
 app.config(function ($stateProvider) {
     $stateProvider.state('articles', {
         url: '/articles',
-        templateUrl: 'app/articles/articles.html'
+        templateUrl: 'app/articles/articles.html',
+        resolve: {
+            articles: function(ArticlesFactory){
+                return ArticlesFactory.fetchAll();
+            }
+        },
+        controller: 'ArticlesCtrl'
     });
 });
 
@@ -17,6 +23,10 @@ app.config(function ($stateProvider) {
         controller: 'ArticleViewCtrl'
     });
 });
+
+app.controller('ArticlesCtrl', function($scope, articles){
+    $scope.articles = articles;
+})
 
 app.controller('ArticleViewCtrl', function($scope, current, $compile) {
     $scope.current = current;
