@@ -24,10 +24,7 @@ var schema = new mongoose.Schema({
     },
     userCount: {
         type: Number
-    },
-    category: [{
-        type: String
-    }],
+    }
 });
 
 

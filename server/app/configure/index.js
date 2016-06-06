@@ -19,8 +19,5 @@ module.exports = function (app) {
     app.use(app.getValue('log'));
 
     require('./authentication')(app);
-    app.use('/api/comments', require('../routes/comments'));
-    app.use('/api/users', require('../routes/users'));
-    app.use('/api/parser', require('../routes/parser'));
-    app.use('/api/pages', require('../routes/pages'));
+    app.use('/api', require('../routes'));
 };

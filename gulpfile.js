@@ -16,6 +16,7 @@ var mocha = require('gulp-mocha');
 var karma = require('karma').server;
 var istanbul = require('gulp-istanbul');
 var notify = require('gulp-notify');
+var clean = require('gulp-clean');
 
 // Development tasks
 // --------------------------------------------------------------
@@ -69,13 +70,23 @@ gulp.task('buildCSS', function () {
 });
 
 gulp.task('copyIcons', function(){
-    return gulp.src(['./browser/icons/**/*.svg'], {base: './browser/'})
+    return gulp.src(['./browser/assets/icons/**/*.svg'], {base: './browser/'})
+    .pipe(gulp.dest('./public'))
+});
+
+gulp.task('copyFonts', function(){
+    return gulp.src(['./browser/assets/fonts/**/*.css'], {base: './browser/'})
     .pipe(gulp.dest('./public'))
 });
 
 gulp.task('copyHTML', function(){
     return gulp.src(['./browser/app/**/*.html'], {base: './browser/'})
     .pipe(gulp.dest('./public'))
+})
+
+gulp.task('clean', function(){
+    return gulp.src(['./public/html', './public/js', './public/main.js', './public/style.css', './public/icons'], {read: false})
+    .pipe(clean());
 })
 
 
@@ -173,7 +184,7 @@ gulp.task('buildJSProduction', function () {
         .pipe(gulp.dest('./public/app'));
 });
 
-gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction', 'copyIcons', 'copyHTML']);
+gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction', 'copyIcons', 'copyFonts', 'copyHTML', 'generateServiceWorker']);
 
 
 
@@ -182,9 +193,9 @@ gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction', 'copyIc
 
 gulp.task('build', function () {
     if (process.env.NODE_ENV === 'production') {
-        runSeq(['buildJSProduction', 'buildCSSProduction', 'copyIcons', 'copyHTML', 'generateServiceWorker']);
+        runSeq(['buildJSProduction', 'buildCSSProduction', 'copyIcons', 'copyFonts', 'copyHTML', 'generateServiceWorker']);
     } else {
-        runSeq(['buildJS', 'buildCSS', 'copyIcons', 'copyHTML', 'generateServiceWorker']);
+        runSeq(['buildJS', 'buildCSS', 'copyIcons', 'copyFonts', 'copyHTML', 'generateServiceWorker']);
     }
 });
 
@@ -208,6 +219,10 @@ gulp.task('default', function () {
     //Add icons to public dist folder
     gulp.watch('browser/**/*.svg', function(){
         runSeq('copyIcons', 'generateServiceWorker')
+    })
+
+    gulp.watch('/browser/assets/fonts/*.css', function(){
+        runSeq('copyFonts', 'generateServiceWorker');
     })
 
     //Copy files to public when html changes
