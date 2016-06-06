@@ -13,14 +13,14 @@ app.config(function ($stateProvider) {
 
 app.config(function ($stateProvider) {
     $stateProvider.state('article', {
-        url: '/article',
+        url: '/articles/:id',
         templateUrl: 'app/article-view/article-view.html',
         resolve: {
-          current: function(ArticleViewFactory) {
-            return ArticleViewFactory.getArticleById();
+          article: function($stateParams, ArticlesFactory) {
+            return ArticlesFactory.fetchArticleById($stateParams.id);
           }
         },
-        controller: 'ArticleViewCtrl'
+        controller: 'ArticleCtrl'
     });
 });
 
@@ -28,8 +28,10 @@ app.controller('ArticlesCtrl', function($scope, articles){
     $scope.articles = articles;
 })
 
-app.controller('ArticleViewCtrl', function($scope, current, $compile) {
-    $scope.current = current;
-    $scope.title = current.title;
-    $scope.content = current.content;
+app.controller('ArticleCtrl', function($scope, article, $compile) {
+    $scope.current = article;
+    $scope.title = article.title;
+    $scope.content = article.content;
+
+    console.log("CURRENT", $scope.current)
 });

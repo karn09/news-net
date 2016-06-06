@@ -49,7 +49,7 @@ router.get('/category/', function(req, res, next){
 
 //Get page by ID
 router.get('/:id', function(req, res, next){
-	Page.find({_id: req.params.id})
+	Page.findById(req.params.id)
 	.then(function(page){
 		res.json(page);
 	}, next);

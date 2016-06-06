@@ -29,7 +29,7 @@ app.factory('ArticlesFactory', function($http) {
     })
   }
 
-  detailObj.fetchOneById = function(id) {
+  detailObj.fetchArticleById = function(id) {
     return $http.get("/api/pages/" + id)
     .then(function(response){
       return response.data;
