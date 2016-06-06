@@ -45,7 +45,6 @@ router.get('/category/', function(req, res, next){
     }else{
         res.send("Please provide a category name or ID.")
     }
-
 })
 
 //Get page by ID
@@ -60,23 +59,35 @@ router.get('/:id', function(req, res, next){
 //Optional body param: 'category'
 router.post('/', function(req, res, next){
     var sessionUserId = req.session.passport.user;
-    User.findOne({_id: sessionUserId})
+    User.findById(sessionUserId)
     .then(function(user){
         Page.findOne({url: req.body.url})
         .then(function(page){
             if (page) {
-                console.log("page already existed: ", page);
-                page.userCount = page.userCount + 1;
-                console.log("updated userCount: ", page.userCount);
+                console.log("Page already exists:\n", page);
+                page.userCount = page.userCount + 1; console.log("Updated userCount is ", page.userCount);
                 page.save()
                 .then(function(updatedPage){
+                    console.log("user", user)
                     user.pages.push(updatedPage._id);
-                    console.log("updated user pages: ", user.pages);
-                    user.save()
-                        .then(function(response){
+                    if(req.body.category){
+                       Category.findOne({description: req.body.category})
+                        .then(function(category){
+                            category.pages.push(updatedPage._id);
+                            return category.save()
+                        }).then(function(){
+                            return user.save()
+                        }).then(function(){
                             res.send(updatedPage);
                         })
+                    }else{
+                        user.save()
+                        .then(function(response){
+                            res.send(updatedPage);
+                        }) 
+                    }  
                 })
+
             } else {
                 var newPage = new Page({
                     content: req.body.content,
@@ -91,13 +102,24 @@ router.post('/', function(req, res, next){
 
                 newPage.save()
                 .then(function(page){
-                    console.log("created new page: ", page);
+                    console.log("Created new page:\n", page);
                     user.pages.push(page._id);
-                    console.log("updated user pages: ", user.pages);
-                    user.save()
-                    .then(function(response){
-                        res.send(page);
-                    })
+                    if(req.body.category){
+                        Category.findOne({description: req.body.category})
+                        .then(function(category){
+                            category.pages.push(page._id);
+                            return category.save()
+                        }).then(function(){
+                            return user.save()
+                        }).then(function(){
+                            res.send(page);
+                        })
+                    }else{
+                        user.save()
+                        .then(function(response){
+                            res.send(page);
+                        })
+                    }
                 })
             }
         })

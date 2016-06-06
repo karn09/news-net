@@ -80,14 +80,14 @@ var seedPages = function(){
             url: 'http://www.google.com',
             leadImageUrl: 'http://apiw.org/wp-content/uploads/2014/10/news.jpg',
             excerpt: "This is a fake article",
-            content: "This is a fake article. I am using it to test some features of the site."
+            content: "This is a fake article. I am using it to test some features of the site. Its category is 'Technology'." 
         },
         {
             title: "Another Fake One",
             url: 'http://www.google.com',
             leadImageUrl: 'http://apiw.org/wp-content/uploads/2014/10/news.jpg',
             excerpt: "This is the second fake article",
-            content: "This is a fake article. I am using it to test some features of the site."
+            content: "This is a fake article. I am using it to test some features of the site. It has no category."
         }
     ]
 
