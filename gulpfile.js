@@ -154,10 +154,17 @@ gulp.task('generateServiceWorker', function(callback) {
         '/angular-material/angular-material.css': ['node_modules/angular-material/angular-material.css']
     }
 
-    var runtimeCachingOptions = [{
+    var runtimeCachingOptions = [
+    {
       urlPattern: /^http:\/\/localhost:1337\/api\/pages/,
       handler: 'fastest'
-    }]
+    },
+    {
+      urlPattern: /^http:\/\/localhost:1337\/api\/categories/,
+      handler: 'fastest'
+    }
+
+    ]
 
   swPrecache.write(path.join(rootDir, 'service-worker.js'), {
     staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,ico,svg}'],
