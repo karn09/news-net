@@ -3,6 +3,7 @@
 
 <head>
     <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>News Net</title>
     <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/angular-material/angular-material.css" />
@@ -24,12 +25,15 @@
 
 <body layout="column" ng-app="FullstackGeneratedApp">
     <!-- <md-content> -->
+
     <navbar></navbar>
+
     <sidebar></sidebar>
+
     <speed-dial></speed-dial>
 
     <md-content>
-        <div layout-wrap layout="row" layout-xs="column" ui-view>
+        <div layout-wrap layout="column" flex ui-view>
         </div>
     </md-content>
 

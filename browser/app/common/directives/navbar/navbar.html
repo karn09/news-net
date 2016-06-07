@@ -1,35 +1,17 @@
-<!-- <nav class="navbar navbar-static-top">
-    <div class="container">
-        <div class="navbar-header">
-            <fullstack-logo></fullstack-logo>
-        </div>
-        <ul class="nav navbar-nav">
-            <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
-                <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
-            </li>
-        </ul>
-        <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
-        <div ng-show="user" class="welcome">
-            <span>Welcome, {{ user.email }}!</span>
-            <a ng-click="logout()">Logout</a>
-        </div>
-    </div>
-</nav> -->
-
 <md-toolbar>
-  <div class="md-toolbar-tools">
-    <md-button ng-click="toggle()" class="md-icon-button" aria-label="Settings">
-      <md-icon md-svg-icon="/assets/icons/menu.svg"></md-icon>
-    </md-button>
-    <h2>
+    <div class="md-toolbar-tools">
+        <md-button ng-click="toggle()" class="md-icon-button" aria-label="Settings">
+            <md-icon md-svg-icon="/assets/icons/menu.svg"></md-icon>
+        </md-button>
+        <h2>
       <span>News</span>
     </h2>
-    <span flex></span>
-    <md-button class="md-icon-button" aria-label="Favorite">
-      <md-icon md-svg-icon="/assets/icons/favorite.svg" style="color: greenyellow;"></md-icon>
-    </md-button>
-    <md-button class="md-icon-button" aria-label="More">
-      <md-icon md-svg-icon="/assets/icons/more_vert.svg"></md-icon>
-    </md-button>
-  </div>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="Favorite">
+            <md-icon md-svg-icon="/assets/icons/favorite.svg" style="color: greenyellow;"></md-icon>
+        </md-button>
+        <md-button class="md-icon-button" aria-label="More">
+            <md-icon md-svg-icon="/assets/icons/more_vert.svg"></md-icon>
+        </md-button>
+    </div>
 </md-toolbar>

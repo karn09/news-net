@@ -1,11 +1,12 @@
+
 <div class="container" id="subscriptions-container">
 
 	<div ng-repeat="category in categories" ng-show="category.pages">
-  
+
 		<md-divider></md-divider>
 		<div class="menu-up-container">
   		<a href="#"><span id="{{category.description | lowercase}}-menu-up" class="subscriptions-menu-up glyphicon glyphicon-menu-up" aria-hidden="true"></span></a>
-    </div>    
+    </div>
 
   	<div class="title">
   		<a href="#">{{category.description}}</a>
@@ -14,7 +15,7 @@
  		<div id="{{category.description | lowercase}}" class="row cards-container">
  			<div ng-repeat="page in category.pages" class="col-md-4">
  				<article-detail article="page"></article-detail>
- 		 </div>							
+ 		 </div>
  		</div>
 
 	</div>
