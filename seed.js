@@ -179,7 +179,7 @@ var seedComments = function(){
       return Comment.create(comments);
     })
 
-    var p2 = Page.findOne({title : "'Game Of Thrones' Might've Spoiled Its Own Cliffhanger"})
+    var p2 = Page.findOne({title : "Game Of Thrones' Might've Spoiled Its Own Cliffhanger"})
     .then(function(page){
       var comment = {
         user: user._id,

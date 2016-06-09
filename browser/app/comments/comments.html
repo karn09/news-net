@@ -3,6 +3,7 @@
 	<h4>Comments for "{{comments.for}}"</h4>
 	<li ng-repeat="comment in comments.comments">
 		{{comment.text}}<br>
-		<i>by <a ui-sref="userComments({id: comment.user._id})">{{comment.user.email}}</a></i>
+		<span ng-show="{{comments.type =='page'}}"><i>by <a ui-sref="userComments({id: comment.user._id})">{{comment.user.email}}</a></i></span>
+		<span ng-show="{{comments.type =='user'}}"><i>on <a ui-sref="article({id: comment.page._id})">{{comment.page.title}}</a> </i></span>
 	</li>
 </ul>
