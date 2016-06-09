@@ -114,7 +114,7 @@ var seedPages = function(){
         "datePublished": "2016-06-06 15:25:31",
         "domain": "www.huffingtonpost.com",
         "excerpt": "Warning: This post is dark and full of spoilers for \"Game of Thrones\" Season 6! OK, Arya kidding us with the latest \"Game of Thrones\" cliffhanger? In Sunday's episode, \"The Broken Man,\" we saw Arya&hellip;",
-        "title": "'Game Of Thrones' Might've Spoiled Its Own Cliffhanger",
+        "title": "Game Of Thrones' Might've Spoiled Its Own Cliffhanger",
         "url": "http://www.huffingtonpost.com/entry/game-of-thrones-mightve-spoiled-its-own-cliffhanger-on-arya_us_5754d6a2e4b0ed593f14be56",
         "leadImageUrl": null
      },

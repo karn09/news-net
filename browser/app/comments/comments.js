@@ -12,6 +12,19 @@ app.config(function ($stateProvider) {
     });
 });
 
+app.config(function ($stateProvider) {
+    $stateProvider.state('userComments', {
+        url: '/comments/user/:id',
+        templateUrl: 'app/comments/comments.html',
+        resolve: {
+          comments: function($stateParams, CommentsFactory) {
+            return CommentsFactory.fetchAllForUser($stateParams.id);
+          }
+        },
+        controller: 'CommentsCtrl'
+    });
+});
+
 app.controller('CommentsCtrl', function($scope, comments){
     $scope.comments = comments;
     console.log("Comments: ", comments);

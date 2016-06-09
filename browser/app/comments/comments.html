@@ -1,8 +1,8 @@
 <ul>
 	<!-- Refactor to return at head of API-->
-	<h4>Comments for "{{comments[0].page.title}}"</h4>
-	<li ng-repeat="comment in comments">
+	<h4>Comments for "{{comments.for}}"</h4>
+	<li ng-repeat="comment in comments.comments">
 		{{comment.text}}<br>
-		<i>-{{comment.user.email}}</i>
+		<i>by <a ui-sref="userComments({id: comment.user._id})">{{comment.user.email}}</a></i>
 	</li>
 </ul>

@@ -8,5 +8,12 @@ app.factory('CommentsFactory', function($http) {
     })
   };
 
+  CommentsFactory.fetchAllForUser = function(id) {
+    return $http.get('api/comments/user/' + id)
+    .then(function(response){
+      return response.data;
+    })
+  };
+
   return CommentsFactory;
 })
