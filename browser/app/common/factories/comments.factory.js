@@ -2,7 +2,7 @@ app.factory('CommentsFactory', function($http) {
   var CommentsFactory = {};
 
   CommentsFactory.fetchAllForPage = function(id) {
-    $http.get('/comments/page/' + id)
+    return $http.get('api/comments/page/' + id)
     .then(function(response){
       return response.data;
     })

@@ -14,4 +14,5 @@ app.config(function ($stateProvider) {
 
 app.controller('CommentsCtrl', function($scope, comments){
     $scope.comments = comments;
+    console.log("Comments: ", comments);
 });

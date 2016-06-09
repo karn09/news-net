@@ -160,6 +160,39 @@ var seedPages = function(){
     })
 }
 
+var seedComments = function(){
+  return User.findOne({email: 'obama@gmail.com'})
+  .then(function(user){
+    var p1 = Page.findOne({title: "Muhammad Ali: The Champion Who Never Sold Out"})
+    .then(function(page){
+      var comments = [{
+        user: user._id,
+        page: page._id,
+        text: "Truly the greatest..."
+      },
+      {
+        user: user._id,
+        page: page._id,
+        text: "Uhh....let me be clear. He was a remarkable fighter." 
+      }];
+
+      return Comment.create(comments);
+    })
+
+    var p2 = Page.findOne({title : "'Game Of Thrones' Might've Spoiled Its Own Cliffhanger"})
+    .then(function(page){
+      var comment = {
+        user: user._id,
+        page: page._id,
+        text: "Can't wait for next Sunday!"
+      }
+
+      return Comment.create(comment);
+    })
+      
+    return Promise.all([p1, p2]);
+  }) 
+}
 
 connectToDb
     .then(function () {
@@ -173,6 +206,9 @@ connectToDb
     })
     .then(function(){
         return seedPages();
+    })
+    .then(function(){
+      return seedComments();
     })
     .then(function () {
         console.log(chalk.green('Seed successful!'));

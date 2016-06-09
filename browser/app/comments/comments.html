@@ -1,3 +1,8 @@
-<p ng-repeat="comment in comments">
-	{{comment.text}}<br>
-</p>
+<ul>
+	<!-- Refactor to return at head of API-->
+	<h4>Comments for "{{comments[0].page.title}}"</h4>
+	<li ng-repeat="comment in comments">
+		{{comment.text}}<br>
+		<i>-{{comment.user.email}}</i>
+	</li>
+</ul>
