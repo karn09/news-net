@@ -15,5 +15,13 @@ app.factory('CommentsFactory', function($http) {
     })
   };
 
+  CommentsFactory.postCommentToArticle = function(id, text){
+  	return $http.post('/api/comments/page' + id, {text: text})
+  	.then(function(response){
+  		return response.data;
+  	})
+  }
+
   return CommentsFactory;
+  
 })

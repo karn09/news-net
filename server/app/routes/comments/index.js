@@ -60,10 +60,10 @@ router.get('/user/:id', function(req, res, next){
 	})
 });
 
-router.post('/', function(req, res, next){
+router.post('/page/:id', function(req, res, next){
 	var newComment = new Comment({
-		user: req.body.user,
-		page: req.body.page,
+		user: req.session.passport.user,
+		page: req.params.id,
 		text: req.body.text,
 		date: Date.now()
 	});

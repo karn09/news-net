@@ -7,3 +7,9 @@
 		<span ng-show="{{comments.type =='user'}}"><i>on <a ui-sref="article({id: comment.page._id})">{{comment.page.title}}</a> </i></span>
 	</li>
 </ul>
+
+<form name="commentSubmissionForm" ng-show="{{comments.type =='page'}}">
+	<md-input-container>
+
+	</md-input-container>
+</form>
