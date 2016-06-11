@@ -10,6 +10,13 @@
 
 <form name="commentSubmissionForm" ng-show="{{comments.type =='page'}}">
 	<md-input-container>
-
+		<label>Enter a comment</label>
+		<input name="comment" ng-model="input" md-minlength="10">
+		<div ng-messages="commentSubmissionFrom.input.$error" ng-show="commentSubmissionForm.input.$dirty" md-minlength="10">
+			<div ng-message="required">This is required!</div>
+			<div ng-message="md-minlength">Comment must be at least 10 characters long.</div>
+		</div>
 	</md-input-container>
+
+	<md-button aria-label="Submit comment button" ng-click="submitComment()" class="md-primary">Submit</md-button>
 </form>

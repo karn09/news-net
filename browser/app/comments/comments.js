@@ -25,7 +25,10 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('CommentsCtrl', function($scope, comments){
+app.controller('CommentsCtrl', function($scope, $stateParams, comments, CommentsFactory){
     $scope.comments = comments;
-    console.log("Comments: ", comments);
+
+    $scope.submitComment = function(){
+        CommentsFactory.postCommentToArticle($stateParams.id, $scope.input);
+    }
 });
