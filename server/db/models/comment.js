@@ -11,7 +11,7 @@ var schema = new mongoose.Schema({
     	type: String
     },
     dateStamp: {
-        type: Date
+        type: Date, default: Date.now()
     }
 });
 

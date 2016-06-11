@@ -61,7 +61,6 @@ router.get('/user/:id', function(req, res, next){
 });
 
 router.post('/page/:id', function(req, res, next){
-	console.log("USER ID", req.session.passport.user)
 	var newComment = new Comment({
 		user: req.session.passport.user,
 		page: req.params.id,
