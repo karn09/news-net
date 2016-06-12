@@ -1,4 +1,4 @@
-app.factory('ArticlesFactory', function($http) {
+app.factory('ArticlesFactory', function($http, idbService) {
   var detailObj = {};
 
   detailObj.fetchAll = function(){
@@ -25,6 +25,7 @@ app.factory('ArticlesFactory', function($http) {
   detailObj.fetchCategories = function(){
     return $http.get("/api/categories/")
     .then(function(response){
+      console.log(response.data)
       return response.data;
     })
   }
