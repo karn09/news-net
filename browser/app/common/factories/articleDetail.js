@@ -25,8 +25,17 @@ app.factory('ArticlesFactory', function($http, idbService) {
   detailObj.fetchCategories = function(){
     return $http.get("/api/categories/")
     .then(function(response){
-      console.log(response.data)
-      return response.data;
+      return idbService.add('categories', response.data)
+        .then(function(data) {
+          console.log(data)
+          console.log('inner ', response.data)
+          return response.data;
+        })
+        .catch(function(err) {
+          console.log(err);
+          console.log(response.data)
+          return response.data
+        })
     })
   }
 
