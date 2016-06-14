@@ -74,10 +74,10 @@ router.post('/page/:id', function(req, res, next){
 });
 
 router.put('/:id', function(req, res, next){
-	Comment.findOne({_id: req.params.id})
+	Comment.findById(req.params.id)
 	.then(function(comment){
 		comment.text = req.body.text,
-		comment.date = Date.now();
+		comment.dateEdited = Date.now();
 		return comment.save();
 	})
 	.then(function(response){
@@ -85,6 +85,31 @@ router.put('/:id', function(req, res, next){
 	}, next);	
 });
 
+router.put('/:id/upvote/', function(req, res, next){
+	Comment.findById(req.params.id).select('votes')
+	.then(function(comment){
+		var upvote = {
+			userId: req.session.passport.user,
+			vote: 1
+		}
+
+		comment.votes.push(upvote);
+		return comment.save()
+	}).then(function(response){ res.send("Upvoted comment " + response._id)}, next);
+});
+
+router.put('/:id/downvote/', function(req, res, next){
+	Comment.findById(req.params.id).select('votes')
+	.then(function(comment){
+		var downvote = {
+			userId: req.session.passport.user,
+			vote: -1
+		}
+
+		comment.votes.push(downvote);
+		return comment.save()
+	}).then(function(response){ res.send("Downvoted comment " + response._id)}, next);	
+});
 
 router.delete('/:id', function(req, res, next){
 	Comment.findOneAndRemove({_id: req.params.id})
