@@ -2,18 +2,21 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope) {
 	return {
 		restrict: 'E',
 		scope: {},
-		controller: function ($state, $rootScope) {
-			// $watch($state.current, function(val) {
-			// 	console.log(val)
-			// })
-			// console.log($state.current)
-			// $rootScope.$watch($state.current.name, function (oldVal, newVal) {
-			// 	console.log(this)
-			// 	console.log(oldVal, newVal)
-			// })
+		controller: function ($state, $rootScope, $scope) {
+			// $rootScope.$on('$stateChangeSuccess',
+			//   function(event, toState, toParams, fromState, fromParams) {
+			//     console.log("Controller State: ", $scope.state);
+			//   }
+			// )
 		},
 		templateUrl: '/app/common/directives/speed-dial/speed-dial.html',
 		link: function (scope, element, attribute) {
+
+			scope.$root.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+				console.log("Link State: ", toState.name);
+			});
+			
+
 			scope.isOpen = false;
 			scope.count = 0;
 			scope.hidden = false;
