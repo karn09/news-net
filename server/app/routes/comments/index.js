@@ -35,6 +35,7 @@ router.get('/page/:id', function(req, res, next){
 				type: 'page',
 				comments: comments
 			}
+			console.log("res", response)
 			res.json(response);
 		}, next);		
 	})
@@ -84,7 +85,10 @@ router.put('/:id', function(req, res, next){
 		return comment.save();
 	})
 	.then(function(response){
-		res.send(response);
+		response.populate('user', function(err, doc){
+			if(!err) res.send(doc);
+			else res.send(err);
+		})
 	}, next);	
 });
 

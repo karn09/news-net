@@ -16,8 +16,7 @@ var schema = new mongoose.Schema({
                 userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
                 vote:  {type: Number, enum: [-1, 1]}
             }
-        ],
-        select: false
+        ]
     },
     dateStamp: {
         type: Date, default: Date.now()
@@ -25,7 +24,7 @@ var schema = new mongoose.Schema({
     dateEdited: {
         type: Date
     }
-});
+}, {toObject: { virtuals: true }, toJSON: { virtuals: true }});
 
 schema.pre('save', function (next) {
     //Automatically upvote self
@@ -48,11 +47,24 @@ schema.pre('save', function (next) {
 
 schema.virtual('voteCount').get(function(){
     var count = 0;
+ 
     this.votes.forEach(function(vote){
         count += vote.vote;
     })
 
     return count;
 })
+
+//Would normally just set select: false on votes field.
+//However, field is required by calculations in schema virtual 'voteCount'.
+//We want to expose voteCount, which relies on 'votes', but discard that data before sending out response.
+schema.methods.toJSON = function(options){
+    var document = this.toObject(options);
+    delete(document.id);
+    delete(document.votes);
+    return document;
+}
+
+schema.set('toJSON', { virtuals: true });
 
 mongoose.model('Comment', schema);

@@ -25,8 +25,9 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('CommentsCtrl', function($scope, $rootScope, $stateParams, comments, CommentsFactory, AuthService){
+app.controller('CommentsCtrl', function($scope, $rootScope, $stateParams, $mdDialog, comments, CommentsFactory, AuthService){
     $scope.comments = comments;
+    console.log("scope comments", $scope.comments)
 
     AuthService.getLoggedInUser()
     .then(function(user){
@@ -45,4 +46,39 @@ app.controller('CommentsCtrl', function($scope, $rootScope, $stateParams, commen
         CommentsFactory.removeComment(id);
         $scope.comments.comments.splice(index, 1);
     }
+
+    $scope.editComment = function(){
+        $mdDialog.show({
+            scope: this,
+            preserveScope: true,
+            clickOutsideToClose: true,
+            controller: 'editCommentCtrl',
+            controllerAs: 'edit',
+            templateUrl: '/app/comments/edit-comment.html',
+        })
+    }
 });
+
+
+// app.controller('editCommentCtrl', function($mdDialog, $state, CommentsFactory){
+//     this.close = function () {
+//         $mdDialog.cancel();
+//     };
+
+//     this.submit = function (data) {
+//         // if type category, send to category api
+//         // if type url, send to url api
+
+//         console.log("(submit) data: ", data);
+//         CommentsFactory.editComment()
+//         .then(function(response){
+//             $mdDialog.hide();
+//             //Change scope
+//         })
+//     }
+// })
+
+
+
+
+

@@ -29,6 +29,13 @@ app.factory('CommentsFactory', function($http) {
     })
   }
 
+  CommentsFactory.editComment = function(id, text){
+    return $http.put('/api/comments/' + id, {text: text})
+    .then(function(response){
+      return response.data;
+    })
+  }
+
   return CommentsFactory;
   
 })
