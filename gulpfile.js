@@ -97,7 +97,7 @@ gulp.task('copyImages', function(){
         './browser/assets/icons/**/*.svg',
         './browser/assets/images/**/*.jpg',
         './browser/assets/images/**/*.png'
-        ], 
+        ],
         {base: './browser/'})
     .pipe(gulp.dest('./public'))
 });
@@ -178,11 +178,40 @@ gulp.task('generateServiceWorker', function(callback) {
     }
 
     var runtimeCachingOptions = [
-    { urlPattern: /^http:\/\/localhost:1337\/api\/pages/, handler: 'fastest' },
-    { urlPattern: /^http:\/\/localhost:1337\/api\/categories/, handler: 'fastest'}];
+    { urlPattern: '/api/pages',
+      handler: 'fastest',
+      options: {
+        cache: {
+          maxEntries: 20,
+          name: 'pages-cache'
+        }
+      }
+    },
+    { urlPattern: '/articles/:id',
+      handler: 'fastest',
+      options: {
+        cache: {
+          maxEntries: 1,
+          name: 'articles-cache'
+        }
+      }
+    },
+    { urlPattern: '/api/categories',
+      handler: function(request) {
+        console.log(request)
+        return request;
+      },
+      options: {
+        cache: {
+          maxEntries: 5,
+          name: 'categories-cache'
+        }
+      }
+    }
+  ];
 
   swPrecache.write(path.join(rootDir, 'service-worker.js'), {
-    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,ico,svg}'],
+    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,ico,svg}', rootDir + '/app/**/*.{js,html,css,png,jpg,gif,ico,svg}'],
     stripPrefix: rootDir,
     dynamicUrlToDependencies: dependencies,
     runtimeCaching: runtimeCachingOptions
