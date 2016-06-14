@@ -42,9 +42,9 @@ schema.pre('save', function (next) {
     next();
 });
 
-schema.post('save', function(){
-    console.log("VOTE COUNT", this.voteCount);
-})
+// schema.post('save', function(){
+//     console.log("Vote Count: ", this.voteCount);
+// })
 
 schema.virtual('voteCount').get(function(){
     var count = 0;

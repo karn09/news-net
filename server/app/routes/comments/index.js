@@ -93,7 +93,16 @@ router.put('/:id/upvote/', function(req, res, next){
 			vote: 1
 		}
 
-		comment.votes.push(upvote);
+		var indexIfExists = comment.votes.map(function(element){ 
+			return element.userId + "";
+		}).indexOf(upvote.userId + "");
+
+		if(indexIfExists >= 0){
+			comment.votes[indexIfExists] = upvote;
+		}else{
+			comment.votes.push(upvote);
+		}
+		
 		return comment.save()
 	}).then(function(response){ res.send("Upvoted comment " + response._id)}, next);
 });
@@ -106,7 +115,16 @@ router.put('/:id/downvote/', function(req, res, next){
 			vote: -1
 		}
 
-		comment.votes.push(downvote);
+		var indexIfExists = comment.votes.map(function(element){ 
+			return element.userId + "";
+		}).indexOf(downvote.userId + "");
+
+		if(indexIfExists >= 0){
+			comment.votes[indexIfExists] = downvote;
+		}else{
+			comment.votes.push(downvote);
+		}
+
 		return comment.save()
 	}).then(function(response){ res.send("Downvoted comment " + response._id)}, next);	
 });
