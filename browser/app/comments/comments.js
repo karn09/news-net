@@ -25,10 +25,24 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('CommentsCtrl', function($scope, $stateParams, comments, CommentsFactory){
+app.controller('CommentsCtrl', function($scope, $rootScope, $stateParams, comments, CommentsFactory, AuthService){
     $scope.comments = comments;
 
+    AuthService.getLoggedInUser()
+    .then(function(user){
+        $scope.user = user;
+        console.log("user", $scope.user)
+    })
+
     $scope.submitComment = function(){
-        CommentsFactory.postCommentToArticle($stateParams.id, $scope.input);
+        CommentsFactory.postCommentToArticle($stateParams.id, $scope.input)
+        .then(function(comment){
+            $scope.comments.comments.push(comment);
+        })
+    }
+
+    $scope.removeComment = function(index, id){
+        CommentsFactory.removeComment(id);
+        $scope.comments.comments.splice(index, 1);
     }
 });

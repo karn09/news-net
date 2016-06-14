@@ -6,6 +6,11 @@
 		<span ng-show="{{comments.type =='page'}}"><i>by <a ui-sref="userComments({id: comment.user._id})">{{comment.user.email}}</a></i></span>
 		<span ng-show="{{comments.type =='user'}}"><i>on <a ui-sref="article({id: comment.page._id})">{{comment.page.title}}</a> </i></span> 
 		on {{comment.dateStamp | date : 'short'}}
+
+		<span ng-show="{{user._id == comment.user._id}}"> -  
+			<a ng-click="edit()">[Edit]</a> | 
+			<a ng-click = "removeComment($index, comment._id)">[Delete]</a>
+		</span>
 	</li>
 </ul>
 

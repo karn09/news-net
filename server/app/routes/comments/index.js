@@ -69,7 +69,10 @@ router.post('/page/:id', function(req, res, next){
 	});
 	newComment.save()
 	.then(function(response){
-		res.send(response);
+		response.populate('user', function(err, doc){
+			if(!err) res.send(doc);
+			else res.send(err);
+		})
 	});
 });
 

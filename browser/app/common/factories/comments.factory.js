@@ -22,6 +22,13 @@ app.factory('CommentsFactory', function($http) {
   	})
   }
 
+  CommentsFactory.removeComment = function(id){
+    return $http.delete('/api/comments/' + id)
+    .then(function(response){
+      return response.data;
+    })
+  }
+
   return CommentsFactory;
   
 })
