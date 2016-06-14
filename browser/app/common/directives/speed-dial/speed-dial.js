@@ -13,8 +13,6 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope) {
 		link: function (scope, element, attribute) {
 
 			scope.$root.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-				console.log("Link State: ", toState.name);
-
 				var optionsByState = {
 					default: {
 						isOpen: false,
@@ -35,7 +33,20 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope) {
 								direction: "bottom"
 							}
 						],
-						takeAction: openDialog
+						takeAction: function($event, item){
+							$mdDialog.show({
+								scope: this,
+								preserveScope: true,
+								clickOutsideToClose: true,
+								controller: 'dialogFormCtrl',
+								controllerAs: 'dialog',
+								templateUrl: '/app/popup-dialog/popup-dialog.html',
+								targetEvent: $event,
+								locals: {
+									item: item
+								}
+							})
+						}
 					},
 
 					article: {
@@ -45,9 +56,9 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope) {
 						hover: false,
 						items: [
 							{
-								name: "Jump to discussion",
-								type: "discussion",
+								name: "Jump to Discussion",
 								icon: "/assets/icons/ic_chat_48px.svg",
+								goto: "pageComments",
 								direction: "top"
 							},
 							{
@@ -58,34 +69,11 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope) {
 							}
 
 						],
-						takeAction: jumpTo
+						takeAction: function($event, item){
+							$state.go(item.goto, {id: toParams.id});
+						}
 					}
 				} //End optionsByState
-
-				function openDialog($event, item) {
-
-					console.log("Open Dialog");
-
-					$mdDialog.show({
-						scope: this,
-						preserveScope: true,
-						clickOutsideToClose: true,
-						controller: 'dialogFormCtrl',
-						controllerAs: 'dialog',
-						templateUrl: '/app/popup-dialog/popup-dialog.html',
-						targetEvent: $event,
-						locals: {
-							item: item
-						}
-					})
-				}
-
-				function jumpTo($event, item){
-
-					console.log("Jump to state.");
-
-					$state.go('home')
-				}
 
 				if(optionsByState[toState.name]){
 					for(var key in optionsByState[toState.name]){
@@ -97,7 +85,9 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope) {
 					}
 				}
 
+
 			}); //End $on stateChangeSuccess
+
 		} //End link
 	}
 })
