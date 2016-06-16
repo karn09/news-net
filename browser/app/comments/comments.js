@@ -60,23 +60,24 @@ app.controller('CommentsCtrl', function($scope, $rootScope, $stateParams, $mdDia
 });
 
 
-// app.controller('editCommentCtrl', function($mdDialog, $state, CommentsFactory){
-//     this.close = function () {
-//         $mdDialog.cancel();
-//     };
+app.controller('editCommentCtrl', function($mdDialog, $state, CommentsFactory){
+    this.close = function () {
+        $mdDialog.cancel();
+    };
 
-//     this.submit = function (data) {
-//         // if type category, send to category api
-//         // if type url, send to url api
+    this.submit = function (data) {
+        console.log("Submit")
+        // if type category, send to category api
+        // if type url, send to url api
 
-//         console.log("(submit) data: ", data);
-//         CommentsFactory.editComment()
-//         .then(function(response){
-//             $mdDialog.hide();
-//             //Change scope
-//         })
-//     }
-// })
+        // console.log("(submit) data: ", data);
+    //     CommentsFactory.editComment()
+    //     .then(function(response){
+    //         $mdDialog.hide();
+    //         //Change scope
+    //     })
+    }
+})
 
 
 

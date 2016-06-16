@@ -35,7 +35,7 @@ router.get('/page/:id', function(req, res, next){
 				type: 'page',
 				comments: comments
 			}
-			console.log("res", response)
+			
 			res.json(response);
 		}, next);		
 	})

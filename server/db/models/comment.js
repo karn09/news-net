@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
     user: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'User'
+        type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true
     },
     page: {
         type: mongoose.Schema.Types.ObjectId, ref: 'Page'
@@ -57,7 +57,7 @@ schema.virtual('voteCount').get(function(){
 
 //Would normally just set select: false on votes field.
 //However, field is required by calculations in schema virtual 'voteCount'.
-//We want to expose voteCount, which relies on 'votes', but discard that data before sending out response.
+//Therefore, we want to expose 'votes' to voteCount, but discard that data before sending out response.
 schema.methods.toJSON = function(options){
     var document = this.toObject(options);
     delete(document.id);
