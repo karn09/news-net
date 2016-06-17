@@ -54,6 +54,29 @@ gulp.task('buildJS', ['lintJS'], function () {
         .pipe(gulp.dest('./public/app'));
 });
 
+gulp.task('lintIDB', function () {
+
+    return gulp.src('./browser/idb/**/*.js')
+        .pipe(plumber({
+            errorHandler: notify.onError('Linting FAILED! Check your gulp process.')
+        }))
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failOnError());
+});
+
+gulp.task('buildIDB', ['lintIDB'], function () {
+    return gulp.src('./browser/idb/**/*.js')
+        .pipe(plumber())
+        .pipe(sourcemaps.init())
+        .pipe(concat('db.js'))
+        .pipe(babel({
+            presets: ['es2015']
+        }))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('./public/idb'));
+});
+
 //ST Additions / Modifications
 gulp.task('buildCSS', function () {
 
@@ -100,9 +123,9 @@ gulp.task('clean', function(){
 
 gulp.task('testServerJS', function () {
     require('babel-register');
-	return gulp.src('./tests/server/**/*.js', {
-		read: false
-	}).pipe(mocha({ reporter: 'spec' }));
+    return gulp.src('./tests/server/**/*.js', {
+        read: false
+    }).pipe(mocha({ reporter: 'spec' }));
 });
 
 gulp.task('testServerJSWithCoverage', function (done) {
@@ -188,7 +211,7 @@ gulp.task('buildJSProduction', function () {
         .pipe(gulp.dest('./public/app'));
 });
 
-gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction', 'copyImages', 'copyFonts', 'copyHTML', 'generateServiceWorker']);
+gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction', 'buildIDB', 'copyImages', 'copyFonts', 'copyHTML', 'generateServiceWorker']);
 
 
 
@@ -197,9 +220,9 @@ gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction', 'copyIm
 
 gulp.task('build', function () {
     if (process.env.NODE_ENV === 'production') {
-        runSeq(['buildJSProduction', 'buildCSSProduction', 'copyImages', 'copyFonts', 'copyHTML', 'generateServiceWorker']);
+        runSeq(['buildJSProduction', 'buildCSSProduction', 'buildIDB', 'copyImages', 'copyFonts', 'copyHTML', 'generateServiceWorker']);
     } else {
-        runSeq(['buildJS', 'buildCSS', 'copyImages', 'copyFonts', 'copyHTML', 'generateServiceWorker']);
+        runSeq(['buildJS', 'buildCSS', 'copyImages', 'buildIDB', 'copyFonts', 'copyHTML', 'generateServiceWorker']);
     }
 });
 
@@ -210,7 +233,7 @@ gulp.task('default', function () {
 
     // Run when any JS file inside /browser changes.
     gulp.watch('browser/**/*.js', function () {
-        runSeq('buildJS', 'reload', 'generateServiceWorker');
+        runSeq('buildJS', 'buildIDB', 'reload', 'generateServiceWorker');
     });
 
     // Run when anything inside of browser/scss changes.
