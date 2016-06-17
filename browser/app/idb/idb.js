@@ -29,22 +29,12 @@
 				getAll: function () {
 					return '123';
 				},
-				add: function (store, value, id) {
+				addPage: function (value, id) {
 					var deferred = $q.defer();
-					if (store === 'categories') {
-						db.categories.bulkAdd(value)
-							.then(function (data) {
-								deferred.resolve(data);
-							})
-              .catch(function(err) {
-                deferred.resolve(err);
-              })
-					} else if (store === 'page') {
-						db.page.add(value)
-							.then(function (data) {
-								deferred.resolve(data);
-							})
-					}
+          db.page.add(value)
+            .then(function(data) {
+              deferred.resolve(data);
+            })
 					return deferred.promise;
 				}
 			};

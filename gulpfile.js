@@ -178,7 +178,7 @@ gulp.task('generateServiceWorker', function(callback) {
     }
 
     var runtimeCachingOptions = [
-    { urlPattern: '/api/pages',
+    { urlPattern: /\/api\/pages/,
       handler: 'fastest',
       options: {
         cache: {
@@ -187,7 +187,7 @@ gulp.task('generateServiceWorker', function(callback) {
         }
       }
     },
-    { urlPattern: '/articles/:id',
+    { urlPattern: /\/articles\/:id/,
       handler: 'fastest',
       options: {
         cache: {
@@ -196,15 +196,21 @@ gulp.task('generateServiceWorker', function(callback) {
         }
       }
     },
-    { urlPattern: '/api/categories',
-      handler: function(request) {
-        console.log(request)
-        return request;
-      },
+    { urlPattern: /\/api\/categories/,
+      handler: 'fastest',
       options: {
         cache: {
           maxEntries: 5,
           name: 'categories-cache'
+        }
+      }
+    },
+    { urlPattern: /\/subscriptions/,
+      handler: 'fastest',
+      options: {
+        cache: {
+          maxEntries: 5,
+          name: 'subscriptions-cache'
         }
       }
     }

@@ -27,8 +27,21 @@ app.factory('ArticlesFactory', function($http, idbService) {
     //   .then(function(response) {
     //     return response.json();
     //   })
+    console.log(window.navigator.onLine);
     return $http.get("/api/categories/")
     .then(function(response){
+      response.data.forEach(function(category) {
+        if (category.pages && category.pages.length > 0) {
+          category.pages.forEach(function(page) {
+            // console.log(page)
+              idbService.addPage(page)
+          })
+          // for (var i = 0; i < category.pages.length; i++) {
+          // }
+        }
+      });
+
+      console.log('connected: ', response.data)
       return response.data;
       // return idbService.add('categories', response.data)
       //   .then(function(data) {
@@ -40,6 +53,9 @@ app.factory('ArticlesFactory', function($http, idbService) {
       //     console.log(response.data)
       //     return response.data
       //   })
+    })
+    .catch(function(err) {
+      console.log("No connection: ", err);
     })
   }
 
