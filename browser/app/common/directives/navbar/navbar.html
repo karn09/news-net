@@ -1,17 +1,36 @@
 <md-toolbar>
     <div class="md-toolbar-tools">
-        <md-button ng-click="toggle()" class="md-icon-button" aria-label="Settings">
-            <md-icon md-svg-icon="/assets/icons/menu.svg"></md-icon>
+      <md-button ng-click="toggle()" class="md-icon-button" aria-label="Settings">
+          <md-icon md-svg-icon="/assets/icons/menu.svg"></md-icon>
+      </md-button>
+      <h2><span>News</span></h2>
+      <span flex></span>
+      <md-button class="md-icon-button" aria-label="Favorite">
+        <md-icon md-svg-icon="/assets/icons/favorite.svg" style="color: greenyellow;"></md-icon>
+      </md-button>
+      <!-- vertical menu bar -->
+      <md-menu md-position-mode="target-right target">
+        <!-- declare button -->
+        <md-button class="md-icon-button" aria-label="More" ng-click="$mdOpenMenu($event)">
+          <md-icon md-svg-icon="/assets/icons/more_vert.svg"></md-icon>
         </md-button>
-        <h2>
-      <span>News</span>
-    </h2>
-        <span flex></span>
-        <md-button class="md-icon-button" aria-label="Favorite">
-            <md-icon md-svg-icon="/assets/icons/favorite.svg" style="color: greenyellow;"></md-icon>
-        </md-button>
-        <md-button class="md-icon-button" aria-label="More">
-            <md-icon md-svg-icon="/assets/icons/more_vert.svg"></md-icon>
-        </md-button>
-    </div>
+
+      <!-- menu content -->
+      <md-menu-content width="4">
+        <md-menu-item>
+          <md-button ng-if="!isLoggedIn()"><a ui-sref="login">
+            Login</a>
+          </md-button>
+          <md-button ng-if="isLoggedIn()" ng-click="logout()">
+            Logout
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button>
+            Settings
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+  </div>
 </md-toolbar>
