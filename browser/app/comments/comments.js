@@ -60,26 +60,21 @@ app.controller('CommentsCtrl', function($scope, $rootScope, $stateParams, $mdDia
 });
 
 
-app.controller('editCommentCtrl', function($mdDialog, $state, CommentsFactory){
-    this.close = function () {
-        $mdDialog.cancel();
-    };
+//Need to fix Angular bug here
+// app.controller('editCommentCtrl', function($mdDialog, $state, CommentsFactory){
+//     this.close = function () {
+//         $mdDialog.cancel();
+//     };
 
-    this.submit = function (data) {
-        console.log("Submit")
-        // if type category, send to category api
-        // if type url, send to url api
-
-        // console.log("(submit) data: ", data);
-    //     CommentsFactory.editComment()
-    //     .then(function(response){
-    //         $mdDialog.hide();
-    //         //Change scope
-    //     })
-    }
-})
-
-
+//     this.submit = function (data) {
+//         console.log("(submit) data: ", data);
+//         CommentsFactory.editComment()
+//         .then(function(response){
+//             $mdDialog.hide();
+//             //Change scope
+//         })
+//     }
+// })
 
 
 
