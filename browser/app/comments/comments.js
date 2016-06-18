@@ -26,18 +26,20 @@ app.config(function ($stateProvider) {
 });
 
 //Need to fix Angular bug here
-app.controller('editCommentCtrl', function($mdDialog, $state, CommentsFactory){
+app.controller('editCommentCtrl', function($mdDialog, $state, $scope, CommentsFactory){
     this.close = function () {
         $mdDialog.cancel();
     };
 
-    this.submit = function (id, data) {
-        console.log("(submit) data: ", data);
-        CommentsFactory.editComment(id, data)
+    this.submit = function (index, data) {
+        var comment  = $scope.comments.comments[index];
+        CommentsFactory.editComment(comment._id, data)
         .then(function(response){
             $mdDialog.hide();
-            //Change scope
+            $scope.comments.comments[index].text = response.text;
         })
+
+
     }
 })
 

@@ -1,18 +1,15 @@
 <md-dialog layout-padding>
-    <!-- <h4>
-      <div>{{item.name}}</div>
-    </h4> -->
     <md-dialog-content>
         <p></p>
-        <md-input-container>
+        <md-input-container md-no-float>
             <label>Edit Comment</label>
-            <input ng-model="data">
+            <input placeholder="{{comment.text}}" ng-model="data">
         </md-input-container>
         <div class="md-actions">
             <md-button aria-label="Close dialog" ng-click="edit.close()" class="md-primary">
                 Cancel
             </md-button>
-            <md-button aria-label="Submit dialog" ng-click="edit.submit(comment._id, data)" class="md-primary">
+            <md-button aria-label="Submit dialog" ng-click="edit.submit($index, data)" class="md-primary">
                 Submit
             </md-button>
         </div>
