@@ -25,6 +25,22 @@ app.config(function ($stateProvider) {
     });
 });
 
+//Need to fix Angular bug here
+app.controller('editCommentCtrl', function($mdDialog, $state, CommentsFactory){
+    this.close = function () {
+        $mdDialog.cancel();
+    };
+
+    this.submit = function (id, data) {
+        console.log("(submit) data: ", data);
+        CommentsFactory.editComment(id, data)
+        .then(function(response){
+            $mdDialog.hide();
+            //Change scope
+        })
+    }
+})
+
 app.controller('CommentsCtrl', function($scope, $rootScope, $stateParams, $mdDialog, comments, CommentsFactory, AuthService){
     $scope.comments = comments;
     console.log("scope comments", $scope.comments)
@@ -60,21 +76,6 @@ app.controller('CommentsCtrl', function($scope, $rootScope, $stateParams, $mdDia
 });
 
 
-//Need to fix Angular bug here
-// app.controller('editCommentCtrl', function($mdDialog, $state, CommentsFactory){
-//     this.close = function () {
-//         $mdDialog.cancel();
-//     };
-
-//     this.submit = function (data) {
-//         console.log("(submit) data: ", data);
-//         CommentsFactory.editComment()
-//         .then(function(response){
-//             $mdDialog.hide();
-//             //Change scope
-//         })
-//     }
-// })
 
 
 
