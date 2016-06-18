@@ -23,7 +23,6 @@ if ('serviceWorker' in navigator) {
   // *Don't* register service worker file in, e.g., a scripts/ sub-directory!
   // See https://github.com/slightlyoff/ServiceWorker/issues/468
   //
-
   navigator.serviceWorker.register('service-worker.js').then(function(reg) {
     // updatefound is fired if service-worker.js changes.
     reg.onupdatefound = function() {
@@ -32,6 +31,7 @@ if ('serviceWorker' in navigator) {
       var installingWorker = reg.installing;
 
       installingWorker.onstatechange = function() {
+
         switch (installingWorker.state) {
           case 'installed':
             if (navigator.serviceWorker.controller) {

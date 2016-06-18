@@ -191,7 +191,7 @@ gulp.task('generateServiceWorker', function(callback) {
       handler: 'fastest',
       options: {
         cache: {
-          maxEntries: 1,
+          maxEntries: 20,
           name: 'articles-cache'
         }
       }
@@ -217,10 +217,12 @@ gulp.task('generateServiceWorker', function(callback) {
   ];
 
   swPrecache.write(path.join(rootDir, 'service-worker.js'), {
-    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,ico,svg}', rootDir + '/app/**/*.{js,html,css,png,jpg,gif,ico,svg}'],
+    //rootDir + '/**/*.{js,html,css,png,jpg,gif,ico,svg}'
+    importScripts: ['sw-routes.js'], // import script from public and insert into service-worker scope
+    staticFileGlobs: [rootDir + '/app/**/*.{js,html,css,png,jpg,gif,ico,svg}', rootDir + '/assets/**/*.{html,css,png,jpg,gif,ico,svg}'],
     stripPrefix: rootDir,
     dynamicUrlToDependencies: dependencies,
-    runtimeCaching: runtimeCachingOptions
+    runtimeCaching: runtimeCachingOptions,
   }, callback);
 });
 
