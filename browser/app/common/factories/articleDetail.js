@@ -1,4 +1,4 @@
-app.factory('ArticlesFactory', function ($http, idbService) {
+app.factory('ArticlesFactory', function ($http) {
 	var detailObj = {};
 
 	detailObj.fetchAll = function () {

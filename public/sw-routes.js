@@ -1,6 +1,8 @@
+
+
 // var helpers = require('../helpers');
 // var cacheOnly = require('./cacheOnly');
-function category(request, values, options) {
+function pageSave(request, values, options) {
 
   return fetch(request.clone())
     .then(function(response) {
@@ -43,11 +45,11 @@ function category(request, values, options) {
 }
 
 
-// toolbox.router.post(/\/api\/categories/, category, {
-// 	debug: true,
-//   cache: {
-//     name: 'cat-cache',
-//     maxEntries: 10,
-//     maxAgeSeconds: 360,
-//   }
-// })
+toolbox.router.post(/\/api\/pages/, pageSave, {
+	debug: true,
+  cache: {
+    name: 'page-cache',
+    maxEntries: 10,
+    maxAgeSeconds: 360,
+  }
+})

@@ -32,6 +32,4 @@ app.controller('ArticleCtrl', function($scope, article, $compile) {
     $scope.current = article;
     $scope.title = article.title;
     $scope.content = article.content;
-
-    console.log("CURRENT", $scope.current)
 });
