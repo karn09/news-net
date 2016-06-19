@@ -75,6 +75,16 @@ app.controller('CommentsCtrl', function($scope, $rootScope, $stateParams, $mdDia
             templateUrl: '/app/comments/edit-comment.html',
         })
     }
+
+    $scope.vote = function(id, direction){
+        CommentsFactory.vote(id, direction)
+        .then(function(response){
+            var index = $scope.comments.comments.map(function(element){ return element._id }).indexOf(response._id);
+            $scope.comments.comments[index].voteCount = response.voteCount;
+        })
+    }
+
+    
 });
 
 

@@ -36,6 +36,13 @@ app.factory('CommentsFactory', function($http) {
     })
   }
 
+  CommentsFactory.vote = function(id, direction){
+    return $http.put('/api/comments/' + id + `/${direction}vote`)
+    .then(function(response){
+      return response.data;
+    })
+  }
+
   return CommentsFactory;
   
 })
