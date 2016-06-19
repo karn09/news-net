@@ -12,9 +12,10 @@
         </p>
     </md-card-content>
     <md-card-actions layout="row" layout-align="end center">
-        <md-button class="md-icon-button" aria-label="Favorite">
-            <md-icon ng-if="article.saved" md-svg-icon="assets/icons/favorite.svg"></md-icon>
-            <md-icon md-svg-icon="assets/icons/ic_favorite_border_black_24px.svg"></md-icon>
+        <md-button ng-click="addToCollection(article)" class="md-icon-button"  aria-label="Favorite">
+          <!-- ng-class="{'liked': article.liked}" -->
+            <md-icon ng-if="!article.liked" md-svg-icon="assets/icons/ic_favorite_border_black_24px.svg"></md-icon>
+            <md-icon ng-if="article.liked" md-svg-icon="assets/icons/favorite.svg"></md-icon>
         </md-button>
         <md-button class="md-icon-button" aria-label="Settings">
             <md-icon md-svg-icon="assets/icons/menu.svg"></md-icon>

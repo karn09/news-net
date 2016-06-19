@@ -21,10 +21,9 @@ router.get('/', function (req, res, next) {
 					return new Promise(function (resolve, reject) {
 							resolve(pages.map(function (page) {
 								if (user && user.pages.indexOf(page._id) > -1) {
-									var modPage = new Object(page);
-									modPage.saved = true;
-									console.log('Modified Page: ', modPage)
-									return modPage
+									var modPage = Object.assign(page, { saved: true});
+									console.log('Modified Page: ', Object.keys(modPage))
+									return modPage;
 								} else {
 									return page;
 								}
@@ -36,6 +35,23 @@ router.get('/', function (req, res, next) {
 						}, next)
 				})
 		})
+})
+
+//Limit to admin or user
+router.get('/user/me', function(req, res, next){
+    User.findById(req.session.passport.user)
+    .then(function(user){
+        res.send(user.pages);
+    })
+})
+
+//Limit to admin or user
+router.get('/user/:id', function(req, res, next){
+    User.findById(req.params.id)
+    .populate('pages')
+    .then(function(pages){
+        res.send(pages); //Double check on this
+    })
 })
 
 //Get all pages for a given category
@@ -80,6 +96,35 @@ router.get('/:id', function (req, res, next) {
 			res.json(page);
 		}, next);
 });
+
+router.put('/:id/favorite', function(req, res, next){
+    User.findById(req.session.passport.user)
+    .then(function(user){
+        var pageId = req.params.id;
+        if(user.pages.indexOf(pageId) < 0) {
+            user.pages.push(pageId);
+            return user.save();
+        }
+        return user;
+    }).then(function(updatedUser){
+        res.send(updatedUser.pages);
+    })
+})
+
+router.put('/:id/unfavorite', function(req, res, next){
+    User.findById(req.session.passport.user)
+    .then(function(user){
+        var pageId = req.params.id;
+        var pageIndex = user.pages.indexOf(pageId);
+        if(pageIndex < 0) {
+            user.pages.splice(pageIndex, 1);
+            return user.save();
+        }
+        return user;
+    }).then(function(updatedUser){
+        res.send(updatedUser.pages);
+    })
+})
 
 //Post article
 //Optional body param: 'category'

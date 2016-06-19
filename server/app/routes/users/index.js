@@ -37,7 +37,7 @@ router.post('/', function(req, res, next){
 	});
 });
 
-
+// these routes seem to be duplicated within pages route- line 100 - 124
 router.put('/addPage/:id', function(req, res, next){
 	User.findOne({_id: req.params.id})
 	.then(function(user){
