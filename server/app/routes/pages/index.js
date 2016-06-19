@@ -15,11 +15,19 @@ router.get('/', function(req, res, next){
 });
 
 //Limit to admin or user
+router.get('/user/me', function(req, res, next){
+    User.findById(req.session.passport.user)
+    .then(function(user){
+        res.send(user.pages);
+    })
+})
+
+//Limit to admin or user
 router.get('/user/:id', function(req, res, next){
     User.findById(req.params.id)
     .populate('pages')
-    .then(function(pages){
-        res.send(pages);
+    .then(function(pages){ 
+        res.send(pages); //Double check on this
     })
 })
 
@@ -65,7 +73,6 @@ router.get('/:id', function(req, res, next){
 });
 
 router.put('/:id/favorite', function(req, res, next){
-    console.log("FAVE ME")
     User.findById(req.session.passport.user)
     .then(function(user){
         var pageId = req.params.id;
@@ -74,9 +81,23 @@ router.put('/:id/favorite', function(req, res, next){
             return user.save();
         }
         return user;
-    }).then(function(upToDateUser){
-        console.log("utdu", upToDateUser)
-        res.send(upToDateUser.pages);
+    }).then(function(updatedUser){
+        res.send(updatedUser.pages);
+    }) 
+})
+
+router.put('/:id/unfavorite', function(req, res, next){
+    User.findById(req.session.passport.user)
+    .then(function(user){
+        var pageId = req.params.id;
+        var pageIndex = user.pages.indexOf(pageId);
+        if(pageIndex < 0) {
+            user.pages.splice(pageIndex, 1);
+            return user.save();
+        }
+        return user;
+    }).then(function(updatedUser){
+        res.send(updatedUser.pages);
     }) 
 })
 

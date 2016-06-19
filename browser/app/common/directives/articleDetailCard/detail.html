@@ -11,7 +11,7 @@
         </p>
     </md-card-content>
     <md-card-actions layout="row" layout-align="end center">
-        <md-button class="md-icon-button" aria-label="Favorite">
+        <md-button class="md-icon-button" ng-class="{'liked': article.liked}" aria-label="Favorite">
             <md-icon md-svg-icon="assets/icons/favorite.svg"></md-icon>
         </md-button>
         <md-button class="md-icon-button" aria-label="Settings">

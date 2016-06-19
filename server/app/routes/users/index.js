@@ -41,7 +41,7 @@ router.post('/', function(req, res, next){
 router.put('/addPage/:id', function(req, res, next){
 	User.findOne({_id: req.params.id})
 	.then(function(user){
-		user.pages.push(req.body.page);
+		user.pages.push(req.body.page); //Need to change this (by page ID for existing page, not resave entire contents)
 		return user.save();
 	})
 	.then(function(response){
