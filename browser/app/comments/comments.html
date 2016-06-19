@@ -10,8 +10,8 @@
 				on {{comment.dateStamp | date : 'short'}}
 			</div>
 			<div class="comment-panel">
-				<b>{{comment.voteCount }}</b>
-				<span class="comment-buttons" ng-show="{{user._id == comment.user._id}}">  
+				<span class="voteCount"><b>{{comment.voteCount }}</b></span>
+				<span class="comment-buttons modify" ng-show="{{user._id == comment.user._id}}">  
 					<md-button class="md-icon-button" ng-click="editComment()" aria-label="Edit">
 						 <md-icon md-svg-icon="assets/icons/ic_mode_edit_black_24px.svg"></md-icon>
 					</md-button> 
@@ -19,7 +19,7 @@
 						 <md-icon md-svg-icon="assets/icons/ic_delete_black_24px.svg"></md-icon>
 					</md-button> 
 				</span>
-				<span class="comment-buttons" ng-show="{{user}}">
+				<span class="comment-buttons vote" ng-show="{{user}}">
 					<md-button class="md-icon-button" ng-click="vote(comment._id, 'up')" aria-label="Like">
 						 <md-icon md-svg-icon="assets/icons/ic_thumb_up_black_24px.svg"></md-icon>
 					</md-button> 
