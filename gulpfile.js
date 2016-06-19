@@ -207,6 +207,15 @@ gulp.task('generateServiceWorker', function(callback) {
         }
       }
     },
+    { urlPattern: /\//,
+      handler: 'fastest',
+      options: {
+        cache: {
+          maxEntries: 5,
+          name: 'home-cache'
+        }
+      }
+    },
   ];
 
   swPrecache.write(path.join(rootDir, 'service-worker.js'), {
