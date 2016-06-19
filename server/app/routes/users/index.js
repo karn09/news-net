@@ -16,6 +16,14 @@ router.get('/', function(req, res, next){
 	.then(null, next);
 });
 
+router.get('/me', function(req, res, next){
+	User.findById(req.session.passport.user)
+	.populate('pages')
+	.then(function(pages){
+		res.json(pages); //Double check on this
+	}, next)
+});
+
 router.get('/:id', function(req, res, next){
 	User.find({_id: req.params.id})
 	.populate('pages')
@@ -24,6 +32,7 @@ router.get('/:id', function(req, res, next){
 	})
 	.then(null, next);
 });
+
 
 
 router.post('/', function(req, res, next){

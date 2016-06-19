@@ -53,9 +53,18 @@ app.factory('ArticlesFactory', function ($http) {
 	}
 
 	//Methods for current (logged in user)
-	ArticlesFactory.fetchUserArticles = function(){
+	ArticlesFactory.fetchUserArticlesArray = function(){
 		return $http.get('api/pages/user/me')
 		.then(function(response){
+			console.log(response.data)
+			return response.data;
+		})
+	}
+
+	ArticlesFactory.fetchUserArticlesPopulated = function(){
+		return $http.get('api/users/me')
+		.then(function(response){
+			console.log(response.data)
 			return response.data;
 		})
 	}
