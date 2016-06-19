@@ -2,6 +2,7 @@
     <a ui-sref="article({id: article._id})"><img src="{{article.leadImageUrl}}" class="md-card-image" alt="image caption"></a>
     <md-card-title>
         <md-card-title-text>
+          {{ article.saved }}
             <a ui-sref="article({id: article._id})" id="title"><span class="md-headline">{{article.title}}</span></a>
         </md-card-title-text>
     </md-card-title>
@@ -11,15 +12,17 @@
         </p>
     </md-card-content>
     <md-card-actions layout="row" layout-align="end center">
-        <md-button class="md-icon-button" aria-label="Favorite">
-            <md-icon md-svg-icon="assets/icons/favorite.svg"></md-icon>
+        <md-button ng-click="addToCollection(article)" class="md-icon-button"  aria-label="Favorite">
+          <!-- ng-class="{'liked': article.liked}" -->
+            <md-icon ng-if="!article.liked" md-svg-icon="assets/icons/ic_favorite_border_black_24px.svg"></md-icon>
+            <md-icon ng-if="article.liked" md-svg-icon="assets/icons/favorite.svg"></md-icon>
         </md-button>
         <md-button class="md-icon-button" aria-label="Settings">
             <md-icon md-svg-icon="assets/icons/menu.svg"></md-icon>
         </md-button>
         <md-button class="md-icon-button" aria-label="Share">
             <md-icon md-svg-icon="assets/icons/share-arrow.svg"></md-icon>
-        </md-button> 
+        </md-button>
         <md-button ui-sref="pageComments({id: article._id})" class="md-icon-button" aria-label="Comments">
             <md-icon md-svg-icon="/assets/icons/ic_chat_48px.svg"></md-icon>
         </md-button>
