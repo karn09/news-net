@@ -179,33 +179,16 @@ gulp.task('generateServiceWorker', function(callback) {
     }
 
     var runtimeCachingOptions = [
-    // { urlPattern: /\/api\/pages/,
-    //   handler: 'fastest',
-    //   options: {
-    //     cache: {
-    //       maxEntries: 20,
-    //       name: 'pages-cache'
-    //     }
-    //   }
-    // },
-    // { urlPattern: /\/articles\/:id/,
-    //   handler: 'fastest',
-    //   options: {
-    //     cache: {
-    //       maxEntries: 20,
-    //       name: 'articles-cache'
-    //     }
-    //   }
-    // },
-    // { urlPattern: /\/api\/categories/,
-    //   handler: 'fastest',
-    //   options: {
-    //     cache: {
-    //       maxEntries: 5,
-    //       name: 'categories-cache'
-    //     }
-    //   }
-    // },
+
+    { urlPattern: /\/api\/categories/,
+      handler: 'fastest',
+      options: {
+        cache: {
+          maxEntries: 5,
+          name: 'categories-cache'
+        }
+      }
+    },
     { urlPattern: /\/subscriptions/,
       handler: 'fastest',
       options: {
