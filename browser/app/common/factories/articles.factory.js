@@ -1,5 +1,7 @@
 app.factory('ArticlesFactory', function ($http) {
 	var ArticlesFactory = {};
+  var allArticlesCache = [];
+	var userArticlesCache = [];
 
 	ArticlesFactory.fetchAll = function () {
 		return $http.get("/api/pages")
@@ -64,14 +66,15 @@ app.factory('ArticlesFactory', function ($http) {
 	ArticlesFactory.fetchUserArticlesPopulated = function(){
 		return $http.get('api/users/me')
 		.then(function(response){
-			console.log(response.data)
-			return response.data;
+			angular.copy(response.data.pages, userArticlesCache)
+			return userArticlesCache
 		})
 	}
 
 	ArticlesFactory.favoriteArticle = function(id){
 		return $http.put('api/pages/' + id + '/favorite')
 		.then(function(response){
+			console.log(response.data)
 			return response.data;
 		})
 	}
@@ -79,6 +82,10 @@ app.factory('ArticlesFactory', function ($http) {
 	ArticlesFactory.unfavoriteArticle = function(id){
 		return $http.put('api/pages/' + id + '/unfavorite')
 		.then(function(response){
+			_.remove(userArticlesCache, function(article) {
+				return id === article._id
+			})
+			console.log('unfav: ', userArticlesCache)
 			return response.data;
 		})
 	}
