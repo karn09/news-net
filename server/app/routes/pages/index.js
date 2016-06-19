@@ -14,6 +14,15 @@ router.get('/', function(req, res, next){
 	}, next);
 });
 
+//Limit to admin or user
+router.get('/user/:id', function(req, res, next){
+    User.findById(req.params.id)
+    .populate('pages')
+    .then(function(pages){
+        res.send(pages);
+    })
+})
+
 //Get all pages for a given category
 //Usage: /api/pages/category?id=<Category ID> or ?name=<Category Name>. If both, will ignore name.
 router.get('/category/', function(req, res, next){
@@ -54,6 +63,22 @@ router.get('/:id', function(req, res, next){
 		res.json(page);
 	}, next);
 });
+
+router.put('/:id/favorite', function(req, res, next){
+    console.log("FAVE ME")
+    User.findById(req.session.passport.user)
+    .then(function(user){
+        var pageId = req.params.id;
+        if(user.pages.indexOf(pageId) < 0) {
+            user.pages.push(pageId);
+            return user.save();
+        }
+        return user;
+    }).then(function(upToDateUser){
+        console.log("utdu", upToDateUser)
+        res.send(upToDateUser.pages);
+    }) 
+})
 
 //Post article
 //Optional body param: 'category'
