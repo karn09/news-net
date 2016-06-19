@@ -30,12 +30,17 @@ router.get('/page/:id', function(req, res, next){
 		Comment.find({page: req.params.id})
 		.populate(['user'])
 		.then(function(comments){
+			comments.sort(function(a,b){
+				return b.voteCount - a.voteCount;
+			})
+
 			var response = {
 				for: page.title,
 				type: 'page',
 				comments: comments
 			}
 			
+			console.log("res", response);
 			res.json(response);
 		}, next);		
 	})
