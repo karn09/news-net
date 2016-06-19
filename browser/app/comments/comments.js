@@ -81,6 +81,9 @@ app.controller('CommentsCtrl', function($scope, $rootScope, $stateParams, $mdDia
         .then(function(response){
             var index = $scope.comments.comments.map(function(element){ return element._id }).indexOf(response._id);
             $scope.comments.comments[index].voteCount = response.voteCount;
+            $scope.comments.comments.sort(function(a,b){ 
+                return b.voteCount - a.voteCount;
+            })
         })
     }
 
