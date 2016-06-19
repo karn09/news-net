@@ -177,6 +177,19 @@ var seedComments = function(){
       }];
 
       return Comment.create(comments);
+      
+    }).then(function(comments){
+      var comment = comments[1];
+      return User.findOne({email: "testing@fsa.com"})
+      .then(function(user){
+        var upvote = {
+          userId: user._id,
+          vote: 1
+        }
+
+        comment.votes.push(upvote);
+        return comment.save();
+      })
     })
 
     var p2 = Page.findOne({title : "Game Of Thrones' Might've Spoiled Its Own Cliffhanger"})
@@ -188,7 +201,8 @@ var seedComments = function(){
       }
 
       return Comment.create(comment);
-    })
+    });
+
       
     return Promise.all([p1, p2]);
   }) 

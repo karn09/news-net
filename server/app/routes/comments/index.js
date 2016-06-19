@@ -30,12 +30,18 @@ router.get('/page/:id', function(req, res, next){
 		Comment.find({page: req.params.id})
 		.populate(['user'])
 		.then(function(comments){
+			//Sort by vote count, descending
+			comments.sort(function(a,b){ 
+				return b.voteCount - a.voteCount;
+			})
+
 			var response = {
 				for: page.title,
 				type: 'page',
 				comments: comments
 			}
 			
+			console.log("res", response);
 			res.json(response);
 		}, next);		
 	})
@@ -111,7 +117,10 @@ router.put('/:id/upvote/', function(req, res, next){
 		}
 		
 		return comment.save()
-	}).then(function(response){ res.send("Upvoted comment " + response._id)}, next);
+	}).then(function(response){ 
+		console.log("Upvoted comment " + response._id);
+		res.send(response);
+	}, next);
 });
 
 router.put('/:id/downvote/', function(req, res, next){
@@ -133,7 +142,10 @@ router.put('/:id/downvote/', function(req, res, next){
 		}
 
 		return comment.save()
-	}).then(function(response){ res.send("Downvoted comment " + response._id)}, next);	
+	}).then(function(response){ 
+		console.log("Downvoted comment " + response._id);
+		res.send(response)
+	}, next);	
 });
 
 router.delete('/:id', function(req, res, next){
