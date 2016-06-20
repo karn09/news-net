@@ -6,7 +6,7 @@ var schema = new mongoose.Schema({
         enum: ['public', 'private']
     },
     description: {
-         type: String
+        type: String
     },
     pages: [{
         type: mongoose.Schema.Types.ObjectId, ref: 'Page'

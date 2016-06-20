@@ -9,6 +9,8 @@ router.use('/users', require('./users'));
 router.use('/parser', require('./parser'));
 router.use('/pages', require('./pages'));
 router.use('/categories', require('./categories'));
+router.use('/folders', require('./folders'));
+router.use('/subscriptions', require('./subscriptions'));
 
 // Make sure this is after all of
 // the registered routes!

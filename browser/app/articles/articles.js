@@ -24,8 +24,22 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('ArticlesCtrl', function($scope, articles){
+app.controller('ArticlesCtrl', function($scope, articles, ArticlesFactory){
     $scope.articles = articles;
+
+    ArticlesFactory.fetchUserArticles()
+    .then(function(savedArticles){
+        savedArticles.forEach(function(id){
+
+            var index = $scope.articles.map(function(article){ 
+                return article._id + "";
+            }).indexOf(id + "");
+
+            if(index >= 0){
+                $scope.articles[index].liked = true;
+            }
+        })
+    })
 })
 
 app.controller('ArticleCtrl', function($scope, article, $compile) {
