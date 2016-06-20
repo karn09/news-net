@@ -15,6 +15,19 @@ router.get('/', function(req, res, next){
 	}, next)
 });
 
+//Shortcut for below
+router.get('/user/me', function(req, res, next){
+
+  var field = '';
+  if(req.query.long) field = 'pages'
+    
+  Category.find({type: type, subscribers: req.session.passport.user})
+  .populate(field)
+  .then(function(folders){
+    res.send(folders);
+  }, next)
+})
+
 //Admin or self
 router.get('/user/:userId', function(req, res, next){
 	Category.find({type: type, subscribers: req.params.userId})
@@ -23,13 +36,6 @@ router.get('/user/:userId', function(req, res, next){
 	}, next)
 })
 
-//Shortcut for above
-router.get('/user/me', function(req, res, next){
-	Category.find({type: type, subscribers: req.session.passport.user})
-	.then(function(folders){
-		res.send(folders);
-	}, next)
-})
 
 //Admin or owner
 router.get('/:id', function(req, res, next){

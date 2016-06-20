@@ -20,9 +20,7 @@
         </div>
 
         <ul class="sidebar-list sublist" id="subscriptions">
-            <a href="#"><li>Sports</li></a>
-            <a href="#"><li>Arts</li></a>
-            <a href="#"><li>Science</li></a>
+            <a ng-repeat="subscription in subscriptions" href="#"><li>{{subscription.description}}</li></a>
         </ul>
 
         <md-divider></md-divider>
@@ -33,15 +31,7 @@
         </div>
 
         <ul class="sidebar-list sublist" id="folders">
-            <a href="#"><li>awesome_folder</li></a>
-            <a href="#"><li>for_research</li></a>
-            <a href="#"><li>for_thesis</li></a>
-            <a href="#"><li>awesome_folder</li></a>
-            <a href="#"><li>for_research</li></a>
-            <a href="#"><li>for_thesis</li></a>
-            <a href="#"><li>awesome_folder</li></a>
-            <a href="#"><li>for_research</li></a>
-            <a href="#"><li>for_thesis</li></a>
+            <a ng-repeat="folder in folders" href="#"><li>{{folder.description}}</li></a>
         </ul>
 
         <md-divider></md-divider>
