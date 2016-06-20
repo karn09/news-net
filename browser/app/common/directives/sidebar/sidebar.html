@@ -20,7 +20,7 @@
         </div>
 
         <ul class="sidebar-list sublist" id="subscriptions">
-            <a ng-repeat="subscription in subscriptions" href="#"><li>{{subscription.description}}</li></a>
+            <a ng-repeat="subscription in subscriptions" ui-sref="subscriptions.section({name: subscription.description})"><li>{{subscription.description}}</li></a>
         </ul>
 
         <md-divider></md-divider>
