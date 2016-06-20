@@ -118,7 +118,6 @@ router.put('/:id/unfavorite', function(req, res, next){
         var pageIndex = user.pages.indexOf(pageId);
         if(pageIndex != -1) {
             user.pages.splice(pageIndex, 1);
-						console.log(user.pages)
             return user.save();
         }
         return user;
