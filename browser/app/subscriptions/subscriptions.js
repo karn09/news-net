@@ -32,5 +32,4 @@ app.controller('SubscriptionSectionCtrl', function($scope, $stateParams, categor
 	}).indexOf($stateParams.name.toLowerCase());
 
 	$scope.categories = [categories[subscriptionIndex]];
-	console.log("index", subscriptionIndex, "overwrite", $scope.categories)
 });
