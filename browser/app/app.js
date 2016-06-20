@@ -1,4 +1,14 @@
 'use strict';
+
+function cacheDelete() {
+  console.log('Deleting cache...');
+  caches.keys().then(function (keys) {
+  	keys.forEach(function (key) {
+  		caches.delete(key)
+  	})
+  })
+}
+
 window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngMaterial', 'ngMessages']);
 
 app.config(function ($urlRouterProvider, $locationProvider, $mdThemingProvider) {

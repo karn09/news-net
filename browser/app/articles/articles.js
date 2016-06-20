@@ -25,13 +25,13 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('ArticlesCtrl', function($scope, articles, ArticlesFactory){
-    $scope.articles = articles;
+    $scope.articles = articles.pages || articles;
 
-    ArticlesFactory.fetchUserArticles()
+    ArticlesFactory.fetchUserArticlesArray()
     .then(function(savedArticles){
         savedArticles.forEach(function(id){
 
-            var index = $scope.articles.map(function(article){ 
+            var index = $scope.articles.map(function(article){
                 return article._id + "";
             }).indexOf(id + "");
 

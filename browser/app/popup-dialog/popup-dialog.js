@@ -1,4 +1,4 @@
-app.controller('dialogFormCtrl', function ($mdDialog, ParserFactory, Session) {
+app.controller('dialogFormCtrl', function ($mdDialog, ArticlesFactory, Session) {
 
 	this.close = function () {
 		$mdDialog.cancel();
@@ -11,7 +11,7 @@ app.controller('dialogFormCtrl', function ($mdDialog, ParserFactory, Session) {
 		console.log("(submit) data: ", data);
 
 		if (type === 'url') {
-			ParserFactory.parseUrl(data, Session.user._id)
+			ArticlesFactory.parseUrl(data, Session.user._id)
 				.then(function (response) {
 					$mdDialog.hide();
 					// $scope.parsed = response;
