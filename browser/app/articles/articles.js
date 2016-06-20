@@ -26,7 +26,7 @@ app.config(function ($stateProvider) {
 
 app.controller('ArticlesCtrl', function($scope, articles, ArticlesFactory){
     $scope.articles = articles.pages || articles;
-    console.log($scope.articles)
+
     ArticlesFactory.fetchUserArticlesArray()
     .then(function(savedArticles){
         savedArticles.forEach(function(id){
