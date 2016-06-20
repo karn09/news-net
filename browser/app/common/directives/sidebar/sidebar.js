@@ -16,7 +16,6 @@ app.directive('sidebar', function (CategoriesFactory) {
 				scope.folders = folders;
 			})
 
-			console.log("Sidebar scope", scope)
 		    $(".menu-up").click(function(){
 		    	if($(this).css('transform')	!== 'none'){
 		    		$(this).css("transform", "");
