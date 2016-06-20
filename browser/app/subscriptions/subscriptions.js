@@ -15,9 +15,7 @@ app.config(function ($stateProvider) {
 			parent: 'subscriptions',
 			url: '/:name',
 			templateUrl: 'app/subscriptions/subscriptions.html',
-			controller: function(){
-				console.log("hfhrf")
-			}
+			controller: 'SubscriptionSectionCtrl'
 		})
 });
 
@@ -29,5 +27,10 @@ app.controller('SubscriptionsCtrl', function($scope, categories) {
 });
 
 app.controller('SubscriptionSectionCtrl', function($scope, $stateParams, categories){
-	console.log("HI FROM CTRL")
+	var subscriptionIndex = categories.map(function(element){
+		return element.description.toLowerCase();
+	}).indexOf($stateParams.name.toLowerCase());
+
+	$scope.categories = [categories[subscriptionIndex]];
+	console.log("index", subscriptionIndex, "overwrite", $scope.categories)
 });
