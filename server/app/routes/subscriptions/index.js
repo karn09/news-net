@@ -14,6 +14,19 @@ router.get('/', function(req, res, next){
 	})
 });
 
+//Shortcut for below
+router.get('/user/me', function(req, res, next){
+
+	var field = '';
+	if(req.query.long) field = 'pages'
+
+	Category.find({type: type, subscribers: req.session.passport.user})
+	.populate(field)
+	.then(function(subscriptions){
+		res.send(subscriptions);
+	}, next)
+})
+
 //Admin or self
 router.get('/user/:id', function(req, res, next){
 	Category.find({type: type, subscribers: req.params.userId})
@@ -22,13 +35,6 @@ router.get('/user/:id', function(req, res, next){
 	}, next)
 })
 
-//Shortcut for above
-router.get('/user/me', function(req, res, next){
-	Category.find({type: type, subscribers: req.session.passport.user})
-	.then(function(subscriptions){
-		res.send(subscriptions);
-	}, next)
-})
 
 //Admin, owner, or subscriber
 router.get('/:id', function(req, res, next){
@@ -56,6 +62,18 @@ router.post('/', function(req, res, next){
 	}, next);
 });
 
+//Logged in user
+router.put('/:id/add', function(req, res, next){
+  Category.findById(req.params.id)
+  .then(function(subscription){
+  	var subscriptionIndex = subscription.subscribers.indexOf(req.session.passport.user);
+  	if(subscriptionIndex < 0) subscription.subscribers.push(req.session.passport.user)
+  	return subscription.save();
+  })
+  .then(function(subscribedSubscription){
+  	res.send(subscribedSubscription);
+  })
+});
 
 //Admin or owner
 router.put('/:id', function(req, res, next){
@@ -70,18 +88,6 @@ router.put('/:id', function(req, res, next){
 	}, next);
 });
 
-//Logged in user
-router.put('/:id/add', function(req, res, next){
-  Category.findById(req.params.id)
-  .then(function(subscription){
-  	var subscriptionIndex = subscription.subscribers.indexOf(req.session.passport.user);
-  	if(subscriptionIndex < 0) subscription.subscribers.push(req.session.passport.user)
-  	return subscription.save();
-  })
-  .then(function(subscribedSubscription){
-  	res.send(subscribedSubscription);
-  })
-});
 
 //Subscriber
 //Soft Delete - Remove user from subscribers list

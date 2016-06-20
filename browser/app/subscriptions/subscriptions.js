@@ -3,8 +3,8 @@ app.config(function ($stateProvider) {
 		url: '/subscriptions',
 		templateUrl: 'app/subscriptions/subscriptions.html',
 		resolve: {
-			categories: function(ArticlesFactory){
-				return ArticlesFactory.fetchCategories()
+			categories: function(CategoriesFactory){
+				return CategoriesFactory.getUserSubscriptionsDetailed();
 			}
 		},
 		controller: 'SubscriptionsCtrl'

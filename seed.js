@@ -56,6 +56,8 @@ var seedUsers = function () {
 
 var seedCategories = function() {
 
+    
+
     var categories = [
         {
             description: 'Sports',
