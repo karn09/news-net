@@ -1,9 +1,21 @@
-app.directive('sidebar', function () {
+app.directive('sidebar', function (CategoriesFactory) {
 	return {
 		restrict: 'E',
 		scope: {},
 		templateUrl: 'app/common/directives/sidebar/sidebar.html',
+
 		link: function(scope) {
+
+			CategoriesFactory.getUserSubscriptions()
+			.then(function(subscriptions){
+				scope.subscriptions = subscriptions;
+			})
+
+			CategoriesFactory.getUserFolders()
+			.then(function(folders){
+				scope.folders = folders;
+			})
+
 		    $(".menu-up").click(function(){
 		    	if($(this).css('transform')	!== 'none'){
 		    		$(this).css("transform", "");
