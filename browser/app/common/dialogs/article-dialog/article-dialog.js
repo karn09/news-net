@@ -1,4 +1,4 @@
-app.controller('dialogFormCtrl', function ($mdDialog, ArticlesFactory, Session) {
+app.controller('addArticleFormCtrl', function ($mdDialog, ArticlesFactory, Session) {
 
 	this.close = function () {
 		$mdDialog.cancel();

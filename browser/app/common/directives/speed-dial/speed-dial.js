@@ -19,9 +19,9 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope) {
 								type: "url",
 								direction: "top",
 								action: 'openDialog', 
-								controller: 'dialogFormCtrl',
+								controller: 'addArticleFormCtrl',
 								controllerAs: 'dialog',
-								templateUrl: '/app/common/dialogs/popup-dialog/popup-dialog.html'
+								templateUrl: '/app/common/dialogs/article-dialog/article-dialog.html'
 							},
 							{
 								name: "Add Category",
@@ -44,10 +44,10 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope) {
 							{
 								name: "Jump to Discussion",
 								icon: "/assets/icons/ic_chat_48px.svg",
+								direction: "top",
 								action: 'openLink',
 								goto: "pageComments",
-								data: {id: toParams.id},
-								direction: "top"
+								data: {id: toParams.id}
 							},
 							{
 								name: "Placeholder",
