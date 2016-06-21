@@ -29,6 +29,10 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
                 });
             };
 
+            scope.refresh = function() {
+              $state.reload();
+            }
+
             var setUser = function () {
                 AuthService.getLoggedInUser().then(function (user) {
                     scope.user = user;

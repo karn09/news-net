@@ -39,9 +39,11 @@ router.get('/', function (req, res, next) {
 
 //Limit to admin or user
 router.get('/user/me', function(req, res, next){
-    User.findById(req.session.passport.user)
+		var pages;
+		User.findById(req.session.passport.user)
     .then(function(user){
-        res.send(user.pages);
+				pages = user.pages || [];
+        res.send(pages);
     })
 })
 
