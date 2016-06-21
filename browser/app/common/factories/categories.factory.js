@@ -15,6 +15,17 @@ app.factory('CategoriesFactory', function ($http) {
 		})
 	}
 
+	//Second parameter optional
+	CategoriesFactory.createNewSubscription = function(name, pageId){
+		var data = {description: name};
+		if(pageId) data.page = pageId
+
+		return $http.post('/api/subscriptions/', data)
+		.then(function(response){
+			return response.data;
+		})
+	}
+
 	CategoriesFactory.getUserFolders = function(){
 		return $http.get('/api/folders/user/me')
 		.then(function(response){
@@ -26,6 +37,16 @@ app.factory('CategoriesFactory', function ($http) {
 		return $http.get('/api/folders/user/me?long=true')
 		.then(function(response){
 		  return response.data;
+		})
+	}
+
+	CategoriesFactory.createNewFolder = function(name, pageId){
+		var data = {description: name};
+		if(pageId) data.page = pageId
+
+		return $http.post('/api/folders/', data)
+		.then(function(response){
+			return response.data;
 		})
 	}
 

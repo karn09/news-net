@@ -1,0 +1,27 @@
+<md-dialog layout-padding class="category-dialog-container">
+    <md-dialog-content>
+        <p></p>
+
+        <div layout-gt-xs="row">
+            <span class="switch-label left">Folder</span> 
+            <md-switch class="md-primary" md-no-ink aria-label="Folder or Subscription" ng-model="data.public"></md-switch>
+            <span class="switch-label">Subscription</span>
+        </div>
+
+        <div layout-gt-xs="row">
+            <md-input-container>
+                <label>Name</label>
+                <input ng-model="data.name">
+            </md-input-container>
+        </div>
+
+        <div layout-gt-xs="row" class="md-actions">
+            <md-button aria-label="Close dialog" ng-click="dialog.close()" class="md-primary">
+                Cancel
+            </md-button>
+            <md-button aria-label="Submit dialog" ng-click="dialog.submit(data)" class="md-primary">
+                Submit
+            </md-button>
+        </div>
+    </md-dialog-content>
+</md-dialog>

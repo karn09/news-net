@@ -57,10 +57,11 @@ router.post('/', function(req, res, next){
   	admin: req.session.passport.user
   })
 
- category.save()
- .then(function(folder){
- 	res.send(folder)
- }, next);
+  category.save()
+  .then(function(folder){
+    console.log("folder", folder)
+   	res.send(folder)
+  }, next);
 
 });
 
