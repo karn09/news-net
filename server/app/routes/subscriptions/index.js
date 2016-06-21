@@ -58,6 +58,7 @@ router.post('/', function(req, res, next){
 
 	category.save()
 	.then(function(subscription){
+		console.log("subscription", subscription)
 		res.send(subscription)
 	}, next);
 });

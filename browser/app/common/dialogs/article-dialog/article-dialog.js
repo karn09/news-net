@@ -11,7 +11,7 @@ app.controller('addArticleFormCtrl', function ($mdDialog, ArticlesFactory, Categ
 		// if type category, send to category api
 		// if type url, send to url api
 
-		console.log("(submit) data: ", data);
+		console.log("Submitted Article Data: ", data);
 
 		var categoryID = null;
 		if(data.secondary) categoryID = data.secondary._id;

@@ -31,10 +31,13 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope, CategoriesFa
 								}
 							},
 							{
-								name: "Add Category",
-								type: "category",
+								name: "New Folder / Subscription",
 								icon: "/assets/icons/ic_playlist_add_white_36px.svg",
-								direction: "bottom"
+								direction: "bottom",
+								action: 'openDialog',
+								controller: "addCategoryFormCtrl",
+								controllerAs: 'dialog',
+								templateUrl: '/app/common/dialogs/category-dialog/category-dialog.html'
 							}
 						],
 						takeAction: function($event, item){
