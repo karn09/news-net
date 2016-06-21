@@ -13,7 +13,10 @@ app.controller('addArticleFormCtrl', function ($mdDialog, ArticlesFactory, Categ
 
 		console.log("(submit) data: ", data);
 
-		ArticlesFactory.parseUrl(data, Session.user._id)
+		var categoryID = null;
+		if(data.secondary) categoryID = data.secondary._id;
+
+		ArticlesFactory.parseUrl(data.primary, Session.user._id, [categoryID])
 			.then(function (response) {
 				$mdDialog.hide();
 				// $scope.parsed = response;
