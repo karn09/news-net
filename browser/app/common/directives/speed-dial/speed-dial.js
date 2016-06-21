@@ -1,4 +1,4 @@
-app.directive('speedDial', function ($mdDialog, $state, $rootScope) {
+app.directive('speedDial', function ($mdDialog, $state, $rootScope, CategoriesFactory) {
 	return {
 		restrict: 'E',
 		scope: {},
@@ -16,12 +16,19 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope) {
 							{
 								name: "Add URL",
 								icon: "/assets/icons/ic_add_white_36px.svg",
-								type: "url",
 								direction: "top",
 								action: 'openDialog', 
 								controller: 'addArticleFormCtrl',
 								controllerAs: 'dialog',
-								templateUrl: '/app/common/dialogs/article-dialog/article-dialog.html'
+								templateUrl: '/app/common/dialogs/article-dialog/article-dialog.html',
+								resolve: {
+									folders: function(){
+										return CategoriesFactory.getUserFolders();
+									},
+									subscriptions: function(){
+										return CategoriesFactory.getUserSubscriptions();
+									}
+								}
 							},
 							{
 								name: "Add Category",
@@ -88,7 +95,9 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope) {
 						targetEvent: $event,
 						locals: {
 							item: item
-						}
+						},
+						resolve: item.resolve
+						
 					})
 				}
 				

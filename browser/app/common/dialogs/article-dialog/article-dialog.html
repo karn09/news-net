@@ -4,15 +4,33 @@
     </h4> -->
     <md-dialog-content>
         <p></p>
-        <md-input-container>
-            <label>{{item.name}}</label>
-            <input ng-model="data.primary">
-        </md-input-container>
-        <div class="md-actions">
+        <div layout-gt-xs="row">
+            <md-input-container>
+                <label>{{item.name}}</label>
+                <input ng-model="data.primary">
+            </md-input-container>
+        </div>
+
+        <div layout-gt-xs="row">
+            <md-input-container>
+
+                <label>Add to Folder / Subscription (Optional)</label>
+                <md-select ng-model="data.secondary">
+                    <md-optgroup label="Folders">
+                        <md-option ng-repeat="folder in dialog.folders" ng-value="folder">{{folder.description}}</md-option>
+                    </md-optgroup>
+                    <md-optgroup label="Subscriptions">
+                        <md-option ng-repeat="subscription in dialog.subscriptions" ng-value="subscription">{{subscription.description}}</md-option>
+                    </md-optgroup>
+                </md-select>
+            </md-input-container>
+        </div>
+
+        <div layout-gt-xs="row" class="md-actions">
             <md-button aria-label="Close dialog" ng-click="dialog.close()" class="md-primary">
                 Cancel
             </md-button>
-            <md-button aria-label="Submit dialog" ng-click="dialog.submit(item.type, data.primary)" class="md-primary">
+            <md-button aria-label="Submit dialog" ng-click="dialog.submit(data)" class="md-primary">
                 Submit
             </md-button>
         </div>
