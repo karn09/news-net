@@ -6,13 +6,13 @@
         <p></p>
         <md-input-container>
             <label>{{item.name}}</label>
-            <input ng-model="data">
+            <input ng-model="data.primary">
         </md-input-container>
         <div class="md-actions">
             <md-button aria-label="Close dialog" ng-click="dialog.close()" class="md-primary">
                 Cancel
             </md-button>
-            <md-button aria-label="Submit dialog" ng-click="dialog.submit(item.type, data)" class="md-primary">
+            <md-button aria-label="Submit dialog" ng-click="dialog.submit(item.type, data.primary)" class="md-primary">
                 Submit
             </md-button>
         </div>
