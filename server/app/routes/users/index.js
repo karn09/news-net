@@ -16,6 +16,14 @@ router.get('/', function(req, res, next){
 	.then(null, next);
 });
 
+router.get('/me', function(req, res, next){
+	User.findById(req.session.passport.user)
+	.populate('pages')
+	.then(function(pages){
+		res.json(pages); //Double check on this
+	}, next)
+});
+
 router.get('/:id', function(req, res, next){
 	User.find({_id: req.params.id})
 	.populate('pages')
@@ -24,6 +32,7 @@ router.get('/:id', function(req, res, next){
 	})
 	.then(null, next);
 });
+
 
 
 router.post('/', function(req, res, next){
@@ -37,11 +46,13 @@ router.post('/', function(req, res, next){
 	});
 });
 
-
+// these routes seem to be duplicated within pages route- line 100 - 124
 router.put('/addPage/:id', function(req, res, next){
 	User.findOne({_id: req.params.id})
 	.then(function(user){
-		user.pages.push(req.body.page);
+		if (user.pages.indexOf(req.body.page._id) === -1) {
+			user.pages.push(req.body.page._id);
+		}
 		return user.save();
 	})
 	.then(function(response){

@@ -97,7 +97,7 @@ gulp.task('copyImages', function(){
         './browser/assets/icons/**/*.svg',
         './browser/assets/images/**/*.jpg',
         './browser/assets/images/**/*.png'
-        ], 
+        ],
         {base: './browser/'})
     .pipe(gulp.dest('./public'))
 });
@@ -166,7 +166,8 @@ gulp.task('generateServiceWorker', function(callback) {
         '/lodash/index.js': ['node_modules/lodash/index.js'],
         '/jquery/dist/jquery.js': ['node_modules/lodash/index.js'],
         '/angular/angular.js': ['node_modules/angular/angular.js'],
-        '/angular-animate/angular-animate.js': ['node_modules//angular-animate/angular-animate.js'],
+        '/angular-animate/angular-animate.js': ['node_modules/angular-animate/angular-animate.js'],
+        '/angular-messages/angular-messages.js': ['node_modules/angular-messages/angular-messages.js'],
         '/angular-ui-router/release/angular-ui-router.js': ['node_modules/angular-ui-router/release/angular-ui-router.js'],
         '/angular-ui-bootstrap/ui-bootstrap.js': ['node_modules/angular-ui-bootstrap/ui-bootstrap.js'],
         '/angular-ui-bootstrap/ui-bootstrap-tpls.js': ['node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.js'],
@@ -178,14 +179,52 @@ gulp.task('generateServiceWorker', function(callback) {
     }
 
     var runtimeCachingOptions = [
-    { urlPattern: /^http:\/\/localhost:1337\/api\/pages/, handler: 'fastest' },
-    { urlPattern: /^http:\/\/localhost:1337\/api\/categories/, handler: 'fastest'}];
+
+    { urlPattern: /\/api\/categories/,
+      handler: 'fastest',
+      options: {
+        cache: {
+          maxEntries: 5,
+          name: 'categories-cache'
+        }
+      }
+    },
+    { urlPattern: /\/subscriptions/,
+      handler: 'fastest',
+      options: {
+        cache: {
+          maxEntries: 5,
+          name: 'subscriptions-cache'
+        }
+      }
+    },
+    { urlPattern: /\/articles/,
+      handler: 'fastest',
+      options: {
+        cache: {
+          maxEntries: 5,
+          name: 'article-view-cache'
+        }
+      }
+    },
+    { urlPattern: /\//,
+      handler: 'fastest',
+      options: {
+        cache: {
+          maxEntries: 5,
+          name: 'home-cache'
+        }
+      }
+    },
+  ];
 
   swPrecache.write(path.join(rootDir, 'service-worker.js'), {
-    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,ico,svg}'],
+    //rootDir + '/**/*.{js,html,css,png,jpg,gif,ico,svg}'
+    importScripts: ['sw-routes.js'], // import script from public and insert into service-worker scope
+    staticFileGlobs: [rootDir + '/app/**/*.{js,html,css,png,jpg,gif,ico,svg}', rootDir + '/assets/**/*.{html,css,png,jpg,gif,ico,svg}'],
     stripPrefix: rootDir,
     dynamicUrlToDependencies: dependencies,
-    runtimeCaching: runtimeCachingOptions
+    runtimeCaching: runtimeCachingOptions,
   }, callback);
 });
 

@@ -1,0 +1,23 @@
+#comments-container{
+	.comment{
+		list-style-type: none;
+	}
+	.comment-text{
+		display: inline-block;
+	}
+	.comment-panel{
+		font-size: 1.5em;
+		margin-left: 20px;
+		display: inline-block;
+	}
+	.comment-buttons{
+		font-size: 0.85em;
+	}
+	.md-icon-button{
+		margin: 0;
+		padding: 0
+	}
+	.voteCount{
+		padding-right: 10px;
+	}
+}

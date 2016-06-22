@@ -54,24 +54,32 @@ var seedUsers = function () {
 
 };
 
-var seedCategories = function() {
+var seedCategories = function(users) {
+
+    var testing = users[0];
+    var obama = users[1];
 
     var categories = [
         {
             description: 'Sports',
-            type: 'public'
+            type: 'public',
+            admin: obama,
+            subscribers: testing
         },
         {
             description: 'Arts',
-            type: 'public'
+            type: 'public',
+            admin: obama
         },
         {
             description: 'Technology',
-            type: 'public',
+            type: 'private',
+            admin: obama
         },
         {
             description: 'Entertainment',
-            type: 'public',
+            type: 'private',
+            admin: testing
         }
     ];
     return Category.create(categories);
@@ -114,10 +122,34 @@ var seedPages = function(){
         "datePublished": "2016-06-06 15:25:31",
         "domain": "www.huffingtonpost.com",
         "excerpt": "Warning: This post is dark and full of spoilers for \"Game of Thrones\" Season 6! OK, Arya kidding us with the latest \"Game of Thrones\" cliffhanger? In Sunday's episode, \"The Broken Man,\" we saw Arya&hellip;",
-        "title": "'Game Of Thrones' Might've Spoiled Its Own Cliffhanger",
+        "title": "Game Of Thrones' Might've Spoiled Its Own Cliffhanger",
         "url": "http://www.huffingtonpost.com/entry/game-of-thrones-mightve-spoiled-its-own-cliffhanger-on-arya_us_5754d6a2e4b0ed593f14be56",
         "leadImageUrl": null
      },
+    ]
+
+    var tech = [
+    {
+      "content": "<div><div class=\"cn-body e-content\">\n        <p>It's hard to argue that one of the best things on planet Earth is pizza. Many people are up for eating pizza regardless of the time of day, and regardless of what flavor it is. Pizza is just amazing, and it holds the power to shut down entire promotional deals - as <a href=\"http://hothardware.com/tags/dominos\">Domino's</a> is finding out.</p>\n\n<p>Via its <a href=\"http://hothardware.com/tags/t-mobile\">T-Mobile</a> Tuesdays app, which rewards customers for their patronage, this week's deal proved to be a bit too much for dough spinners. To help its customers get their munch on, T-Mobile worked out a deal where its customers could get a free pizza pie, a deal which seems totally normal. But when the terms of the deal are not worked out properly, and you bring a mammoth fanbase in like T-Mobile has, it can lead to problems.</p>\n\n<p><img alt=\"dominos\" src=\"http://hothardware.com/ContentImages/NewsItem/37763/content/dominos.jpg\"><br></p>\n\n<p>In effect, Domino's pulled out simply because the demand was so enormous. Writes a Domino's spokesperson: \"The demand was significantly above what we agreed to in advance, which resulted in an understandably disappointing customer experience for some. As a result, we are re-examining the future of this promotion.\"</p>\n\n<p>As <i>TechCrunch</i> reveals, this promotion had a major flaw which could have been the nail in the coffin. Somehow, the promotion wasn't per household, it was per T-Mobile line in that household. Instead of families getting a single pizza pie for free, some wound up with multiple, putting a huge strain on their local Domino's location. It stands to reason that this promotion was <i>probably</i> meant to be worth $10 or so, not up to five times as much.</p>\n\n<blockquote class=\"twitter-tweet\"><p lang=\"en\" dir=\"ltr\">3/ OMG <a href=\"https://twitter.com/TMobile\">@TMobile</a> customers slammed <a href=\"https://twitter.com/dominos\">@dominos</a> stores!! They saw 3x &amp; 4x in a typical day and can&#x2019;t handle the volume. <a href=\"https://t.co/jVvDGAqduS\">pic.twitter.com/jVvDGAqduS</a></p>&#x2014; John Legere (@JohnLegere) <a href=\"https://twitter.com/JohnLegere/status/743207451747450880\">June 15, 2016</a></blockquote>\n\n\n<p>Regardless of who's at fault here, T-Mobile CEO John Legere wasted no time poking a bit of fun at the deal collapsing. In a tweet, he leaked the memo that Domino's sent its employees, stating its reasons for the suspension of the promotion. It could be that John was simply too slow in jumping in on the promotion himself, but one thing's for certain: everyone who's read this far should <i>really</i>&#xA0;want pizza now.&#xA0;</p>\n        \n    </div>\n\n    \n\n    \n\n        \n\n    \n\n\n\n</div>",
+      "datePublished": null,
+      "domain": "hothardware.com",
+      "excerpt": "It's hard to argue that one of the best things on planet Earth is pizza. Many people are up for eating pizza regardless of the time of day, and regardless of what flavor it is. Pizza is just amazing,&hellip;",
+      "title": "Domino's Bails On T-Mobile Free Pizza Promo Due To Crushing Demand",
+      "url": "http://hothardware.com/news/dominos-bails-on-t-mobile-free-pizza-promo-due-to-crushing-demand",
+      "leadImageUrl": "http://hothardware.com/ContentImages/NewsItem/37763/content/dominos.jpg"
+    }
+    ]
+
+    var art = [
+    {
+      "content": "<div><div class=\" js-owl-carousel owl-carousel carousel--full body\"><div><p class=\"media__caption el__gallery_image-title\"><span class=\"el__storyelement__gray\">Sitting on the edge of Old Havana, the 12-floor Edificio Bacardi's cake-like bell tower can be seen from across the city. Designed by architects Esteban Rodriguez Castell, Rafael Fernandez Ruenes and engineer Jose Menendez, it was Cuba's tallest building when it opened in 1930. The rooftop terrace of the Hotel Plaza across the street affords great exterior views of the tower. <em>261 Monserrate, Habana Vieja</em></span></p></div><div><p class=\"media__caption el__gallery_image-title\"><span class=\"el__storyelement__gray\">Influenced by Catalan modernism, the ziggurat-like exterior of the Edificio Bacardi (built for the Bacardi rum company) is ornately trimmed in colorful tiles. The striking lobby, accessible for free, is decorated from floor to ceiling in modern style, boasting European marble, gleaming light shades and myriad Art Deco motifs.</span></p></div><div><p class=\"media__caption el__gallery_image-title\"><span class=\"el__storyelement__gray\">The top floor of the Edificio Bacardi -- a colorful brick tower topped by the company's bat emblem -- offers magnificent views. Access by elevator from the lobby may require a small payment. The first-floor Bacardi Bar apparently served a mean mojito and was once a gathering point for Havana's A-list crowd. The slick black and gold bar is currently closed for renovation.</span></p></div><div><p class=\"media__caption el__gallery_image-title\"><span class=\"el__storyelement__gray\">Dominating the surrounding Vedado neighborhood, the towering Edificio Lopez Serrano opened in 1932. With an ornate facade embellished with zig-zagged window recesses, floral friezes and Aztec twirls, it's Art Deco at its most whimsical. Designed by Ricardo Mira and Miguel Rosich, it was constructed for media mogul Jose Lopez Serrano. C<em>alle 13, on the corner of L  </em></span></p></div><div><p class=\"media__caption el__gallery_image-title\"><span class=\"el__storyelement__gray\">The Edificio Lopez Serrano is run-down in places, yet the building's proud residents have funded some repairs. Despite the decay, the lobby remains a glorious masterpiece. Cubic lamp shades and ochre-colored marble walls surround the central \"El Tiempo\" (\"Time\") relief by renowned Cuban graphic artist Enrique Garcia Cabrera. The relief was was the official logo of the 2013 Art Deco Congress.</span></p></div><div><p class=\"media__caption el__gallery_image-title\"><span class=\"el__storyelement__gray\">Designed by Fernando Martinez Campos and Pascual de Rojas, Havana's Teatro America opened its doors in 1941. The theater's interior curves contrast sharply with the clean lines of the mint and white facade. The lobby boasts a double curved staircase and a circular terrazzo floor embedded with signs of the zodiac. The theater is closed for renovation. <em>253 Calle Galiano, between Neptuno and Concordia</em></span></p></div><div><p class=\"media__caption el__gallery_image-title\"><span class=\"el__storyelement__gray\">Immediately adjacent to the Teatro America is the entrance to the Rodriguez Vasquez apartment building (which actually sits above the theater). Look out for the Art Deco ironwork of the double doors and the beautifully designed floors. <em>257 Calle Galiano, between Neptuno and Concordi</em></span></p></div><div><p class=\"media__caption el__gallery_image-title\"><span class=\"el__storyelement__gray\">Built in 1915 and then redesigned in 1938, the Teatro Fausto was Havana's first air-conditioned theater. The redesign by architect Saturnino Mario Parajon boasts a simple yet striking facade, with interlaced vertical and horizontal elements, decorative botanical friezes and three metal tubes running the length of the building. The theater is under renovation. <em>201 Prado, on the corner with Colon</em></span></p></div><div><p class=\"media__caption el__gallery_image-title\"><span class=\"el__storyelement__gray\">\"For many years, most people simply overlooked Cuban Art Deco. They thought that colonial architecture was the priority,\" says Gustavo Lopez, director of Habana Deco, a group that protects Cuba's Art Deco heritage. But the tide is changing. Lopez is also deputy director of the National Museum of Decorative Arts. Mostly neo-classical, the 1920s villa housing the museum features an oppulently Art Deco bathroom.<em> 502 Calle 17, between D and E</em></span></p></div><div><p class=\"media__caption el__gallery_image-title\"><span class=\"el__storyelement__gray\">Central Havana is peppered with Art Deco houses, apartment blocks, shops, cinemas, theaters and office buildings, their facades typically decorated with a variety of Art Deco motifs. Despite the accumulation of urban grime, the exterior of the Almacenes Ultra department store -- and the apartments above it -- remains strikingly beautiful. <em>109 Avenida Reina, between Calles Rayo and Angeles</em></span></p></div><div><p class=\"media__caption el__gallery_image-title\"><span class=\"el__storyelement__gray\">In the early decades of the 20th century, Gothic, Romanesque, Neocolonial and Baroque precedents all served as models for Cuban church design. But by 1930, Art Deco modernity had entered the religious sphere. The brainchild of Ricardo E. Franklin Acosta, the 1950 Miguel de Soto Methodist Church stands on a Vedado street corner like an outsized wedding cake.  <em>502 Calle K, on the corner with Calle 25  </em></span></p></div><div><p class=\"media__caption el__gallery_image-title\"><span class=\"el__storyelement__gray\">The Lopez Serrano family engaged Ricardo Mira and Miguel Rosich to design this discreetly elegant bookshop in Old Havana. Dating to around 1935, the building was renovated fairly recently. As Havana's leading book store, La Moderna Poesia (Modern Poetry) stocks Cuban poetry, fiction, non-fiction, art books and more. <em>Corner of Obispo and Bernaza, Habana Vieja</em></span></p></div></div><div class=\"owl-carousel js-owl-filmstrip owl-filmstrip\"><img class=\"media__image\" src=\"http://i2.cdn.turner.com/cnnnext/dam/assets/160606155557-01-cuba-art-deco-small-11.jpg\" alt=\"01 cuba art deco\"><img class=\"media__image\" src=\"http://i2.cdn.turner.com/cnnnext/dam/assets/160606155606-02-cuba-art-deco-small-11.jpg\" alt=\"02 cuba art deco\"><img class=\"media__image\" src=\"http://i2.cdn.turner.com/cnnnext/dam/assets/160606155615-03-cuba-art-deco-small-11.jpg\" alt=\"03 cuba art deco\"><img class=\"media__image\" src=\"http://i2.cdn.turner.com/cnnnext/dam/assets/160606155624-04-cuba-art-deco-small-11.jpg\" alt=\"04 cuba art deco\"><img class=\"media__image\" src=\"http://i2.cdn.turner.com/cnnnext/dam/assets/160606155634-05-cuba-art-deco-small-11.jpg\" alt=\"05 cuba art deco\"><img class=\"media__image\" src=\"http://i2.cdn.turner.com/cnnnext/dam/assets/160606155644-06-cuba-art-deco-small-11.jpg\" alt=\"06 cuba art deco\"><img class=\"media__image\" src=\"http://i2.cdn.turner.com/cnnnext/dam/assets/160606155655-07-cuba-art-deco-small-11.jpg\" alt=\"07 cuba art deco\"><img class=\"media__image\" src=\"http://i2.cdn.turner.com/cnnnext/dam/assets/160606155703-08-cuba-art-deco-small-11.jpg\" alt=\"08 cuba art deco\"><img class=\"media__image\" src=\"http://i2.cdn.turner.com/cnnnext/dam/assets/160606155711-09-cuba-art-deco-small-11.jpg\" alt=\"09 cuba art deco\"><img class=\"media__image\" src=\"http://i2.cdn.turner.com/cnnnext/dam/assets/160606155719-10-cuba-art-deco-small-11.jpg\" alt=\"10 cuba art deco\"><img class=\"media__image\" src=\"http://i2.cdn.turner.com/cnnnext/dam/assets/160606155729-11-cuba-art-deco-small-11.jpg\" alt=\"11 cuba art deco\"><img class=\"media__image\" src=\"http://i2.cdn.turner.com/cnnnext/dam/assets/160606155738-12-cuba-art-deco-small-11.jpg\" alt=\"12 cuba art deco\"></div></div>",
+      "datePublished": "2016-06-20 01:51:24",
+      "domain": "www.cnn.com",
+      "excerpt": "Sitting on the edge of Old Havana, the 12-floor Edificio Bacardi's cake-like bell tower can be seen from across the city. Designed by architects Esteban Rodriguez Castell, Rafael Fernandez Ruenes and&hellip;",
+      "title": "Discovering Cuban Art Deco in Havana",
+      "url": "http://www.cnn.com/2016/06/19/travel/art-deco-architecture-havana-cuba/",
+      "leadImageUrl": "http://i2.cdn.turner.com/cnnnext/dam/assets/160606155557-01-cuba-art-deco-small-11.jpg",
+    }
     ]
 
     var others = [
@@ -134,32 +166,100 @@ var seedPages = function(){
     }
     ];
 
-    
+    function pushAll(category, pages){
+      pages.forEach(function(page){
+        category.pages.push(page);
+      })
 
-    return Category.findOne({description: 'Sports'})
-    .then(function(category){
-        return Page.create(sports)
-        .then(function(pages){
-            pages.forEach(function(page){
-                category.pages.push(page);
+      return category.save();
+    }
+
+    return Promise.all([
+
+      Category.findOne({description: 'Sports'})
+      .then(function(category){
+          return Page.create(sports)
+          .then(function(pages){
+              return pushAll(category, pages)
+          })
+      }),
+      
+      Category.findOne({description: 'Entertainment'})
+      .then(function(category){
+          return Page.create(entertainment)
+          .then(function(pages){
+              return pushAll(category, pages)
             })
-            return category.save();
-        })
-    }).then(function(){
-        return Category.findOne({description: 'Entertainment'})
-    }).then(function(category){
-        return Page.create(entertainment)
-        .then(function(pages){
-            pages.forEach(function(page){
-                category.pages.push(page);
-            })
-            return category.save();
-        })
-    }).then(function(){
-        return Page.create(others);
-    })
+      }),
+
+      Category.findOne({description: "Technology"})
+      .then(function(category){
+          return Page.create(tech)
+          .then(function(pages){
+            return pushAll(category, pages);
+          })
+      }),
+
+      Category.findOne({description: "Arts"})
+      .then(function(category){
+          return Page.create(art)
+          .then(function(pages){
+            return pushAll(category, pages);
+          })
+      }),
+
+      Page.create(others)
+
+    ]);
 }
 
+var seedComments = function(){
+  return User.findOne({email: 'obama@gmail.com'})
+  .then(function(user){
+    var p1 = Page.findOne({title: "Muhammad Ali: The Champion Who Never Sold Out"})
+    .then(function(page){
+      var comments = [{
+        user: user._id,
+        page: page._id,
+        text: "Truly the greatest..."
+      },
+      {
+        user: user._id,
+        page: page._id,
+        text: "Uhh....let me be clear. He was a remarkable fighter." 
+      }];
+
+      return Comment.create(comments);
+      
+    }).then(function(comments){
+      var comment = comments[1];
+      return User.findOne({email: "testing@fsa.com"})
+      .then(function(user){
+        var upvote = {
+          userId: user._id,
+          vote: 1
+        }
+
+        comment.votes.push(upvote);
+        return comment.save();
+      })
+    })
+
+    var p2 = Page.findOne({title : "Game Of Thrones' Might've Spoiled Its Own Cliffhanger"})
+    .then(function(page){
+      var comment = {
+        user: user._id,
+        page: page._id,
+        text: "Can't wait for next Sunday!"
+      }
+
+      return Comment.create(comment);
+    });
+
+      
+    return Promise.all([p1, p2]);
+  }) 
+}
 
 connectToDb
     .then(function () {
@@ -168,11 +268,14 @@ connectToDb
     .then(function () {
         return seedUsers();
     })
-    .then(function () {
-        return seedCategories();
+    .then(function (users) {
+        return seedCategories(users);
     })
     .then(function(){
         return seedPages();
+    })
+    .then(function(){
+      return seedComments();
     })
     .then(function () {
         console.log(chalk.green('Seed successful!'));

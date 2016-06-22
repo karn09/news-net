@@ -1,0 +1,10 @@
+<div class="container">
+
+	<h3 ng-hide="articles">Click the orange button to add an article!</h3>
+
+	<div class="row">
+		<div class="col-md-4" ng-repeat="article in articles">
+			<article-detail article="article"></article-detail>
+		</div>
+	</div>
+</div>

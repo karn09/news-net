@@ -24,14 +24,26 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('ArticlesCtrl', function($scope, articles){
-    $scope.articles = articles;
+app.controller('ArticlesCtrl', function($scope, articles, ArticlesFactory){
+    $scope.articles = articles.pages || articles;
+
+    ArticlesFactory.fetchUserArticlesArray()
+    .then(function(savedArticles){
+        savedArticles.forEach(function(id){
+
+            var index = $scope.articles.map(function(article){
+                return article._id + "";
+            }).indexOf(id + "");
+
+            if(index >= 0){
+                $scope.articles[index].liked = true;
+            }
+        })
+    })
 })
 
 app.controller('ArticleCtrl', function($scope, article, $compile) {
     $scope.current = article;
     $scope.title = article.title;
     $scope.content = article.content;
-
-    console.log("CURRENT", $scope.current)
 });
