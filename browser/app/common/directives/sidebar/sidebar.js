@@ -6,15 +6,37 @@ app.directive('sidebar', function (CategoriesFactory) {
 
 		link: function(scope) {
 
+			CategoriesFactory.getUserFolders()
+			.then(function(folders){
+				scope.folders = folders;
+			})
+
 			CategoriesFactory.getUserSubscriptions()
 			.then(function(subscriptions){
 				scope.subscriptions = subscriptions;
 			})
 
-			CategoriesFactory.getUserFolders()
-			.then(function(folders){
-				scope.folders = folders;
-			})
+			scope.removeFolder = function(id){
+				CategoriesFactory.removeFolder(id)
+				.then(function(){
+					var index = scope.folders.map(function(element){ 
+						return element._id;
+					}).indexOf(id);
+
+					scope.folders.splice(index, 1);
+				})
+			}
+
+			scope.removeSubscription = function(id){
+				CategoriesFactory.removeSubscription(id)
+				.then(function(){
+					var index = scope.subscriptions.map(function(element){ 
+						return element._id;
+					}).indexOf(id);
+					
+					scope.subscriptions.splice(index, 1);
+				})
+			}
 
 		    $(".menu-up").click(function(){
 		    	if($(this).css('transform')	!== 'none'){
