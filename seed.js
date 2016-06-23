@@ -160,8 +160,6 @@ var seedPages = function(){
         "excerpt": "&#x201C;Our significantly expanded compliance office today not only evaluates new client candidates, but also existing accounts, and especially those that were established prior to the new&hellip;",
         "title": "Panama Papers Show How Rich United States Clients Hid Millions Abroad",
         "url": "http://www.nytimes.com/2016/06/06/us/panama-papers.html?hp&action=click&pgtype=Homepage&clickSource=story-heading&module=first-column-region&region=top-news&WT.nav=top-news",
-        "userCount": 1,
-        "__v": 0,
         "leadImageUrl": "https://static01.nyt.com/images/2016/06/06/us/06panama3/06panama3-superJumbo.jpg"
     }
     ];

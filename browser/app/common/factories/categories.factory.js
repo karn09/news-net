@@ -26,6 +26,24 @@ app.factory('CategoriesFactory', function ($http) {
 		})
 	}
 
+	CategoriesFactory.addToSubscription = function(categoryId, articleId){
+		var data = {page: articleId};
+		return $http.put('/api/subscriptions/' + categoryId, data)
+		.then(function(response){
+			return response.data;
+		})
+	}
+
+	//If user is admin, this deletes the subscription
+	CategoriesFactory.removeSubscription = function(id){
+		return $http.delete('/api/subscriptions/' + id)
+		.then(function(response){
+			return response.data;
+		})
+	}
+
+	// -------------------------------------------------------
+
 	CategoriesFactory.getUserFolders = function(){
 		return $http.get('/api/folders/user/me')
 		.then(function(response){
@@ -50,5 +68,20 @@ app.factory('CategoriesFactory', function ($http) {
 		})
 	}
 
-	return CategoriesFactory
+	CategoriesFactory.addToFolder = function(categoryId, articleId){
+		var data = {page: articleId};
+		return $http.put('/api/folders/' + categoryId, data)
+		.then(function(response){
+			return response.data;
+		})
+	}
+
+	CategoriesFactory.removeFolder  = function(id){
+		return $http.delete('/api/folders/' + id)
+		.then(function(response){
+			return response.data;
+		})
+	}
+
+	return CategoriesFactory;
 });
