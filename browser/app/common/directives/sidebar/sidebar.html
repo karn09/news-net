@@ -31,7 +31,7 @@
         </div>
 
         <ul class="sidebar-list sublist" id="folders">
-            <a ng-repeat="folder in folders" href="#"><li>{{folder.description}}</li></a>
+            <a ng-repeat="folder in folders" ui-sref="folders.section({name: folder.description})"><li>{{folder.description}}</li></a>
         </ul>
 
         <md-divider></md-divider>

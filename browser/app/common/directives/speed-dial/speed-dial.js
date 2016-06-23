@@ -1,14 +1,7 @@
-app.directive('speedDial', function ($mdDialog, $state, $rootScope) {
+app.directive('speedDial', function ($mdDialog, $state, $rootScope, CategoriesFactory) {
 	return {
 		restrict: 'E',
 		scope: {},
-		controller: function ($state, $rootScope, $scope) {
-			// $rootScope.$on('$stateChangeSuccess',
-			//   function(event, toState, toParams, fromState, fromParams) {
-			//     console.log("Controller State: ", $scope.state);
-			//   }
-			// )
-		},
 		templateUrl: '/app/common/directives/speed-dial/speed-dial.html',
 		link: function (scope, element, attribute) {
 
@@ -23,29 +16,32 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope) {
 							{
 								name: "Add URL",
 								icon: "/assets/icons/ic_add_white_36px.svg",
-								type: "url",
-								direction: "top"
+								direction: "top",
+								action: 'openDialog', 
+								controller: 'addArticleFormCtrl',
+								controllerAs: 'dialog',
+								templateUrl: '/app/common/dialogs/article-dialog/article-dialog.html',
+								resolve: {
+									folders: function(){
+										return CategoriesFactory.getUserFolders();
+									},
+									subscriptions: function(){
+										return CategoriesFactory.getUserSubscriptions();
+									}
+								}
 							},
 							{
-								name: "Add Category",
-								type: "category",
+								name: "New Folder / Subscription",
 								icon: "/assets/icons/ic_playlist_add_white_36px.svg",
-								direction: "bottom"
+								direction: "bottom",
+								action: 'openDialog',
+								controller: "addCategoryFormCtrl",
+								controllerAs: 'dialog',
+								templateUrl: '/app/common/dialogs/category-dialog/category-dialog.html'
 							}
 						],
 						takeAction: function($event, item){
-							$mdDialog.show({
-								scope: this,
-								preserveScope: true,
-								clickOutsideToClose: true,
-								controller: 'dialogFormCtrl',
-								controllerAs: 'dialog',
-								templateUrl: '/app/popup-dialog/popup-dialog.html',
-								targetEvent: $event,
-								locals: {
-									item: item
-								}
-							})
+							act($event, item, this);
 						}
 					},
 
@@ -58,8 +54,10 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope) {
 							{
 								name: "Jump to Discussion",
 								icon: "/assets/icons/ic_chat_48px.svg",
+								direction: "top",
+								action: 'openLink',
 								goto: "pageComments",
-								direction: "top"
+								data: {id: toParams.id}
 							},
 							{
 								name: "Placeholder",
@@ -70,7 +68,7 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope) {
 
 						],
 						takeAction: function($event, item){
-							$state.go(item.goto, {id: toParams.id});
+							act($event, item, this);
 						}
 					}
 				} //End optionsByState
@@ -85,8 +83,31 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope) {
 					}
 				}
 
-
 			}); //End $on stateChangeSuccess
+
+			//Actions
+			function act($event, item, context){
+				if(item.action === 'openDialog'){
+					$mdDialog.show({
+						scope: context,
+						preserveScope: true,
+						clickOutsideToClose: true,
+						controller: item.controller,
+						controllerAs: item.controllerAs,
+						templateUrl: item.templateUrl,
+						targetEvent: $event,
+						locals: {
+							item: item
+						},
+						resolve: item.resolve
+						
+					})
+				}
+				
+				if(item.action === 'openLink'){
+					$state.go(item.goto, item.data);
+				}
+			}
 
 		} //End link
 	}
