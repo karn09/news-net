@@ -65,6 +65,24 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope, CategoriesFa
 								direction: "bottom",
 								action: 'addFavorite',
 								data: {id: toParams.id}
+							},
+							{
+								name: "Add to Folder / Subscription",
+								icon: '/assets/icons/ic_playlist_add_white_36px.svg',
+								direction: "top",
+								action: 'openDialog',
+								controller: 'fileArticleFormCtrl',
+								controllerAs: 'dialog',
+								templateUrl: '/app/common/dialogs/filing-dialog/filing-dialog.html',
+								resolve: {
+									folders: function(){
+										return CategoriesFactory.getUserFolders();
+									},
+									subscriptions: function(){
+										return CategoriesFactory.getUserSubscriptions();
+									}
+								},
+								data: {id: toParams.id}
 							}
 
 						],
