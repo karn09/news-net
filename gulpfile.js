@@ -193,7 +193,7 @@ gulp.task('generateServiceWorker', function(callback) {
       handler: 'fastest',
       options: {
         cache: {
-          maxEntries: 5,
+          maxEntries: 10,
           name: 'subscriptions-cache'
         }
       }
@@ -202,7 +202,7 @@ gulp.task('generateServiceWorker', function(callback) {
       handler: 'fastest',
       options: {
         cache: {
-          maxEntries: 5,
+          maxEntries: 10,
           name: 'article-view-cache'
         }
       }
