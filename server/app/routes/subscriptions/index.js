@@ -91,13 +91,16 @@ router.put('/:id', function(req, res, next){
 
 
 //Subscriber
-//Soft Delete - Remove user from subscribers list
 router.delete('/:id', function(req, res, next){
 	Category.findById(req.params.id)
 	.then(function(subscription){
-		var subscriptionIndex = subscription.subscribers.indexOf(req.session.passport.user);
-		if( subscriptionIndex >= 0) subscription.subscribers.splice(subscriptionIndex, 1);
-		subscription.save();
+		if(subscription.admin.equals(req.session.passport.user)){
+			subscription.remove(); //If admin attempts to delete subscription, remove from DB.
+		}else{
+			var subscriptionIndex = subscription.subscribers.indexOf(req.session.passport.user);
+			if( subscriptionIndex >= 0) subscription.subscribers.splice(subscriptionIndex, 1);
+			subscription.save(); //If ordinary user hits delete route, we're just removing them from list of subscribers.
+		}	
 	})
 	.then(function(unsubscribedSubscription){
 		res.send(unsubscribedSubscription); //Remove subscriber IDs
