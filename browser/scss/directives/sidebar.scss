@@ -1,5 +1,19 @@
 sidebar {
 
+	.category{
+
+		a{
+			display: inline-block;
+			width: 90%;
+		}
+
+		.glyphicon{
+			float: right;
+			margin-right: 5px;
+		}
+		
+	}
+
 	.sidebar-box {
 		width: 19%;
 	}
