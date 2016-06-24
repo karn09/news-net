@@ -27,8 +27,8 @@
 
 <body layout="column" ng-app="FullstackGeneratedApp">
 
-    <navbar></navbar>
-    <sidebar></sidebar>
+    <navbar ng-show="loggedInUser"></navbar>
+    <sidebar ng-show="loggedInUser"></sidebar>
     <speed-dial></speed-dial>
 
     <md-content style="background-color:white">

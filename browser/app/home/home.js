@@ -11,7 +11,6 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('HomepageCtrl', function($scope, user) {
+app.controller('HomepageCtrl', function($scope, $rootScope, user) {
 	$scope.user = user;
-	console.log($scope.user);
 });

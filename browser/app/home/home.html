@@ -1,12 +1,13 @@
-<div class="container" ng-if="!user">
+<div class="container home" ng-if="!user">
     <h5>Temporary Links for Ontima:</h5>
     <ul>
         <li><a ui-sref="login">Login</a></li>
         <li><a href="/auth/google">Log in with Google</a></li>
         <li><a ui-sref="articles">All Articles</a></li>
     </ul>
+
 </div>
 
-<div class="container" ng-if="user">
+<div class="container home" ng-if="user">
     <h1>user {{user}}</h1>
 </div>
