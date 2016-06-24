@@ -60,8 +60,6 @@ router.post('/ext', function(req, res, next){
 
   console.log("req.body: ", req.body.title);
 
-
-
   var user = 'obama@gmail.com';
   User.findOne({email: user})
     .then(function(user){
