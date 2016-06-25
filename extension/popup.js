@@ -1,3 +1,43 @@
+var host = 'http://localhost:1337'
+
+document.addEventListener('DOMContentLoaded', function() {
+
+
+  //Get /session
+  getUser(function(response){
+    console.log("user", response.user)
+    if(response.user._id){
+      savePage();
+    }else{
+      console.log("Please sign in.")
+    }
+  })
+
+  //If not logged in, present login page
+
+  //Submit form data to /api/login route
+
+  //If / When logged in  
+
+  // savePage();
+
+});
+
+function getUser(callback){
+  var getUserXHR = new XMLHttpRequest();
+  getUserXHR.addEventListener("load", listener)
+  getUserXHR.open('GET', `${host}/session`)
+  getUserXHR.send();
+
+  function listener (){
+    try{
+      callback(JSON.parse(this.responseText));
+    }catch(e){
+      console.log("Please sign in.")
+    }
+  }
+}
+
 function getCurrentTabUrl(callback) {
   var queryInfo = {
     active: true,
@@ -12,20 +52,17 @@ function getCurrentTabUrl(callback) {
   });
 }
 
-
-document.addEventListener('DOMContentLoaded', function() {
-
+function savePage(){
   getCurrentTabUrl(function(url){
     console.log("url: ", url);
     var parser = new XMLHttpRequest();
-    parser.open('GET', 'http://localhost:1337/api/parser/' + encodeURIComponent(url), false);
+    parser.open('GET', `${host}/api/parser/` + encodeURIComponent(url), false);
     parser.send();
     //alert(parser.responseText);
     var addPage = new XMLHttpRequest();
-    addPage.open('POST', 'http://localhost:1337/api/pages/ext/', false);
+    addPage.open('POST', `${host}/api/pages/`, false);
     addPage.setRequestHeader('Content-Type', 'application/json');
     addPage.send(parser.responseText);
     alert(addPage.responseText);
   });
-
-});
+}
