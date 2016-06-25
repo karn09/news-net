@@ -2,6 +2,7 @@ app.factory('ArticlesFactory', function ($http) {
 	var ArticlesFactory = {};
 	var allArticlesCache = [];
 	var userArticlesCache = [];
+	var userArticlesArray = [];
 
 	ArticlesFactory.fetchAll = function () {
 		return $http.get("/api/pages")
@@ -69,8 +70,10 @@ app.factory('ArticlesFactory', function ($http) {
 	ArticlesFactory.fetchUserArticlesArray = function () {
 		return $http.get('api/pages/user/me')
 			.then(function (response) {
-				console.log(response.data)
-				return response.data;
+				if (response.data !== userArticlesArray) {
+					angular.copy(response.data, userArticlesArray);
+				}
+				return userArticlesArray;
 			})
 	}
 
@@ -86,6 +89,7 @@ app.factory('ArticlesFactory', function ($http) {
 			})
 	}
 
+	// TODO: sync when back online...
 	ArticlesFactory.favoriteArticle = function (id) {
 		return $http.put('api/pages/' + id + '/favorite')
 			.then(function (response) {
@@ -93,7 +97,7 @@ app.factory('ArticlesFactory', function ($http) {
 				return response.data;
 			})
 	}
-
+	// TODO: sync when back online...
 	ArticlesFactory.unfavoriteArticle = function (id) {
 		return $http.put('api/pages/' + id + '/unfavorite')
 			.then(function (response) {
