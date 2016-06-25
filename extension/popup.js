@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if(response.user._id){
       savePage();
     }else{
-      console.log("Please sign in.")
+      showLogin();
     }
   })
 
@@ -32,9 +32,37 @@ function getUser(callback){
     try{
       callback(JSON.parse(this.responseText));
     }catch(e){
-      console.log("Please sign in.")
+      showLogin()
     }
   }
+}
+
+function showLogin(){
+  console.log("showLogin");
+  var form = document.createElement("form");
+  form.setAttribute('method', 'post');
+  form.setAttribute('action', `${host}/login`);
+
+  var emailField = document.createElement("input");
+  emailField.setAttribute('name', 'email');
+  emailField.setAttribute('placeholder', 'email');
+  emailField.setAttribute('type', 'text');
+
+  var passwordField = document.createElement('input');
+  passwordField.setAttribute('name', 'password' );
+  passwordField.setAttribute('placeholder', 'name');
+  passwordField.setAttribute('type', 'text');
+
+  var submit = document.createElement('input');
+  submit.setAttribute('type', 'submit');
+  submit.setAttribute('value', 'Submit');
+
+  form.appendChild(emailField);
+  form.appendChild(passwordField);
+  form.appendChild(submit);
+
+  
+  document.getElementsByTagName('body')[0].appendChild(form);
 }
 
 function getCurrentTabUrl(callback) {
