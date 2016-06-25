@@ -30,7 +30,7 @@
 	}
 
 	#signup {
-		height: 500px;
+		height: 350px;
 		background-color: #E8E8E8;
 		padding-top: 20px;
 		padding-bottom: 20px;
@@ -39,7 +39,7 @@
 			box-shadow: 10px 10px 5px #888888;
 			margin: auto;
 			height: 100%;
-			width: 50%;
+			width: 350px;
 			background-color: white;
 			padding-top: 15px;
 			padding-bottom: 20px;			
@@ -78,6 +78,26 @@
 					float: left;
 				}
 			}
+
+			#email {
+				margin-top: 20px;
+				margin-bottom: 10px;
+				display: block;
+				color: black;
+				border: 1px solid #d8d8d8;
+				text-decoration: none;
+				box-shadow: inset 0 1px 1px rgba(255,255,255,.4);
+				text-align: center;
+				font-size: 1em;
+				border-radius: 4px;
+				display: inline-block;
+				padding: .8em 1.625em;	
+				font-family: 'Lora';
+				font-weight: 700;
+				width: 225.17px;
+				background-image: linear-gradient(to bottom,#fff 0,#f2f2f2 100%);			
+			}
+
 		}
 	}
 }
