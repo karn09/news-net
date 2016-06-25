@@ -85,7 +85,6 @@ router.put('/:id', function(req, res, next){
 		return subscription.save();
 	})
 	.then(function(updatedSubscription){
-    console.log(updatedSubscription)
 		res.send(updatedSubscription);
 	}, next);
 });
