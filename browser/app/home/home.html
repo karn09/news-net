@@ -1,5 +1,24 @@
-<div class="container home" ng-if="!user">
-    <h5>Temporary Links for Ontima:</h5>
+<div class="home" ng-if="!user">
+    <div id="head">
+        <a ui-sref="home">
+            <img id="logo" src="/assets/images/news-icon.png" height=50 width=50>
+            <div id="title">News-Net</div>
+        </a>    
+        <a id="login" ui-sref="login" class="btn btn-default">Log In</a>
+    </div>
+    <div>
+        <img src="/assets/images/news.jpg" width=100%>
+    </div>
+    <div id="signup">
+        <div id="box" class="container">
+            <div class="title">Sign Up</div>
+            <hr>
+            <a id="google" href="/auth/google">
+                <span class="logo"></span>
+                <span class="text">Sign Up with Google</span>
+            </a>
+        </div>
+    </div>
     <ul>
         <li><a ui-sref="login">Login</a></li>
         <li><a href="/auth/google">Log in with Google</a></li>

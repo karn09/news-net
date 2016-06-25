@@ -41,7 +41,6 @@ app.run(function ($rootScope, AuthService, $state) {
     AuthService.getLoggedInUser()
         .then(function(loggedInUser){
             $rootScope.loggedInUser = loggedInUser;
-            console.log($rootScope.loggedInUser);
         });
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {

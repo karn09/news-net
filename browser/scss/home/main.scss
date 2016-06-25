@@ -1,12 +1,84 @@
-#home {
-  fullstack-logo {
-    padding-top: 30px;
-    width: 150px;
-    margin: 0 auto;
-  }
-  h1 {
-    margin-top: 40px;
-    text-align: center;
-  }
+.home {
+	#head {
+		padding: 10px;
+		padding-bottom: 0;
+
+		#logo {
+			display: inline;
+			margin-bottom: 20px;
+		}
+
+		a {
+			text-decoration: none;
+		}
+
+		#title {
+			color: black;
+			font-family: 'Lobster', cursive;
+			font-weight: 400;
+			display: inline;
+			font-size: 36px;
+		}
+
+		#login {
+			font-family: 'Lora';
+			font-weight: 700;
+			float: right;
+			margin-top: 12px;
+			padding:6px 20px;
+		}
+	}
+
+	#signup {
+		height: 500px;
+		background-color: #E8E8E8;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		text-align: center;
+		#box {
+			box-shadow: 10px 10px 5px #888888;
+			margin: auto;
+			height: 100%;
+			width: 50%;
+			background-color: white;
+			padding-top: 15px;
+			padding-bottom: 20px;			
+			.title {
+				text-align: center;
+				font-family: 'Lora';
+				font-weight: 700;
+				font-size: 20px;				
+			}
+			#google {
+				border: 1px solid #D13644;
+				text-decoration: none;
+				color: white;
+				box-shadow: inset 0 1px 1px rgba(255,255,255,.4);
+				text-align: center;
+				font-size: 1em;
+				border-radius: 4px;
+				display: inline-block;				
+				.logo {
+					background: url('/assets/images/google-signup.png') center center no-repeat;
+					height: 38.38px;
+					width: 42px;
+					background-size: 30px 30px;
+					position: relative;
+					border-right: 1px solid #e5767b;
+					float: left;
+					background-color: #d3505a;
+				}
+				.text {
+					text-shadow: 0 -1px 0 rgba(142,4,17,.5);
+					font-family: 'Lora';
+					font-weight: 700;					
+					background-color: #d3505a;
+					line-height: 1.2;
+					padding: .8em 1.625em;
+					float: left;
+				}
+			}
+		}
+	}
 }
 
