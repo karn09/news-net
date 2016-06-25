@@ -1,17 +1,28 @@
 app.factory('CategoriesFactory', function ($http) {
 	var CategoriesFactory = {};
+	var currentSubscriptions = [];
+	var currentSubscriptionsDetailed = [];
+	var userFolders = [];
 
 	CategoriesFactory.getUserSubscriptions = function(){
 		return $http.get('/api/subscriptions/user/me')
 		.then(function(response){
-		  return response.data;
+			if (response.data !== currentSubscriptions) {
+				console.log('User subscriptions retrieved: ', response.data);
+				angular.copy(response.data, currentSubscriptions);
+			}
+		  return currentSubscriptions;
 		})
 	}
 
 	CategoriesFactory.getUserSubscriptionsDetailed = function(){
 		return $http.get('/api/subscriptions/user/me?long=true')
 		.then(function(response){
-		  return response.data;
+			if (response.data !== currentSubscriptionsDetailed) {
+				console.log('Detailed subscriptions retrieved: ', response.data);
+				angular.copy(response.data, currentSubscriptionsDetailed);
+			}
+		  return currentSubscriptionsDetailed;
 		})
 	}
 
@@ -22,6 +33,10 @@ app.factory('CategoriesFactory', function ($http) {
 
 		return $http.post('/api/subscriptions/', data)
 		.then(function(response){
+			if (currentSubscriptions.indexOf(response.data) === -1) {
+				console.log('New subscription added: ', response.data);
+				currentSubscriptions.push(response.data);
+			}
 			return response.data;
 		})
 	}
@@ -30,6 +45,13 @@ app.factory('CategoriesFactory', function ($http) {
 		var data = {page: articleId};
 		return $http.put('/api/subscriptions/' + categoryId, data)
 		.then(function(response){
+			var idx = _.chain(currentSubscriptions).pluck('_id').indexOf(categoryId).value();
+			if (idx !== -1) {
+				if (currentSubscriptions[idx].pages.indexOf(articleId) === -1) {
+					console.log('Page added to subscription: ', response.data);
+					currentSubscriptions[idx].pages.push(articleId);
+				}
+			}
 			return response.data;
 		})
 	}

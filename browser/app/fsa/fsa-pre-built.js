@@ -9,6 +9,7 @@
 
     app.factory('Socket', function () {
         if (!window.io) throw new Error('socket.io not found!');
+        console.log('Socket connecting at: ', window.location.origin);
         return window.io(window.location.origin);
     });
 
