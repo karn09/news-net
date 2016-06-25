@@ -6,7 +6,7 @@ var Category = mongoose.model('Category');
 
 var type = 'public';
 
-//Admin 
+//Admin
 router.get('/', function(req, res, next){
   	Category.find({type: type})
 	.then(function(subscriptions){
@@ -80,7 +80,7 @@ router.put('/:id/add', function(req, res, next){
 router.put('/:id', function(req, res, next){
 	Category.findById(req.params.id)
 	.then(function(subscription){
-		if(req.body.page) subscription.pages.push(req.body.page);
+		if(req.body.page && req.body.pages.indexOf(req.body.page._id) === -1) subscription.pages.push(req.body.page);
 		if(req.body.pages) subscription.pages = subscription.pages.concat(req.body.pages);
 		return subscription.save();
 	})
@@ -100,7 +100,7 @@ router.delete('/:id', function(req, res, next){
 			var subscriptionIndex = subscription.subscribers.indexOf(req.session.passport.user);
 			if( subscriptionIndex >= 0) subscription.subscribers.splice(subscriptionIndex, 1);
 			subscription.save(); //If ordinary user hits delete route, we're just removing them from list of subscribers.
-		}	
+		}
 	})
 	.then(function(unsubscribedSubscription){
 		res.send(unsubscribedSubscription); //Remove subscriber IDs
