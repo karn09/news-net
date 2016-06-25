@@ -2,11 +2,15 @@ app.factory('ArticlesFactory', function ($http) {
 	var ArticlesFactory = {};
 	var allArticlesCache = [];
 	var userArticlesCache = [];
+	var userArticlesArray = [];
 
 	ArticlesFactory.fetchAll = function () {
 		return $http.get("/api/pages")
 			.then(function (response) {
-				return response.data;
+				if (allArticlesCache !== response.data) {
+					angular.copy(response.data, allArticlesCache);
+				}
+				return allArticlesCache;
 			})
 	}
 
@@ -41,6 +45,14 @@ app.factory('ArticlesFactory', function ($http) {
 			.then(function (response) {
 				return response.data;
 			})
+			.catch(function (err) {
+				console.log('No response from server.. serving from object cache: ', err);
+				var foundArticle = _.find(allArticlesCache, function (article) {
+					return article._id === id
+				});
+				console.log(foundArticle);
+				return foundArticle
+			})
 	};
 
 
@@ -58,8 +70,10 @@ app.factory('ArticlesFactory', function ($http) {
 	ArticlesFactory.fetchUserArticlesArray = function () {
 		return $http.get('api/pages/user/me')
 			.then(function (response) {
-				console.log(response.data)
-				return response.data;
+				if (response.data !== userArticlesArray) {
+					angular.copy(response.data, userArticlesArray);
+				}
+				return userArticlesArray;
 			})
 	}
 
@@ -69,8 +83,13 @@ app.factory('ArticlesFactory', function ($http) {
 				angular.copy(response.data.pages, userArticlesCache)
 				return userArticlesCache
 			})
+			.catch(function(err) {
+				console.log('No internet connection, returning stale data..')
+				return userArticlesCache;
+			})
 	}
 
+	// TODO: sync when back online...
 	ArticlesFactory.favoriteArticle = function (id) {
 		return $http.put('api/pages/' + id + '/favorite')
 			.then(function (response) {
@@ -78,7 +97,7 @@ app.factory('ArticlesFactory', function ($http) {
 				return response.data;
 			})
 	}
-
+	// TODO: sync when back online...
 	ArticlesFactory.unfavoriteArticle = function (id) {
 		return $http.put('api/pages/' + id + '/unfavorite')
 			.then(function (response) {

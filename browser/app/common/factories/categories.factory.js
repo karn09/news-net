@@ -1,17 +1,29 @@
 app.factory('CategoriesFactory', function ($http) {
 	var CategoriesFactory = {};
+	var currentSubscriptions = [];
+	var currentSubscriptionsDetailed = [];
+	var currentFoldersDetailed = [];
+	var currentFolders = [];
 
 	CategoriesFactory.getUserSubscriptions = function(){
 		return $http.get('/api/subscriptions/user/me')
 		.then(function(response){
-		  return response.data;
+			if (response.data !== currentSubscriptions) {
+				console.log('User subscriptions retrieved: ', response.data);
+				angular.copy(response.data, currentSubscriptions);
+			}
+		  return currentSubscriptions;
 		})
 	}
 
 	CategoriesFactory.getUserSubscriptionsDetailed = function(){
 		return $http.get('/api/subscriptions/user/me?long=true')
 		.then(function(response){
-		  return response.data;
+			if (response.data !== currentSubscriptionsDetailed) {
+				console.log('Detailed subscriptions retrieved: ', response.data);
+				angular.copy(response.data, currentSubscriptionsDetailed);
+			}
+		  return currentSubscriptionsDetailed;
 		})
 	}
 
@@ -22,14 +34,26 @@ app.factory('CategoriesFactory', function ($http) {
 
 		return $http.post('/api/subscriptions/', data)
 		.then(function(response){
+			if (currentSubscriptions.indexOf(response.data) === -1) {
+				console.log('New subscription added: ', response.data);
+				currentSubscriptions.push(response.data);
+			}
 			return response.data;
 		})
 	}
-
+	// this currently only adds the article ID to an array of pages associated with a subscription.
+	// does not update the detailed categories.
 	CategoriesFactory.addToSubscription = function(categoryId, articleId){
 		var data = {page: articleId};
 		return $http.put('/api/subscriptions/' + categoryId, data)
 		.then(function(response){
+			var idx = _.chain(currentSubscriptions).pluck('_id').indexOf(categoryId).value();
+			if (idx !== -1) {
+				if (currentSubscriptions[idx].pages.indexOf(articleId) === -1) {
+					console.log('Page added to subscription: ', response.data);
+					currentSubscriptions[idx].pages.push(articleId);
+				}
+			}
 			return response.data;
 		})
 	}
@@ -38,23 +62,34 @@ app.factory('CategoriesFactory', function ($http) {
 	CategoriesFactory.removeSubscription = function(id){
 		return $http.delete('/api/subscriptions/' + id)
 		.then(function(response){
+			_.remove(currentSubscriptions, function(subscription) {
+				return subscription._id === id;
+			})
 			return response.data;
 		})
 	}
 
 	// -------------------------------------------------------
-
+	// FIXME: Sometimes data retrieved is via ServiceWorker- which ends up being stale.
 	CategoriesFactory.getUserFolders = function(){
 		return $http.get('/api/folders/user/me')
 		.then(function(response){
-			return response.data;
+			if (response.data !== currentFolders) {
+				console.log('User folders retrieved: ', response.data);
+				angular.copy(response.data, currentFolders);
+			}
+			return currentFolders;
 		})
 	}
 
 	CategoriesFactory.getUserFoldersDetailed = function(){
 		return $http.get('/api/folders/user/me?long=true')
 		.then(function(response){
-		  return response.data;
+			if (response.data !== currentFoldersDetailed) {
+				console.log('Detailed User folders retrieved: ', response.data);
+				angular.copy(response.data, currentFoldersDetailed);
+			}
+		  return currentFoldersDetailed;
 		})
 	}
 
@@ -64,6 +99,10 @@ app.factory('CategoriesFactory', function ($http) {
 
 		return $http.post('/api/folders/', data)
 		.then(function(response){
+			if (currentFolders.indexOf(response.data) === -1) {
+				console.log('New folder added: ', response.data);
+				currentFolders.push(response.data);
+			}
 			return response.data;
 		})
 	}
@@ -72,6 +111,13 @@ app.factory('CategoriesFactory', function ($http) {
 		var data = {page: articleId};
 		return $http.put('/api/folders/' + categoryId, data)
 		.then(function(response){
+			var idx = _.chain(currentFolders).pluck('_id').indexOf(categoryId).value();
+			if (idx !== -1) {
+				if (currentFolders[idx].pages.indexOf(articleId) === -1) {
+					console.log('Page added to subscription: ', response.data);
+					currentFolders[idx].pages.push(articleId);
+				}
+			}
 			return response.data;
 		})
 	}
@@ -79,6 +125,9 @@ app.factory('CategoriesFactory', function ($http) {
 	CategoriesFactory.removeFolder  = function(id){
 		return $http.delete('/api/folders/' + id)
 		.then(function(response){
+			_.remove(currentFolders, function(folder) {
+				return folder._id === id;
+			})
 			return response.data;
 		})
 	}
