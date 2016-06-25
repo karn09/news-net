@@ -6,7 +6,10 @@ app.factory('ArticlesFactory', function ($http) {
 	ArticlesFactory.fetchAll = function () {
 		return $http.get("/api/pages")
 			.then(function (response) {
-				return response.data;
+				if (allArticlesCache !== response.data) {
+					angular.copy(response.data, allArticlesCache);
+				}
+				return allArticlesCache;
 			})
 	}
 
@@ -41,6 +44,14 @@ app.factory('ArticlesFactory', function ($http) {
 			.then(function (response) {
 				return response.data;
 			})
+			.catch(function (err) {
+				console.log('No response from server.. serving from object cache: ', err);
+				var foundArticle = _.find(allArticlesCache, function (article) {
+					return article._id === id
+				});
+				console.log(foundArticle);
+				return foundArticle
+			})
 	};
 
 
@@ -68,6 +79,10 @@ app.factory('ArticlesFactory', function ($http) {
 			.then(function (response) {
 				angular.copy(response.data.pages, userArticlesCache)
 				return userArticlesCache
+			})
+			.catch(function(err) {
+				console.log('No internet connection, returning stale data..')
+				return userArticlesCache;
 			})
 	}
 
