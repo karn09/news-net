@@ -6,13 +6,12 @@
   "description": "Add pages to News-net",
 
   "browser_action": {
-    "default_icon": "news-icon.png"
+    "default_icon": "news-icon.png",
+    "default_popup": "popup.html"
   },
-
-  "background": {
-    "scripts": ["event.js"],
-    "persistent": false
-  },
-
-  "permissions": ["<all_urls>"]
+   
+  "permissions": [
+    "activeTab",
+    "<all_urls>"
+  ]
 }
