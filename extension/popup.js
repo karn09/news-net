@@ -2,7 +2,6 @@ var host = 'http://localhost:1337'
 
 document.addEventListener('DOMContentLoaded', function() {
 
-
   //Get /session
   getUser(function(response){
     console.log("user", response.user)
@@ -63,6 +62,10 @@ function savePage(){
     addPage.open('POST', `${host}/api/pages/`, false);
     addPage.setRequestHeader('Content-Type', 'application/json');
     addPage.send(parser.responseText);
-    alert(addPage.responseText);
+    var parsedResponse = JSON.parse(addPage.responseText);
+
+    console.log(parsedResponse);
+    var popup = document.getElementById('content-area');
+    popup.innerHTML = "Saved Article: " + parsedResponse.title;
   });
 }
