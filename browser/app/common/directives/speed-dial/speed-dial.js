@@ -1,4 +1,4 @@
-app.directive('speedDial', function ($mdDialog, $state, $rootScope, CategoriesFactory) {
+app.directive('speedDial', function ($mdDialog, $state, $rootScope, CategoriesFactory, ArticlesFactory) {
 	return {
 		restrict: 'E',
 		scope: {},
@@ -60,10 +60,29 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope, CategoriesFa
 								data: {id: toParams.id}
 							},
 							{
-								name: "Placeholder",
-								type: "placeholder",
-								icon: "",
-								direction: "bottom"
+								name: "Add to Collections",
+								icon: '/assets/icons/ic_favorite_white_48px.svg',
+								direction: "bottom",
+								action: 'addFavorite',
+								data: {id: toParams.id}
+							},
+							{
+								name: "Add to Folder / Subscription",
+								icon: '/assets/icons/ic_playlist_add_white_36px.svg',
+								direction: "top",
+								action: 'openDialog',
+								controller: 'fileArticleFormCtrl',
+								controllerAs: 'dialog',
+								templateUrl: '/app/common/dialogs/filing-dialog/filing-dialog.html',
+								resolve: {
+									folders: function(){
+										return CategoriesFactory.getUserFolders();
+									},
+									subscriptions: function(){
+										return CategoriesFactory.getUserSubscriptions();
+									}
+								},
+								data: {id: toParams.id}
 							}
 
 						],
@@ -106,6 +125,10 @@ app.directive('speedDial', function ($mdDialog, $state, $rootScope, CategoriesFa
 				
 				if(item.action === 'openLink'){
 					$state.go(item.goto, item.data);
+				}
+
+				if(item.action === 'addFavorite'){
+					ArticlesFactory.favoriteArticle(item.data.id);
 				}
 			}
 

@@ -117,6 +117,17 @@ gulp.task('clean', function(){
     .pipe(clean());
 })
 
+gulp.task('copyExtensionAssets', function(){
+    return gulp.src([
+        './node_modules/angular/**/*',
+        './node_modules/angular-animate/**/*',
+        './node_modules/angular-aria/**/*',
+        './node_modules/angular-material/**/*',
+        './node_modules/angular-messages/**/*'
+        ], {base: './node_modules/'}
+    ).pipe(gulp.dest('./extension/lib'))
+})
+
 
 // Testing
 // --------------------------------------------------------------
@@ -163,7 +174,12 @@ gulp.task('generateServiceWorker', function(callback) {
 
   //Libraries our project depends on.
     var dependencies = {
+        // '/service-worker.js': ['public/service-worker.js'],
+        // '/sw-routes.js': ['public/sw-routes.js'],
         '/lodash/index.js': ['node_modules/lodash/index.js'],
+        '/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2': ['node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2'],
+        '/bootstrap/dist/fonts/glyphicons-halflings-regular.woff': ['node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.woff'],
+        '/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf': ['node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf'],
         '/jquery/dist/jquery.js': ['node_modules/lodash/index.js'],
         '/angular/angular.js': ['node_modules/angular/angular.js'],
         '/angular-animate/angular-animate.js': ['node_modules/angular-animate/angular-animate.js'],
@@ -175,6 +191,27 @@ gulp.task('generateServiceWorker', function(callback) {
         '/bootstrap/dist/css/bootstrap.css': ['node_modules/bootstrap/dist/css/bootstrap.css'],
         '/angular-material/angular-material.js': ['node_modules/angular-material/angular-material.js'],
         '/angular-aria/angular-aria.js': ['node_modules/angular-aria/angular-aria.js'],
+        '/assets/icons/add_circle.svg': ['public/assets/icons/add_circle.svg'],
+        '/assets/icons/add.svg': ['public/assets/icons/add.svg'],
+        '/assets/icons/category_add.svg': ['public/assets/icons/category_add.svg'],
+        '/assets/icons/favorite.svg': ['public/assets/icons/favorite.svg'],
+        '/assets/icons/ic_add_white_36px.svg': ['public/assets/icons/ic_add_white_36px.svg'],
+        '/assets/icons/ic_chat_48px.svg': ['public/assets/icons/ic_chat_48px.svg'],
+        '/assets/icons/ic_chat_bubble_black_24px.svg': ['public/assets/icons/ic_chat_bubble_black_24px.svg'],
+        '/assets/icons/ic_delete_black_24px.svg': ['public/assets/icons/ic_delete_black_24px.svg'],
+        '/assets/icons/ic_favorite_border_black_24px.svg': ['public/assets/icons/ic_favorite_border_black_24px.svg'],
+        '/assets/icons/ic_favorite_white_48px.svg': ['public/assets/icons/ic_favorite_white_48px.svg'],
+        '/assets/icons/ic_folder_black_24px.svg': ['public/assets/icons/ic_folder_black_24px.svg'],
+        '/assets/icons/ic_menu_white_36px.svg': ['public/assets/icons/ic_menu_white_36px.svg'],
+        '/assets/icons/ic_mode_edit_black_24px.svg': ['public/assets/icons/ic_mode_edit_black_24px.svg'],
+        '/assets/icons/ic_playlist_add_white_36px.svg': ['public/assets/icons/ic_playlist_add_white_36px.svg'],
+        '/assets/icons/ic_refresh_black_24px.svg': ['public/assets/icons/ic_refresh_black_24px.svg'],
+        '/assets/icons/ic_share_black_24px.svg': ['public/assets/icons/ic_share_black_24px.svg'],
+        '/assets/icons/ic_thumb_down_black_24px.svg': ['public/assets/icons/ic_thumb_down_black_24px.svg'],
+        '/assets/icons/ic_thumb_up_black_24px.svg': ['public/assets/icons/ic_thumb_up_black_24px.svg'],
+        '/assets/icons/menu.svg': ['public/assets/icons/menu.svg'],
+        '/assets/icons/sidebar_home.svg': ['public/assets/icons/sidebar_home.svg'],
+        '/assets/images/news.jpg': ['public/assets/images/news.jpg'],
         '/angular-material/angular-material.css': ['node_modules/angular-material/angular-material.css']
     }
 
@@ -193,7 +230,7 @@ gulp.task('generateServiceWorker', function(callback) {
       handler: 'fastest',
       options: {
         cache: {
-          maxEntries: 5,
+          maxEntries: 10,
           name: 'subscriptions-cache'
         }
       }
@@ -202,12 +239,12 @@ gulp.task('generateServiceWorker', function(callback) {
       handler: 'fastest',
       options: {
         cache: {
-          maxEntries: 5,
+          maxEntries: 10,
           name: 'article-view-cache'
         }
       }
     },
-    { urlPattern: /\//,
+    { urlPattern: /(.com|.net|1337|\/)$/,
       handler: 'fastest',
       options: {
         cache: {
@@ -215,6 +252,30 @@ gulp.task('generateServiceWorker', function(callback) {
           name: 'home-cache'
         }
       }
+    },
+    { urlPattern: /\/api\/folders\/user/,
+      handler: 'fastest'
+    },
+    { urlPattern: /\/api\/subscriptions\/user/,
+      handler: 'fastest'
+    },
+    { urlPattern: /\/api\/pages\/user/,
+      handler: 'fastest'
+    },
+    { urlPattern: /\/api\/users\/me/,
+      handler: 'fastest'
+    },
+    { urlPattern: /\/api\/folders\/user\/me/,
+      handler: 'fastest'
+    },
+    { urlPattern: /\/api\/pages\/user\/me/,
+      handler: 'fastest'
+    },
+    {urlPattern: /\/app\/articles/,
+      handler: 'fastest'
+    },
+    { urlPattern: /\/collections/,
+      handler: 'fastest'
     },
   ];
 
@@ -259,9 +320,9 @@ gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction', 'buildI
 
 gulp.task('build', function () {
     if (process.env.NODE_ENV === 'production') {
-        runSeq(['buildJSProduction', 'buildCSSProduction', 'buildIDB', 'copyImages', 'copyFonts', 'copyHTML', 'generateServiceWorker']);
+        runSeq(['buildJSProduction', 'buildCSSProduction', 'buildIDB', 'copyImages', 'copyFonts', 'copyHTML', 'generateServiceWorker', 'copyExtensionAssets']);
     } else {
-        runSeq(['buildJS', 'buildCSS', 'copyImages', 'buildIDB', 'copyFonts', 'copyHTML', 'generateServiceWorker']);
+        runSeq(['buildJS', 'buildCSS', 'copyImages', 'buildIDB', 'copyFonts', 'copyHTML', 'generateServiceWorker', 'copyExtensionAssets']);
     }
 });
 

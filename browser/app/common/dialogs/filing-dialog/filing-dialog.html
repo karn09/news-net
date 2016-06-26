@@ -1,18 +1,9 @@
 <md-dialog layout-padding>
     <md-dialog-content>
-        <p></p>
         <div layout-gt-xs="row">
             <md-input-container>
-                <label>{{item.name}}</label>
-                <input ng-model="data.primary">
-            </md-input-container>
-        </div>
-
-        <div layout-gt-xs="row">
-            <md-input-container>
-
-                <label>Add to Folder / Subscription (Optional)</label>
-                <md-select ng-model="data.secondary">
+                 <label>{{item.name}}</label>
+                <md-select ng-model="categoryData">
                     <md-optgroup label="Folders">
                         <md-option ng-repeat="folder in dialog.folders" ng-value="folder">{{folder.description}}</md-option>
                     </md-optgroup>
@@ -27,7 +18,7 @@
             <md-button aria-label="Close dialog" ng-click="dialog.close()" class="md-primary">
                 Cancel
             </md-button>
-            <md-button aria-label="Submit dialog" ng-click="dialog.submit(data)" class="md-primary">
+            <md-button aria-label="Submit dialog" ng-click="dialog.submit(item.data.id, categoryData)" class="md-primary">
                 Submit
             </md-button>
         </div>

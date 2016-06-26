@@ -53,7 +53,15 @@ if ('serviceWorker' in navigator) {
         }
       };
     };
-  }).catch(function(e) {
+    console.log(reg)
+  })
+  // .then(function() {
+  //   self.addEventListener('activate', function(e) {
+  //     console .log('ServiceWorker activate')
+  //     console .log(e)
+  //   })
+  // })
+  .catch(function(e) {
     console.error('Error during service worker registration:', e);
   });
 }

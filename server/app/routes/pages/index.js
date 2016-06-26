@@ -37,11 +37,42 @@ router.get('/', function (req, res, next) {
 		})
 })
 
+//Get all pages ordered by userCount
+router.get('/recommended', function (req, res, next) {
+	var sessionUserId = req.session.passport.user;
+	User.findById(sessionUserId)
+		.then(function (user) {
+
+			console.log(user)
+
+			Page.find({}).sort({userCount: -1}).limit(20)
+				.then(function (pages) {
+					return new Promise(function (resolve, reject) {
+							resolve(pages.map(function (page) {
+								if (user && user.pages.indexOf(page._id) > -1) {
+									var modPage = Object.assign(page, { saved: true});
+									console.log('Modified Page: ', Object.keys(modPage))
+									return modPage;
+								} else {
+									return page;
+								}
+							}))
+						})
+						.then(function (pages) {
+							// console.log(pages)
+							res.json(pages)
+						}, next)
+				})
+		})
+})
+
 //Limit to admin or user
 router.get('/user/me', function(req, res, next){
-    User.findById(req.session.passport.user)
+		var pages;
+		User.findById(req.session.passport.user)
     .then(function(user){
-        res.send(user.pages);
+				pages = user.pages || [];
+        res.send(pages);
     })
 })
 
@@ -217,6 +248,79 @@ router.delete('/:id', function (req, res, next) {
 		.then(function (response) {
 			res.send(response);
 		}, next);
+});
+
+//Post article - used by chrome extension
+router.post('/ext', function(req, res, next){
+
+  console.log("req.body: ", req.body.title);
+
+  var user = 'obama@gmail.com';
+  User.findOne({email: user})
+    .then(function(user){
+      Page.findOne({url: req.body.url})
+        .then(function(page){
+          if (page) {
+            console.log("Page already exists:\n", page);
+            page.userCount = page.userCount + 1; console.log("Updated userCount is ", page.userCount);
+            page.save()
+              .then(function(updatedPage){
+                console.log("user", user)
+                user.pages.push(updatedPage._id);
+                if(req.body.category){
+                  Category.findOne({description: req.body.category})
+                    .then(function(category){
+                      category.pages.push(updatedPage._id);
+                      return category.save()
+                    }).then(function(){
+                    return user.save()
+                  }).then(function(){
+                    res.send(updatedPage);
+                  })
+                }else{
+                  user.save()
+                    .then(function(response){
+                      res.send(updatedPage);
+                    })
+                }
+              })
+
+          } else {
+            var newPage = new Page({
+              content: req.body.content,
+              datePublished: req.body.date_published,
+              domain: req.body.domain,
+              excerpt: req.body.excerpt,
+              leadImageUrl: req.body.lead_image_url,
+              title: req.body.title,
+              url: req.body.url,
+              userCount: 1
+            });
+
+            newPage.save()
+              .then(function(page){
+                console.log("Created new page:\n", page);
+                user.pages.push(page._id);
+                if(req.body.category){
+                  Category.findOne({description: req.body.category})
+                    .then(function(category){
+                      category.pages.push(page._id);
+                      return category.save()
+                    }).then(function(){
+                    return user.save()
+                  }).then(function(){
+                    res.send(page);
+                  })
+                }else{
+                  user.save()
+                    .then(function(response){
+                      res.send(page);
+                    })
+                }
+              })
+          }
+        })
+    })
 });
 
 module.exports = router;
