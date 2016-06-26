@@ -6,7 +6,7 @@
   "description": "Add pages to News-net",
 
   "browser_action": {
-    "default_icon": "news-icon.png",
+    "default_icon": "assets/news-icon.png",
     "default_popup": "popup.html"
   },
    
