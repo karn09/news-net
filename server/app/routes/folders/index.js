@@ -78,6 +78,19 @@ router.put('/:id', function(req, res, next){
   }, next);
 });
 
+// Category.admin
+router.delete('/:id/pages/:pageId', function(req, res, next){
+  Category.findById(req.params.id)
+  .then(function(folder){
+    var pageIndex = folder.pages.indexOf(req.params.pageId);
+    folder.pages.splice(pageIndex, 1)
+    return folder.save();
+  })
+  .then(function(updatedFolder){
+    res.send(updatedFolder);
+  })
+})
+
 //Admin or owner
 //Hard Delete
 router.delete('/:id', function(req, res, next){

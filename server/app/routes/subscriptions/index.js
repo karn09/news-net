@@ -89,6 +89,18 @@ router.put('/:id', function(req, res, next){
 	}, next);
 });
 
+// Category.admin
+router.delete('/:id/pages/:pageId', function(req, res, next){
+  Category.findById(req.params.id)
+  .then(function(subscription){
+    var pageIndex = subscription.pages.indexOf(req.params.pageId);
+    subscription.pages.splice(pageIndex, 1)
+    return subscription.save();
+  })
+  .then(function(updatedSubscription){
+    res.send(updatedSubscription);
+  })
+})
 
 //Subscriber
 router.delete('/:id', function(req, res, next){

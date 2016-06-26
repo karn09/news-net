@@ -58,6 +58,26 @@ app.factory('CategoriesFactory', function ($http) {
 		})
 	}
 
+	CategoriesFactory.removeFromSubscription = function(categoryId, articleId){
+		return $http.delete('/api/subscriptions/' + categoryId + '/pages/' + articleId)
+		.then(function(response){
+
+			//Get index of category
+			var csIndex = _.chain(currentSubscriptions).pluck('_id').indexOf(categoryId).value();
+			var csdIndex = _.chain(currentSubscriptionsDetailed).pluck('_id').indexOf(categoryId).value();
+
+			//Get index of page in category's 'pages' array
+			var csPageIndex = currentSubscriptions[csIndex].pages.indexOf(articleId);
+			var csdPageIndex = _.chain(currentSubscriptionsDetailed[csdIndex].pages).pluck('_id').indexOf(articleId).value();
+
+			//Remove page from index
+			currentSubscriptions[csIndex].pages.splice(csPageIndex, 1);
+			currentSubscriptionsDetailed[csdIndex].pages.splice(csdPageIndex, 1);
+
+			return response.data;
+		})
+	}
+
 	//If user is admin, this deletes the subscription
 	CategoriesFactory.removeSubscription = function(id){
 		return $http.delete('/api/subscriptions/' + id)
@@ -118,6 +138,26 @@ app.factory('CategoriesFactory', function ($http) {
 					currentFolders[idx].pages.push(articleId);
 				}
 			}
+			return response.data;
+		})
+	}
+
+	CategoriesFactory.removeFromFolder = function(categoryId, articleId){
+		return $http.delete('/api/folder/' + categoryId + '/pages/' + articleId)
+		.then(function(response){
+
+			//Get index of category
+			var cfIndex = _.chain(currentFolders).pluck('_id').indexOf(categoryId).value();
+			var cfdIndex = _.chain(currentFoldersDetailed).pluck('_id').indexOf(categoryId).value();
+
+			//Get index of page in category's 'pages' array
+			var cfPageIndex = currentFolders[cfIndex].pages.indexOf(articleId);
+			var cfdPageIndex = _.chain(currentFoldersDetailed[cfdIndex].pages).pluck('_id').indexOf(articleId).value();
+
+			//Remove page from index
+			currentFolders[cfIndex].pages.splice(cfPageIndex, 1);
+			currentFoldersDetailed[cfdIndex].pages.splice(cfdPageIndex, 1);
+
 			return response.data;
 		})
 	}
