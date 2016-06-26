@@ -37,6 +37,35 @@ router.get('/', function (req, res, next) {
 		})
 })
 
+//Get all pages ordered by userCount
+router.get('/recommended', function (req, res, next) {
+	var sessionUserId = req.session.passport.user;
+	User.findById(sessionUserId)
+		.then(function (user) {
+
+			console.log(user)
+
+			Page.find({}).sort({userCount: -1}).limit(20)
+				.then(function (pages) {
+					return new Promise(function (resolve, reject) {
+							resolve(pages.map(function (page) {
+								if (user && user.pages.indexOf(page._id) > -1) {
+									var modPage = Object.assign(page, { saved: true});
+									console.log('Modified Page: ', Object.keys(modPage))
+									return modPage;
+								} else {
+									return page;
+								}
+							}))
+						})
+						.then(function (pages) {
+							// console.log(pages)
+							res.json(pages)
+						}, next)
+				})
+		})
+})
+
 //Limit to admin or user
 router.get('/user/me', function(req, res, next){
 		var pages;
