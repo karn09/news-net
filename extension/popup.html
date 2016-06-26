@@ -13,11 +13,38 @@
       -
       - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
      -->
-    <script src="popup.js"></script>
+     <link rel="stylesheet" href="/lib/angular-material/angular-material.min.css">
   </head>
-  <body>
-    <div id="content-area">
-      Saving page
+  <body ng-app="Extension" ng-controller="popupController">
+    <div ng-show="loggedIn">
+      {{message}}
     </div>
+
+
+    <div ng-show="!loggedIn">
+      <div layout-gt-xs="row">
+          <md-input-container>
+              <label>Email</label>
+              <input ng-model="data.email">
+          </md-input-container>
+      </div>
+      <div layout-gt-xs="row">
+          <md-input-container>
+              <label>Password</label>
+              <input type="password" ng-model="data.password">
+          </md-input-container>
+      </div>
+      <div layout-gt-xs="row" class="md-actions">
+          <md-button aria-label="Log in" ng-click="login(data)" class="md-primary">
+              Submit
+          </md-button>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="lib/angular/angular.min.js"></script>
+    <script src="lib/angular-animate/angular-animate.min.js"></script>
+    <script src="lib/angular-aria/angular-aria.min.js"></script>
+    <script src="lib/angular-messages/angular-messages.min.js"></script>
+    <script type="text/javascript" src="popup.js"></script>
   </body>
 </html>
