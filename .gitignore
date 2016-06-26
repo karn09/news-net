@@ -8,3 +8,4 @@ public/service-worker.js
 coverage
 secrets.js
 .editorconfig
+/extension/lib
