@@ -16,7 +16,8 @@
      <meta name="viewport" content="width=device-width, initial-scale=1">
      <link rel="stylesheet" href="/lib/angular-material/angular-material.min.css">
      <style>
-        body{ width:250px;}
+        html { max-height: 218px !important; }
+        body{ width:250px; height: 218px; }
         .form {width: 90%; padding-left: 7px}
         .form-inputs {width: 95%; }
         #submit-button { padding-right: 0; margin-right: 0; }
@@ -26,7 +27,7 @@
 
   <body ng-app="Extension" ng-controller="popupController">
     <div ng-show="loggedIn">
-      {{message}}
+      <p class="md-display-1" align="center">{{message}}</p>
     </div>
 
     <div ng-show="!loggedIn" class="form" width=90%>
