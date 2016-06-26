@@ -25,8 +25,10 @@ function cachePage(request, values, options) {
     var pageRef = request.url.match(/\/api\/pages\/([1-9].*|[a-z].*)/) || request;
     return openCache(options).then(function (cache) {
       if (Array.isArray(pageRef)) {
+				console.log('Cache found: ', cache.match(pageRef[1]));
         return cache.match(pageRef[1]);
       } else {
+				console.log('Cache found: ', cache.match(pageRef));
         return cache.match(pageRef);
       }
     });
@@ -161,7 +163,17 @@ toolbox.router.get(/\/api\/pages(\/|)/, pageHandler, {
   cache: {
     name: 'aggregate-page-cache',
     maxEntries: 5,
-    maxAgeSeconds: 5000
   }
 })
-// toolbox.router.get(/\/api\/categories/, )
+
+toolbox.precache(
+	[
+		'/collections',
+		'/subscriptions',
+		'/articles',
+		'/api/pages',
+		// '/app/my-collections/collections.html',
+		'/api/subscriptions/user/me?long=true',
+		'/api/folders/user/me?long=true',
+	]
+)
