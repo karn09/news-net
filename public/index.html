@@ -29,9 +29,9 @@
 
     <navbar ng-show="loggedInUser"></navbar>
     <sidebar ng-show="loggedInUser"></sidebar>
-    <speed-dial></speed-dial>
+    <speed-dial ng-show="loggedInUser"></speed-dial>
 
-    <md-content style="background-color:white">
+    <md-content style="height:100%">
         <div layout-wrap layout="column" flex ui-view>
         </div>
     </md-content>
