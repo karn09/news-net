@@ -17,6 +17,7 @@ var karma = require('karma').server;
 var istanbul = require('gulp-istanbul');
 var notify = require('gulp-notify');
 var clean = require('gulp-clean');
+var gulpsync = require('gulp-sync')(gulp);
 
 // Development tasks
 // --------------------------------------------------------------
@@ -318,17 +319,19 @@ gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction', 'buildI
 // Composed tasks
 // --------------------------------------------------------------
 
-gulp.task('build', function () {
-    runSeq(['buildJS', 'buildCSS', 'copyImages', 'buildIDB', 'copyFonts', 'copyHTML', 'copyExtensionAssets', 'generateServiceWorker']);
-    /*
-    if (process.env.NODE_ENV === 'production') {
-        runSeq(['buildJSProduction', 'buildCSSProduction', 'buildIDB', 'copyImages', 'copyFonts', 'copyHTML', 'generateServiceWorker', 'copyExtensionAssets']);
-    } else {
-        runSeq(['buildJS', 'buildCSS', 'copyImages', 'buildIDB', 'copyFonts', 'copyHTML', 'generateServiceWorker', 'copyExtensionAssets']);
-    }
-    */
-});
+// gulp.task('build', function () {
+//     runSeq(['buildJS', 'buildCSS', 'copyImages', 'buildIDB', 'copyFonts', 'copyHTML', 'generateServiceWorker', 'copyExtensionAssets']);
+    
+//     if (process.env.NODE_ENV === 'production') {
+//         runSeq(['buildJSProduction', 'buildCSSProduction', 'buildIDB', 'copyImages', 'copyFonts', 'copyHTML', 'generateServiceWorker', 'copyExtensionAssets']);
+//     } else {
+//         runSeq(['buildJS', 'buildCSS', 'copyImages', 'buildIDB', 'copyFonts', 'copyHTML', 'generateServiceWorker', 'copyExtensionAssets']);
+//     }
+    
+// });
 
+
+    gulp.task('build', gulpsync.sync(['buildJS', 'buildCSS', 'copyImages', 'buildIDB', 'copyFonts', 'copyHTML', 'generateServiceWorker', 'copyExtensionAssets']));
 
 gulp.task('default', function () {
 
