@@ -10,11 +10,7 @@ app.directive('bindCompiledHtml', ['$compile', function($compile) {
         if (!value) return;
         var newElem = $compile(value)(scope.$parent);
         elem.contents().remove();
-        imgs = newElem.find('img');
-        for (var i = 0; i < imgs.length; i++) {
-
-          imgs[i].addClass = 'floatRight'
-        }
+        newElem.find('img').addClass('img-responsive');
         elem.append(newElem);
       });
     }
