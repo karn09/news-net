@@ -319,11 +319,14 @@ gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction', 'buildI
 // --------------------------------------------------------------
 
 gulp.task('build', function () {
+    runSeq(['buildJS', 'buildCSS', 'copyImages', 'buildIDB', 'copyFonts', 'copyHTML', 'generateServiceWorker', 'copyExtensionAssets']);
+    /*
     if (process.env.NODE_ENV === 'production') {
         runSeq(['buildJSProduction', 'buildCSSProduction', 'buildIDB', 'copyImages', 'copyFonts', 'copyHTML', 'generateServiceWorker', 'copyExtensionAssets']);
     } else {
         runSeq(['buildJS', 'buildCSS', 'copyImages', 'buildIDB', 'copyFonts', 'copyHTML', 'generateServiceWorker', 'copyExtensionAssets']);
     }
+    */
 });
 
 
