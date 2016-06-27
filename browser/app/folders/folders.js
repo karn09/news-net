@@ -20,9 +20,14 @@ app.config(function($stateProvider){
 
 })
 
-app.controller('FoldersCtrl', function($scope, categories) {
+app.controller('FoldersCtrl', function($scope, categories, CategoriesFactory) {
 
 	$scope.categories = categories;
+
+	$scope.removeFromFolder = function(categoryId, articleId){
+		console.log("Folders Control - Remove From")
+		CategoriesFactory.removeFromFolder(categoryId, articleId);
+	}
 
 });
 

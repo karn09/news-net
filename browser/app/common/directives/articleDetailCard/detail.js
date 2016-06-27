@@ -2,7 +2,8 @@ app.directive('articleDetail', function() {
   return {
     restrict: 'E',
     scope: {
-    	article: '='
+    	article: '=',
+      removeFrom: '&'
     },
     templateUrl: 'app/common/directives/articleDetailCard/detail.html',
     controller: 'ArticleDetailCtrl'
