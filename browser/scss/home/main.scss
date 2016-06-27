@@ -152,6 +152,36 @@
 			}								
 		}
 	}
+
+	.list {
+		margin-right: 80px;
+		margin-left: 80px;
+		margin-bottom: 80px;
+	}
+
+	.listbox {
+		box-shadow: 10px 10px 5px #888888;
+		background-color: #A0A0A0;
+		md-list-item {
+			margin-bottom: 10px; 
+		}
+		md-list-item:hover {
+			background-color: rgb(96,125,139);
+		}
+		md-list-item {
+			transition: background-color 0.3s;
+		}
+		.md-list-item-text {
+			h4 {
+				color: white;
+				font-family: 'Lora';
+				font-weight: 700;	
+			}
+			p {
+				color: black;				
+			}		
+		}  
+	}
 }
 
 

@@ -7,15 +7,21 @@ app.config(function ($stateProvider) {
         		return AuthService.getLoggedInUser();
         	},
             articles: function(ArticlesFactory){
-                return ArticlesFactory.fetchAll();
+                return ArticlesFactory.fetchRecommendedArticles();
             }            
         },
         controller: 'HomepageCtrl'
     });
 });
 
-app.controller('HomepageCtrl', function($scope, $rootScope, user, articles) {
+app.controller('HomepageCtrl', function($scope, $rootScope, user, articles, $state) {
 	$scope.user = user;
+    $scope.articles = articles;
+
+    $scope.listArticles = function(id){
+        $state.go('article', {id: id});
+    };
+
 
     $scope.tiles = buildGridModel({
             id   : "",

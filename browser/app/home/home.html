@@ -50,6 +50,48 @@
                           class="tile">
                     <img src="{{tile.image}}" height="100%" width="100%">
                     <a ui-sref="article({id: tile._id})"><md-grid-tile-footer><h3>{{tile.title}}</h3></md-grid-tile-footer></a>    
-            </md-grid-tile>                  
+            </md-grid-tile>         
+
     </md-grid-list>
+
+    <div class="list">    
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <md-list class="listbox">
+                  <md-list-item class="md-3-line" ng-repeat="article in articles.slice(0,7)" ng-click="listArticles(article._id)">
+                    <img class="md-avatar" src="{{article.leadImageUrl}}">
+                    <div class="md-list-item-text" layout="column">
+                        <h4>{{article.title}}</h4>
+                        <p>{{article.excerpt}}</p>
+                    </div>
+                  </md-list-item>
+                </md-list>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <md-list class="listbox" style="margin-top:20px">
+                  <md-list-item  class="md-3-line" ng-repeat="article in articles.slice(0,4)" ng-click="listArticles(article._id)">
+                    <img class="md-avatar" src="{{article.leadImageUrl}}">
+                    <div class="md-list-item-text" layout="column">
+                        <h4>{{article.title}}</h4>
+                        <p>{{article.excerpt}}</p>
+                    </div>
+                  </md-list-item>
+                </md-list>    
+                <md-list class="listbox" style="margin-top:20px">
+                  <md-list-item ng-repeat="article in articles.slice(0,3)" ng-click="listArticles(article._id)">
+                    <img class="md-avatar" src="{{article.leadImageUrl}}">
+                    <div class="md-list-item-text" layout="column">
+                        <h4>{{article.title}}</h4>
+                    </div>    
+                  </md-list-item>
+                </md-list>                    
+            </div>
+        </div>
+    </div>      
+            
 </div>
+
+
+
+
+
