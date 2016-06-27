@@ -124,6 +124,17 @@ gulp.task('clean', function () {
 		.pipe(clean());
 })
 
+gulp.task('copyExtensionAssets', function(){
+    return gulp.src([
+        './node_modules/angular/**/*',
+        './node_modules/angular-animate/**/*',
+        './node_modules/angular-aria/**/*',
+        './node_modules/angular-material/**/*',
+        './node_modules/angular-messages/**/*'
+        ], {base: './node_modules/'}
+    ).pipe(gulp.dest('./extension/lib'))
+})
+
 
 // Testing
 // --------------------------------------------------------------
@@ -357,11 +368,11 @@ gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction', 'buildI
 // --------------------------------------------------------------
 
 gulp.task('build', function () {
-	if (process.env.NODE_ENV === 'production') {
-		runSeq(['buildJSProduction', 'buildCSSProduction', 'buildIDB', 'copyImages', 'copyFonts', 'copyHTML', 'generateServiceWorker']);
-	} else {
-		runSeq(['buildJS', 'buildCSS', 'copyImages', 'buildIDB', 'copyFonts', 'copyHTML', 'generateServiceWorker']);
-	}
+    if (process.env.NODE_ENV === 'production') {
+        runSeq(['buildJSProduction', 'buildCSSProduction', 'buildIDB', 'copyImages', 'copyFonts', 'copyHTML', 'generateServiceWorker', 'copyExtensionAssets']);
+    } else {
+        runSeq(['buildJS', 'buildCSS', 'copyImages', 'buildIDB', 'copyFonts', 'copyHTML', 'generateServiceWorker', 'copyExtensionAssets']);
+    }
 });
 
 
