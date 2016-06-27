@@ -180,6 +180,7 @@ gulp.task('generateServiceWorker', function (callback) {
     '/bootstrap/dist/fonts/glyphicons-halflings-regular.woff': ['node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.woff'],
     '/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf': ['node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf'],
     '/lodash/index.js': ['node_modules/lodash/index.js'],
+    "/localforage/dist/localforage.js":["node_modules/localforage/dist/localforage.js"],
     '/angular/angular.js': ['node_modules/angular/angular.js'],
     '/jquery/dist/jquery.js': ['node_modules/jquery/dist/jquery.js'],
     '/angular-animate/angular-animate.js': ['node_modules/angular-animate/angular-animate.js'],
@@ -295,9 +296,9 @@ gulp.task('generateServiceWorker', function (callback) {
 			urlPattern: /\/api\/pages\/user/,
 			handler: 'fastest'
 		}, {
-			urlPattern: /\/api\/users\/me/,
-			handler: 'fastest'
-		}, {
+		// 	urlPattern: /\/api\/users\/me/,
+		// 	handler: 'fastest'
+		// }, {
 			urlPattern: /\/api\/folders\/user\/me/,
 			handler: 'fastest'
 		}, {
