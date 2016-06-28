@@ -223,6 +223,8 @@ gulp.task('generateServiceWorker', function (callback) {
 		'/app/dot-menu/menu.html': ["public/app/dot-menu/menu.html"],
 		'/app/folders/folders.html': ["public/app/folders/folders.html"],
 		'/app/home/home.html': ["public/app/home/home.html"],
+		'/app/offline/offline.html': ["public/app/offline/offline.html"],
+		'/assets/images/offline.png': ["public/assets/images/offline.png"],
 		'/app/login/login.html': ["public/app/login/login.html"],
 		'/app/main.js': ["public/app/main.js"],
 		'/app/my-collections/collections.html': ["public/app/my-collections/collections.html"],
