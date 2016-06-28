@@ -42,12 +42,12 @@
 			width: 350px;
 			background-color: white;
 			padding-top: 15px;
-			padding-bottom: 20px;			
+			padding-bottom: 20px;
 			.title {
 				text-align: center;
 				font-family: 'Lora';
 				font-weight: 700;
-				font-size: 20px;				
+				font-size: 20px;
 			}
 			#google {
 				border: 1px solid #D13644;
@@ -57,7 +57,7 @@
 				text-align: center;
 				font-size: 1em;
 				border-radius: 4px;
-				display: inline-block;				
+				display: inline-block;
 				.logo {
 					background: url('/assets/images/google-signup.png') center center no-repeat;
 					height: 38.38px;
@@ -71,7 +71,7 @@
 				.text {
 					text-shadow: 0 -1px 0 rgba(142,4,17,.5);
 					font-family: 'Lora';
-					font-weight: 700;					
+					font-weight: 700;
 					background-color: #d3505a;
 					line-height: 1.2;
 					padding: .8em 1.625em;
@@ -91,11 +91,11 @@
 				font-size: 1em;
 				border-radius: 4px;
 				display: inline-block;
-				padding: .8em 1.625em;	
+				padding: .8em 1.625em;
 				font-family: 'Lora';
 				font-weight: 700;
 				width: 225.17px;
-				background-image: linear-gradient(to bottom,#fff 0,#f2f2f2 100%);			
+				background-image: linear-gradient(to bottom,#fff 0,#f2f2f2 100%);
 			}
 
 		}
@@ -105,8 +105,8 @@
 #homewithuser {
 	background-color: #C0C0C0;
 	hr {
-		margin-bottom: 80px;
-		margin-top: 80px;
+		margin-bottom: 10px;
+		margin-top: 10px;
 		color: white;
 	}
 	#welcome {
@@ -121,7 +121,7 @@
 		#title {
 			font-family: 'Lobster', cursive;
 			font-weight: 400;
-			font-size: 25px;			
+			font-size: 25px;
 		}
 		p {
 			font-family: 'Lora';
@@ -130,10 +130,10 @@
 		}
 	}
 	.grid {
-		margin-left: 80px;
-		margin-right: 80px;
+		margin-left: 20px;
+		margin-right: 20px;
 	}
-	.tile {		
+	.tile {
 		border-radius: 2px;
 		border: solid 2px white;
 		a {
@@ -141,29 +141,29 @@
 			color: white;
 			h3 {
 				font-family: 'Lora';
-				font-weight: 400;				
+				font-weight: 400;
 			}
 			md-grid-tile-footer:hover {
 				h3 {
-					font-weight: 700;					
+					font-weight: 700;
 				}
 				background-color: black;
 				transition: background-color 0.9s;
-			}								
+			}
 		}
 	}
 
 	.list {
-		margin-right: 80px;
-		margin-left: 80px;
-		margin-bottom: 80px;
+		margin-right: 20px;
+		margin-left: 20px;
+		margin-bottom: 10px;
 	}
 
 	.listbox {
 		box-shadow: 10px 10px 5px #888888;
 		background-color: #A0A0A0;
 		md-list-item {
-			margin-bottom: 10px; 
+			margin-bottom: 10px;
 		}
 		md-list-item:hover {
 			background-color: rgb(96,125,139);
@@ -175,20 +175,11 @@
 			h4 {
 				color: white;
 				font-family: 'Lora';
-				font-weight: 700;	
+				font-weight: 700;
 			}
 			p {
-				color: black;				
-			}		
-		}  
+				color: black;
+			}
+		}
 	}
 }
-
-
-
-
-
-
-
-
-
