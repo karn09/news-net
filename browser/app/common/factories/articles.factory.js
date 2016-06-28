@@ -3,6 +3,7 @@ app.factory('ArticlesFactory', function ($http) {
 	var allArticlesCache = [];
 	var userArticlesCache = [];
 	var userArticlesArray = [];
+	var recommendedArticlesCache = [];
 
 	ArticlesFactory.fetchAll = function () {
 		return $http.get("/api/pages")
@@ -12,6 +13,16 @@ app.factory('ArticlesFactory', function ($http) {
 				}
 				return allArticlesCache;
 			})
+	}
+
+	ArticlesFactory.fetchRecommendedArticles = function () {
+		return $http.get("/api/pages/recommended")
+			.then(function(response) {
+				if (recommendedArticlesCache !== response.data) {
+					angular.copy(response.data, recommendedArticlesCache);
+				}
+				return recommendedArticlesCache;
+			});
 	}
 
 	//Can either provide name or id as parameter (i.e. obj = {name: "Technology"})

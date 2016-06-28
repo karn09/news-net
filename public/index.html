@@ -30,12 +30,12 @@
 
 <body layout="column" ng-app="FullstackGeneratedApp">
 
-    <navbar></navbar>
-    <sidebar></sidebar>
-    <speed-dial></speed-dial>
+    <navbar ng-show="loggedInUser"></navbar>
+    <sidebar ng-show="loggedInUser"></sidebar>
+    <speed-dial ng-show="loggedInUser"></speed-dial>
 
-    <md-content>
-        <div layout-wrap layout="column" flex ui-view>
+    <md-content style="height:100%">
+        <div layout-wrap layout="column" flex ui-view style="height:100%">
         </div>
     </md-content>
 

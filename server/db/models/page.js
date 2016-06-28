@@ -23,7 +23,8 @@ var schema = new mongoose.Schema({
         type: String
     },
     userCount: {
-        type: Number
+        type: Number,
+        default: 1
     }
 });
 
