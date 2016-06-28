@@ -36,7 +36,7 @@ function tryOrFallback(fakeResponse) {
 				// As the fake response will be reused but Response objects
 				// are one use only, we need to clone it each time we use it.
 				// return fakeResponse.clone();
-				return cacheHandler(req, fakeResponse.clone());
+				return fakeResponse.clone();
 			});
 		}
 
@@ -291,9 +291,25 @@ toolbox.router.post(/\/api\/pages(\/|)/, pageHandler, {
 
 
 
-toolbox.router.post('/api/comments/page/:id', tryOrFallback(new Response(null, {
-	status: 202
-})));
+// toolbox.router.post('/api/comments/page/:id', tryOrFallback(new Response(null, {
+// 	status: 202
+// })));
+
+toolbox.router.post('/api/comments/page/:id', tryOrFallback(new Response(
+	JSON.stringify(
+	{
+		
+  	    text: 'Pending comment..',
+  	    dateStamp: 'Pending',
+  	    user: {
+  	      email: 'Pending'
+  	    }
+  	  
+	}
+	)
+	)));
+
+toolbox.router.get('/flush', flushQueue());
 
 toolbox.router.put('/api/pages/:id/favorite', tryOrFallback(new Response(null, {
 	status: 204
