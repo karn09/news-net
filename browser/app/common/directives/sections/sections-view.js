@@ -1,7 +1,7 @@
 app.directive('sectionsView', function (CategoriesFactory) {
 	return {
 		restrict: 'E',
-		scope: { categories: '='},
+		scope: { categories: '=', removeFromFunction: '&?'},
 		templateUrl: 'app/common/directives/sections/sections-view.html',
 
 		link: function(scope) {
@@ -18,6 +18,20 @@ app.directive('sectionsView', function (CategoriesFactory) {
 					$(listId).hide(400);				
 				}		
 			};
+			
+			if(!!scope.removeFromFunction){
+				scope.pass = true;
+				scope.removeItemFromSection = function(categoryId){
+
+					return function removePageFromSection(pageId){
+						// console.log("Inner Function with Category: ", categoryId, " & Page: ", pageId);
+						return scope.removeFromFunction({categoryId: categoryId, pageId: pageId});
+					}
+				}
+			}else{
+				scope.pass = false;
+			}
+			
 		}
 	}
 })
