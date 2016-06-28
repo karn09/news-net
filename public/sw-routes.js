@@ -162,7 +162,7 @@ function cachePage(request, values, options) {
 	};
 	if (request.method === 'POST') {
 		return openCache(options).then(function (cache) {
-			console.log('POST Cache: ', cache.match(request));
+			// console.log('POST Cache: ', cache.match(request));
 			return cache.match(request);
 		});
 	};
@@ -205,7 +205,7 @@ function fetchAndCachePage(request, options) {
 
 		//
 		if (request.method === 'GET' && successResponses.test(response.status)) {
-			console.log('GET: ', request, response)
+			// console.log('GET: ', request, response)
 			response.clone().json().then(function (page) {
 
 				openCache(options).then(function (cache) {
@@ -315,6 +315,9 @@ toolbox.router.put('/api/comments/:id/downvote', tryOrFallback(new Response({
 	status: 204
 })));
 
+toolbox.router.delete('/api/subscriptions/:id', tryOrFallback(new Response({
+	status: 204
+})));
 
 // toolbox.router.get('/api/users/me', tryOrFallback(new Response(JSON.stringify({
 // 	_id: '99999999',
