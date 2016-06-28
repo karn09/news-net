@@ -1,4 +1,4 @@
-app.factory('ArticlesFactory', function ($http) {
+app.factory('ArticlesFactory', function ($http, $state) {
 	var ArticlesFactory = {};
 	var allArticlesCache = [];
 	var userArticlesCache = [];
@@ -22,7 +22,10 @@ app.factory('ArticlesFactory', function ($http) {
 					angular.copy(response.data, recommendedArticlesCache);
 				}
 				return recommendedArticlesCache;
-			});
+			})
+			.catch(function(err) {
+				$state.go('offline');
+			})
 	}
 
 	//Can either provide name or id as parameter (i.e. obj = {name: "Technology"})

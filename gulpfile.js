@@ -124,15 +124,16 @@ gulp.task('clean', function () {
 		.pipe(clean());
 })
 
-gulp.task('copyExtensionAssets', function(){
-    return gulp.src([
-        './node_modules/angular/**/*',
-        './node_modules/angular-animate/**/*',
-        './node_modules/angular-aria/**/*',
-        './node_modules/angular-material/**/*',
-        './node_modules/angular-messages/**/*'
-        ], {base: './node_modules/'}
-    ).pipe(gulp.dest('./extension/lib'))
+gulp.task('copyExtensionAssets', function () {
+	return gulp.src([
+		'./node_modules/angular/**/*',
+		'./node_modules/angular-animate/**/*',
+		'./node_modules/angular-aria/**/*',
+		'./node_modules/angular-material/**/*',
+		'./node_modules/angular-messages/**/*'
+	], {
+		base: './node_modules/'
+	}).pipe(gulp.dest('./extension/lib'))
 })
 
 
@@ -187,90 +188,81 @@ gulp.task('generateServiceWorker', function (callback) {
 
 	//Libraries our project depends on.
 	var dependencies = {
-    '/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2': ['node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2'],
-    '/bootstrap/dist/fonts/glyphicons-halflings-regular.woff': ['node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.woff'],
-    '/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf': ['node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf'],
-    '/lodash/index.js': ['node_modules/lodash/index.js'],
-    "/localforage/dist/localforage.js":["node_modules/localforage/dist/localforage.js"],
-    '/angular/angular.js': ['node_modules/angular/angular.js'],
-    '/jquery/dist/jquery.js': ['node_modules/jquery/dist/jquery.js'],
-    '/angular-animate/angular-animate.js': ['node_modules/angular-animate/angular-animate.js'],
-    '/angular-messages/angular-messages.js': ['node_modules/angular-messages/angular-messages.js'],
-    '/angular-ui-router/release/angular-ui-router.js': ['node_modules/angular-ui-router/release/angular-ui-router.js'],
-    '/angular-ui-bootstrap/ui-bootstrap.js': ['node_modules/angular-ui-bootstrap/ui-bootstrap.js'],
-    '/angular-ui-bootstrap/ui-bootstrap-tpls.js': ['node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.js'],
-    '/socket.io-client/socket.io.js': ['node_modules/socket.io-client/socket.io.js'],
-    '/bootstrap/dist/css/bootstrap.css': ['node_modules/bootstrap/dist/css/bootstrap.css'],
-    '/angular-material/angular-material.js': ['node_modules/angular-material/angular-material.js'],
-    '/angular-aria/angular-aria.js': ['node_modules/angular-aria/angular-aria.js'],
-    '/angular-material/angular-material.css': ['node_modules/angular-material/angular-material.css'],
-    '/app/article-view/article-view.html': ["public/app/article-view/article-view.html"],
-    '/app/articles/articles.html': ["public/app/articles/articles.html"],
-    '/app/comments/comments.html"': ["public/app/comments/comments.html" ],
-    '/app/comments/edit-comment.html': ["public/app/comments/edit-comment.html"],
-    '/app/common/dialogs/article-dialog/article-dialog.html': ["public/app/common/dialogs/article-dialog/article-dialog.html"],
-    '/app/common/dialogs/category-dialog/category-dialog.html': ["public/app/common/dialogs/category-dialog/category-dialog.html"],
-    '/app/common/dialogs/filing-dialog/filing-dialog.html': ["public/app/common/dialogs/filing-dialog/filing-dialog.html"],
-    '/app/common/directives/articleDetailCard/detail.html': ["public/app/common/directives/articleDetailCard/detail.html"],
-    '/app/common/directives/fullstack-logo/fullstack-logo.html': ["public/app/common/directives/fullstack-logo/fullstack-logo.html"],
-    '/app/common/directives/navbar/navbar.html': ["public/app/common/directives/navbar/navbar.html"],
-    '/app/common/directives/oauth-button/oauth-button.html': ["public/app/common/directives/oauth-button/oauth-button.html"],
-    '/app/common/directives/rando-greeting/rando-greeting.html': ["public/app/common/directives/rando-greeting/rando-greeting.html"],
-    '/app/common/directives/sections/sections-view.html': ["public/app/common/directives/sections/sections-view.html"],
-    '/app/common/directives/sidebar/sidebar.html': ["public/app/common/directives/sidebar/sidebar.html"],
-    '/app/common/directives/speed-dial/speed-dial.html': ["public/app/common/directives/speed-dial/speed-dial.html"],
-    '/app/dot-menu/menu.html': ["public/app/dot-menu/menu.html"],
-    '/app/folders/folders.html': ["public/app/folders/folders.html"],
-    '/app/home/home.html': ["public/app/home/home.html"],
-    '/app/login/login.html': ["public/app/login/login.html"],
-    '/app/main.js': ["public/app/main.js"],
-    '/app/my-collections/collections.html': ["public/app/my-collections/collections.html"],
-    '/app/pages/pages.html': ["public/app/pages/pages.html"],
-    '/app/parser/parser.html': ["public/app/parser/parser.html"],
-    '/app/popup-dialog/popup-dialog.html': ["public/app/popup-dialog/popup-dialog.html"],
-    '/app/style.css': ["public/app/style.css"],
-    '/app/subscriptions/subscriptions.html': ["public/app/subscriptions/subscriptions.html"],
-    '/assets/fonts/Roboto.css':["public/assets/fonts/Roboto.css"],
-    '/assets/icons/add_circle.svg':["public/assets/icons/add_circle.svg"],
-    '/assets/icons/add.svg':["public/assets/icons/add.svg"],
-    '/assets/icons/category_add.svg':["public/assets/icons/category_add.svg"],
-    '/assets/icons/favorite.svg':["public/assets/icons/favorite.svg"],
-    '/assets/icons/ic_add_white_36px.svg':["public/assets/icons/ic_add_white_36px.svg"],
-    '/assets/icons/ic_chat_48px.svg':["public/assets/icons/ic_chat_48px.svg"],
-    '/assets/icons/ic_chat_bubble_black_24px.svg':["public/assets/icons/ic_chat_bubble_black_24px.svg"],
-    '/assets/icons/ic_delete_black_24px.svg':["public/assets/icons/ic_delete_black_24px.svg"],
-    '/assets/icons/ic_favorite_border_black_24px.svg':["public/assets/icons/ic_favorite_border_black_24px.svg"],
-    '/assets/icons/ic_favorite_white_48px.svg':["public/assets/icons/ic_favorite_white_48px.svg"],
-    '/assets/icons/ic_folder_black_24px.svg':["public/assets/icons/ic_folder_black_24px.svg"],
-    '/assets/icons/ic_menu_white_36px.svg':["public/assets/icons/ic_menu_white_36px.svg"],
-    '/assets/icons/ic_mode_edit_black_24px.svg':["public/assets/icons/ic_mode_edit_black_24px.svg"],
-    '/assets/icons/ic_playlist_add_white_36px.svg':["public/assets/icons/ic_playlist_add_white_36px.svg"],
-    '/assets/icons/ic_refresh_black_24px.svg':["public/assets/icons/ic_refresh_black_24px.svg"],
-    '/assets/icons/ic_share_black_24px.svg':["public/assets/icons/ic_share_black_24px.svg"],
-    '/assets/icons/ic_thumb_down_black_24px.svg':["public/assets/icons/ic_thumb_down_black_24px.svg"],
-    '/assets/icons/ic_thumb_up_black_24px.svg':["public/assets/icons/ic_thumb_up_black_24px.svg"],
-    '/assets/icons/menu.svg':["public/assets/icons/menu.svg"],
-    '/assets/icons/more_vert.svg':["public/assets/icons/more_vert.svg"],
-    '/assets/icons/news-icon':["public/assets/icons/news-icon.png"],
-    '/assets/icons/newspaper.png':["public/assets/icons/newspaper.png"],
-    '/assets/icons/sidebar_home.svg':["public/assets/icons/sidebar_home.svg"],
-    '/assets/images/news.jpg':["public/assets/images/news.jpg"],
-  }
+		'/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2': ['node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2'],
+		'/bootstrap/dist/fonts/glyphicons-halflings-regular.woff': ['node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.woff'],
+		'/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf': ['node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf'],
+		'/lodash/index.js': ['node_modules/lodash/index.js'],
+		"/localforage/dist/localforage.js": ["node_modules/localforage/dist/localforage.js"],
+		'/angular/angular.js': ['node_modules/angular/angular.js'],
+		'/jquery/dist/jquery.js': ['node_modules/jquery/dist/jquery.js'],
+		'/angular-animate/angular-animate.js': ['node_modules/angular-animate/angular-animate.js'],
+		'/angular-messages/angular-messages.js': ['node_modules/angular-messages/angular-messages.js'],
+		'/angular-ui-router/release/angular-ui-router.js': ['node_modules/angular-ui-router/release/angular-ui-router.js'],
+		'/angular-ui-bootstrap/ui-bootstrap.js': ['node_modules/angular-ui-bootstrap/ui-bootstrap.js'],
+		'/angular-ui-bootstrap/ui-bootstrap-tpls.js': ['node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.js'],
+		'/socket.io-client/socket.io.js': ['node_modules/socket.io-client/socket.io.js'],
+		'/bootstrap/dist/css/bootstrap.css': ['node_modules/bootstrap/dist/css/bootstrap.css'],
+		'/angular-material/angular-material.js': ['node_modules/angular-material/angular-material.js'],
+		'/angular-aria/angular-aria.js': ['node_modules/angular-aria/angular-aria.js'],
+		'/angular-material/angular-material.css': ['node_modules/angular-material/angular-material.css'],
+		'/app/article-view/article-view.html': ["public/app/article-view/article-view.html"],
+		'/app/articles/articles.html': ["public/app/articles/articles.html"],
+		'/app/comments/comments.html"': ["public/app/comments/comments.html"],
+		'/app/comments/edit-comment.html': ["public/app/comments/edit-comment.html"],
+		'/app/common/dialogs/article-dialog/article-dialog.html': ["public/app/common/dialogs/article-dialog/article-dialog.html"],
+		'/app/common/dialogs/category-dialog/category-dialog.html': ["public/app/common/dialogs/category-dialog/category-dialog.html"],
+		'/app/common/dialogs/filing-dialog/filing-dialog.html': ["public/app/common/dialogs/filing-dialog/filing-dialog.html"],
+		'/app/common/directives/articleDetailCard/detail.html': ["public/app/common/directives/articleDetailCard/detail.html"],
+		'/app/common/directives/fullstack-logo/fullstack-logo.html': ["public/app/common/directives/fullstack-logo/fullstack-logo.html"],
+		'/app/common/directives/navbar/navbar.html': ["public/app/common/directives/navbar/navbar.html"],
+		'/app/common/directives/oauth-button/oauth-button.html': ["public/app/common/directives/oauth-button/oauth-button.html"],
+		'/app/common/directives/rando-greeting/rando-greeting.html': ["public/app/common/directives/rando-greeting/rando-greeting.html"],
+		'/app/common/directives/sections/sections-view.html': ["public/app/common/directives/sections/sections-view.html"],
+		'/app/common/directives/sidebar/sidebar.html': ["public/app/common/directives/sidebar/sidebar.html"],
+		'/app/common/directives/speed-dial/speed-dial.html': ["public/app/common/directives/speed-dial/speed-dial.html"],
+		'/app/dot-menu/menu.html': ["public/app/dot-menu/menu.html"],
+		'/app/folders/folders.html': ["public/app/folders/folders.html"],
+		'/app/home/home.html': ["public/app/home/home.html"],
+		'/app/offline/offline.html': ["public/app/offline/offline.html"],
+		'/assets/images/offline.png': ["public/assets/images/offline.png"],
+		'/app/login/login.html': ["public/app/login/login.html"],
+		'/app/main.js': ["public/app/main.js"],
+		'/app/my-collections/collections.html': ["public/app/my-collections/collections.html"],
+		'/app/pages/pages.html': ["public/app/pages/pages.html"],
+		'/app/parser/parser.html': ["public/app/parser/parser.html"],
+		'/app/popup-dialog/popup-dialog.html': ["public/app/popup-dialog/popup-dialog.html"],
+		'/app/style.css': ["public/app/style.css"],
+		'/app/subscriptions/subscriptions.html': ["public/app/subscriptions/subscriptions.html"],
+		'/assets/fonts/Roboto.css': ["public/assets/fonts/Roboto.css"],
+		'/assets/icons/add_circle.svg': ["public/assets/icons/add_circle.svg"],
+		'/assets/icons/add.svg': ["public/assets/icons/add.svg"],
+		'/assets/icons/category_add.svg': ["public/assets/icons/category_add.svg"],
+		'/assets/icons/favorite.svg': ["public/assets/icons/favorite.svg"],
+		'/assets/icons/ic_add_white_36px.svg': ["public/assets/icons/ic_add_white_36px.svg"],
+		'/assets/icons/ic_chat_48px.svg': ["public/assets/icons/ic_chat_48px.svg"],
+		'/assets/icons/ic_chat_bubble_black_24px.svg': ["public/assets/icons/ic_chat_bubble_black_24px.svg"],
+		'/assets/icons/ic_delete_black_24px.svg': ["public/assets/icons/ic_delete_black_24px.svg"],
+		'/assets/icons/ic_favorite_border_black_24px.svg': ["public/assets/icons/ic_favorite_border_black_24px.svg"],
+		'/assets/icons/ic_favorite_white_48px.svg': ["public/assets/icons/ic_favorite_white_48px.svg"],
+		'/assets/icons/ic_folder_black_24px.svg': ["public/assets/icons/ic_folder_black_24px.svg"],
+		'/assets/icons/ic_menu_white_36px.svg': ["public/assets/icons/ic_menu_white_36px.svg"],
+		'/assets/icons/ic_mode_edit_black_24px.svg': ["public/assets/icons/ic_mode_edit_black_24px.svg"],
+		'/assets/icons/ic_playlist_add_white_36px.svg': ["public/assets/icons/ic_playlist_add_white_36px.svg"],
+		'/assets/icons/ic_refresh_black_24px.svg': ["public/assets/icons/ic_refresh_black_24px.svg"],
+		'/assets/icons/ic_share_black_24px.svg': ["public/assets/icons/ic_share_black_24px.svg"],
+		'/assets/icons/ic_thumb_down_black_24px.svg': ["public/assets/icons/ic_thumb_down_black_24px.svg"],
+		'/assets/icons/ic_thumb_up_black_24px.svg': ["public/assets/icons/ic_thumb_up_black_24px.svg"],
+		'/assets/icons/menu.svg': ["public/assets/icons/menu.svg"],
+		'/assets/icons/more_vert.svg': ["public/assets/icons/more_vert.svg"],
+		'/assets/icons/news-icon': ["public/assets/icons/news-icon.png"],
+		'/assets/icons/newspaper.png': ["public/assets/icons/newspaper.png"],
+		'/assets/icons/sidebar_home.svg': ["public/assets/icons/sidebar_home.svg"],
+		'/assets/images/news.jpg': ["public/assets/images/news.jpg"],
+	}
 
 
 
-	var runtimeCachingOptions = [
-
-		{
-			urlPattern: /\/api\/categories/,
-			handler: 'fastest',
-			options: {
-				cache: {
-					maxEntries: 5,
-					name: 'categories-cache'
-				}
-			}
-		}, {
+	var runtimeCachingOptions = [{
 			urlPattern: /\/subscriptions/,
 			handler: 'fastest',
 			options: {
@@ -289,7 +281,7 @@ gulp.task('generateServiceWorker', function (callback) {
 				}
 			}
 		}, {
-			urlPattern: /(.com|.net|1337|\/)$/,
+			urlPattern: /(.com|.net|1337)$/,
 			handler: 'fastest',
 			options: {
 				cache: {
@@ -298,22 +290,7 @@ gulp.task('generateServiceWorker', function (callback) {
 				}
 			}
 		}, {
-			urlPattern: /\/api\/folders\/user/,
-			handler: 'fastest'
-		}, {
-			urlPattern: /\/api\/subscriptions\/user/,
-			handler: 'fastest'
-		}, {
-			urlPattern: /\/api\/pages\/user/,
-			handler: 'fastest'
-		}, {
-		// 	urlPattern: /\/api\/users\/me/,
-		// 	handler: 'fastest'
-		// }, {
-			urlPattern: /\/api\/folders\/user\/me/,
-			handler: 'fastest'
-		}, {
-			urlPattern: /\/api\/pages\/user\/me/,
+			urlPattern: /\/home/,
 			handler: 'fastest'
 		}, {
 			urlPattern: /\/app\/articles/,
@@ -321,7 +298,53 @@ gulp.task('generateServiceWorker', function (callback) {
 		}, {
 			urlPattern: /\/collections/,
 			handler: 'fastest'
-		},
+		}, {
+			urlPattern: /\/comments\/page\/([1-9].*|[a-z].*)/,
+			handler: 'fastest'
+		}, {
+			urlPattern: /\/api\/comments\/page\/([1-9].*|[a-z].*)/,
+			handler: 'fastest'
+		}, {
+			urlPattern: /\/api\/pages\/user/,
+			handler: 'fastest'
+		}, {
+			urlPattern: /\/api\/folders\/user\/me/,
+			handler: 'fastest'
+		}, {
+			urlPattern: /\/api\/pages\/user\/me/,
+			handler: 'fastest'
+		}, {
+			urlPattern: /\/api\/categories/,
+			handler: 'fastest',
+		}, {
+			urlPattern: /\/api\/folders\/user/,
+			handler: 'fastest'
+		}, {
+			urlPattern: /\/api\/subscriptions\/user/,
+			handler: 'fastest'
+		}
+		// 	urlPattern: /\/api\/pages/,
+		// 	handler: 'fastest'
+		// }, {
+		// 	urlPattern: /\/api\/pages\/recommended/,
+		// 	handler: 'fastest',
+		// },
+		// }, {
+		// }, {
+		// {
+		// 	urlPattern: /\/api\/*./
+		// }
+		// {
+		// 	options: {
+		// 		cache: {
+		// 			maxEntries: 5,
+		// 			name: 'categories-cache'
+		// 		}
+		// 	}
+		// }, {
+		// }, {
+		// }, {
+		// }, {
 	];
 
 	swPrecache.write(path.join(rootDir, 'service-worker.js'), {
@@ -368,11 +391,11 @@ gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction', 'buildI
 // --------------------------------------------------------------
 
 gulp.task('build', function () {
-    if (process.env.NODE_ENV === 'production') {
-        runSeq(['buildJSProduction', 'buildCSSProduction', 'buildIDB', 'copyImages', 'copyFonts', 'copyHTML', 'generateServiceWorker', 'copyExtensionAssets']);
-    } else {
-        runSeq(['buildJS', 'buildCSS', 'copyImages', 'buildIDB', 'copyFonts', 'copyHTML', 'generateServiceWorker', 'copyExtensionAssets']);
-    }
+	if (process.env.NODE_ENV === 'production') {
+		runSeq(['buildJSProduction', 'buildCSSProduction', 'buildIDB', 'copyImages', 'copyFonts', 'copyHTML', 'generateServiceWorker', 'copyExtensionAssets']);
+	} else {
+		runSeq(['buildJS', 'buildCSS', 'copyImages', 'buildIDB', 'copyFonts', 'copyHTML', 'generateServiceWorker', 'copyExtensionAssets']);
+	}
 });
 
 

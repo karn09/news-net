@@ -43,8 +43,7 @@ function tryOrFallback(fakeResponse) {
 		// If online, flush the queue and answer from network.
 		console.log('Network available! Flushing queue.');
 		return flushQueue().then(function () {
-			// return fetch(req);
-			return pageHandler(req);
+			return fetch(req);
 		});
 	};
 }
@@ -153,20 +152,20 @@ function cachePage(request, values, options) {
 		var pageRef = request.url.match(/\/api\/pages\/([1-9].*|[a-z].*)/) || request;
 		return openCache(options).then(function (cache) {
 			if (Array.isArray(pageRef)) {
-				console.log('Cache found: ', cache.match(pageRef[1]));
+				// console.log('Cache found: ', cache.match(pageRef[1]));
 				return cache.match(pageRef[1]);
 			} else {
-				console.log('Cache found: ', cache.match(pageRef));
+				// console.log('Cache found: ', cache.match(pageRef));
 				return cache.match(pageRef);
 			}
 		});
 	};
-	// if (request.method === 'POST') {
-	// 	return openCache(options).then(function (cache) {
-	// 		console.log('POST Cache: ', cache.match(request));
-	// 		return cache.match(request);
-	// 	});
-	// };
+	if (request.method === 'POST') {
+		return openCache(options).then(function (cache) {
+			console.log('POST Cache: ', cache.match(request));
+			return cache.match(request);
+		});
+	};
 }
 
 function openCache(options) {
@@ -185,30 +184,30 @@ function fetchAndCachePage(request, options) {
 		globalOptions.successResponses;
 
 	return fetch(request.clone()).then(function (response) {
-		var pageRef;
-		// check for POST method on request
-		if (request.method === 'POST' && successResponses.test(response.status)) {
-			// if POST found, clone response and resolve response to JSON
-			response.clone().json().then(function (page) {
-				// open cache using name supplied in POST route.
-				openCache(options).then(function (cache) {
-					console.log("POST PAGE: ", page)
-						// add to cache using page ID with JSON obj as data.
-					pageRef = page._id || request;
-					cache.put(pageRef, response)
-						.then(function () {
-							console.log('Page Successfully added at ', page._id);
-							var cacheOptions = options.cache || globalOptions.cache;
-						});
-				});
-			})
+			var pageRef;
+			// check for POST method on request
+			if (request.method === 'POST' && successResponses.test(response.status)) {
+				// if POST found, clone response and resolve response to JSON
+				response.clone().json().then(function(page) {
+					// open cache using name supplied in POST route.
+					openCache(options).then(function (cache) {
+						console.log("POST PAGE: ", page)
+							// add to cache using page ID with JSON obj as data.
+						pageRef = page._id || request;
+						cache.put(pageRef, response)
+							.then(function () {
+								console.log('Page Successfully added at ', page._id);
+								var cacheOptions = options.cache || globalOptions.cache;
+							});
+					});
+				})
 		};
 
 		//
 		if (request.method === 'GET' && successResponses.test(response.status)) {
 			console.log('GET: ', request, response)
-
 			response.clone().json().then(function (page) {
+
 				openCache(options).then(function (cache) {
 					pageRef = page._id || request;
 					cache.put(pageRef, response).then(function () {
@@ -216,7 +215,7 @@ function fetchAndCachePage(request, options) {
 						// Do not fallback to the global options for any that are missing
 						// unless they are all missing.
 						// debugger;
-						// var cacheOptions = options.cache || globalOptions.cache;
+						var cacheOptions = options.cache || globalOptions.cache;
 						//
 						// Only run the cache expiration logic if at least one of the maximums
 						// is set, and if we have a name for the cache that the options are
@@ -228,15 +227,14 @@ function fetchAndCachePage(request, options) {
 					});
 				});
 			});
-		}
 
-		return response.clone();
-	});
+			return response.clone();
+		};
+	})
 }
 
-
 // fetch and cache, whichever is fastest return.
-function pageHandler(request, values, options, fakeResponse) {
+function pageHandler(request, values, options) {
 
 	return new Promise(function (resolve, reject) {
 		var rejected = false;
@@ -245,8 +243,7 @@ function pageHandler(request, values, options, fakeResponse) {
 		var maybeReject = function (reason) {
 			reasons.push(reason.toString());
 			if (rejected) {
-				// reject(new Error('Both cache and network failed: ' + reasons.join(', ')));
-				reject(fakeResponse)
+				reject(new Error('Both cache and network failed: ' + reasons.join(', ')));
 			} else {
 				rejected = true;
 			}
@@ -283,28 +280,6 @@ function cacheHandler(request, response) {
 // on post to /api/pages/ take control of request to pageHandler.
 // pageHandler will resolve the new page ID and cache to matching ID within
 // storage. Both "fetchAndCachePage" and "cachePage" are called.
-// toolbox.router.post(/\/api\/pages(\/|)/, pageHandler, {
-// 	debug: true,
-// 	cache: {
-// 		name: 'saved-page-cache',
-// 		maxEntries: 100
-// 	}
-// })
-//
-
-function init(request, values, options) {
-
-	return fetch('/api/pages/users/me')
-		.then(function () {
-			fetch('/api/users/me')
-				.then(function () {
-					fetch(request)
-						.then(function(resp) {
-							return resp.clone();
-						})
-				})
-		})
-}
 
 toolbox.router.post(/\/api\/pages(\/|)/, pageHandler, {
 	debug: true,
@@ -313,6 +288,8 @@ toolbox.router.post(/\/api\/pages(\/|)/, pageHandler, {
 		maxEntries: 100
 	}
 })
+
+
 
 toolbox.router.post('/api/comments/page/:id', tryOrFallback(new Response(null, {
 	status: 202
@@ -339,18 +316,18 @@ toolbox.router.put('/api/comments/:id/downvote', tryOrFallback(new Response({
 })));
 
 
-toolbox.router.get('/api/users/me', tryOrFallback(new Response(JSON.stringify({
-	_id: '99999999',
-	pages: [{
-		excerpt: 'Try again when you are online. You\'ll then be treated to amazing list of articles currently ready for further offline reading!',
-		title: 'You could be online right now, but your not.',
-		leadImageUrl: "/assets/images/news.jpg",
-	}]
-}), {
-	headers: {
-		'Content-Type': 'application/json'
-	}
-})));
+// toolbox.router.get('/api/users/me', tryOrFallback(new Response(JSON.stringify({
+// 	_id: '99999999',
+// 	pages: [{
+// 		excerpt: 'Try again when you are online. You\'ll then be treated to amazing list of articles currently ready for further offline reading!',
+// 		title: 'You could be online right now, but your not.',
+// 		leadImageUrl: "/assets/images/news.jpg",
+// 	}]
+// }), {
+// 	headers: {
+// 		'Content-Type': 'application/json'
+// 	}
+// })));
 
 toolbox.router.get(/\/api\/pages\/([1-9].*|[a-z].*)/, pageHandler, {
 	debug: true,
@@ -359,25 +336,56 @@ toolbox.router.get(/\/api\/pages\/([1-9].*|[a-z].*)/, pageHandler, {
 		maxEntries: 100
 	}
 })
+//
+// toolbox.router.get('/api/pages/recommended', tryOrFallback(new Response(JSON.stringify([{
+// 	_id: '99999998',
+// 	excerpt: 'Try again when you are online. You\'ll then be treated to amazing list of articles currently ready for further offline reading!',
+// 	title: 'You could be online right now, but your not.',
+// 	leadImageUrl: "/assets/images/news.jpg",
+// }]), {
+// 	headers: {
+// 		'Content-Type': 'application/json'
+// 	}
+// })));
+//
+// toolbox.router.get('/api/pages', tryOrFallback(new Response(JSON.stringify([{
+// 	_id: '99999999',
+// 	excerpt: 'Try again when you are online. You\'ll then be treated to amazing list of articles currently ready for further offline reading!',
+// 	title: 'You could be online right now, but your not.',
+// 	leadImageUrl: "/assets/images/news.jpg",
+// }]), {
+// 	headers: {
+// 		'Content-Type': 'application/json'
+// 	}
+// })));
 
-toolbox.router.get('/api/pages', tryOrFallback(new Response(JSON.stringify([{
-	_id: '99999999',
-	excerpt: 'Try again when you are online. You\'ll then be treated to amazing list of articles currently ready for further offline reading!',
-	title: 'You could be online right now, but your not.',
-	leadImageUrl: "/assets/images/news.jpg",
-}]), {
-	headers: {
-		'Content-Type': 'application/json'
+toolbox.router.get('/api/pages/recommended', pageHandler, {
+	debug: true,
+	cache: {
+		name: 'aggregate-page-cache',
+		maxEntries: 50,
 	}
-})));
+})
 
-// toolbox.router.post('/login', init);
+toolbox.router.get('/api/pages', pageHandler, {
+	debug: true,
+	cache: {
+		name: 'aggregate-page-cache',
+		maxEntries: 50,
+	}
+})
 
-// toolbox.router.get('/api/pages', pageHandler, {
+// toolbox.router.get(/\/api\/*./, pageHandler, {
 // 	debug: true,
 // 	cache: {
-// 		name: 'aggregate-page-cache',
-// 		maxEntries: 5,
+// 		maxEntries: 200,
+// 	}
+// })
+
+// toolbox.router.get(/^((?!api\/).)*$/, pageHandler, {
+// 	debug: true,
+// 	cache: {
+// 		maxEntries: 200,
 // 	}
 // })
 
@@ -387,7 +395,8 @@ toolbox.precache(
 		'/subscriptions',
 		'/articles',
 		'/api/pages',
-		// '/app/my-collections/collections.html',
+		'/api/pages/recommended',
+		'/home',
 		'/api/subscriptions/user/me?long=true',
 		'/api/folders/user/me?long=true',
 	]
