@@ -27,8 +27,6 @@
             <md-icon md-svg-icon="/assets/icons/ic_chat_bubble_black_24px.svg"></md-icon>
         </md-button>
 
-        <div ng-if="removeFrom" ng-click="removeFrom">
-            <a>SUP</a>
-        </div>
+        <a ng-show="removeItemFromFunction" ng-click="removeItemFromHere({pageId: article._id})">SUP</a>
     </md-card-actions>
 </md-card>

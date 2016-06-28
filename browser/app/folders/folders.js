@@ -26,7 +26,7 @@ app.controller('FoldersCtrl', function($scope, categories, CategoriesFactory) {
 
 	$scope.removeFromFolder = function(categoryId, articleId){
 		console.log("Folders Control - Remove From")
-		CategoriesFactory.removeFromFolder(categoryId, articleId);
+		// CategoriesFactory.removeFromFolder(categoryId, articleId);
 	}
 
 });

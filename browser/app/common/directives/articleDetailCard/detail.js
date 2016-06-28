@@ -3,7 +3,7 @@ app.directive('articleDetail', function() {
     restrict: 'E',
     scope: {
     	article: '=',
-      removeFrom: '&'
+      removeItemFromFunction: '&?'
     },
     templateUrl: 'app/common/directives/articleDetailCard/detail.html',
     controller: 'ArticleDetailCtrl'
@@ -11,6 +11,7 @@ app.directive('articleDetail', function() {
 })
 
 app.controller('ArticleDetailCtrl', function($scope, ArticlesFactory) {
+
   $scope.addToCollection = function(article) {
     if (article.liked) {
       article.liked = false;
@@ -26,4 +27,13 @@ app.controller('ArticleDetailCtrl', function($scope, ArticlesFactory) {
       })
     }
   }
+ 
+  if(!!$scope.removeItemFromFunction){
+    var partialFunc = $scope.removeItemFromFunction()
+    
+    $scope.removeItemFromHere = function(pageId){
+      partialFunc(pageId);
+    }
+  }
+
 });
