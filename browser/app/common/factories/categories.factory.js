@@ -144,7 +144,7 @@ app.factory('CategoriesFactory', function ($http) {
 
 	CategoriesFactory.removeFromFolder = function(categoryId, articleId){
 
-		return $http.delete('/api/folder/' + categoryId + '/pages/' + articleId)
+		return $http.delete('/api/folders/' + categoryId + '/pages/' + articleId)
 		.then(function(response){
 
 			//Get index of category
