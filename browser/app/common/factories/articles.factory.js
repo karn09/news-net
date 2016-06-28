@@ -24,7 +24,7 @@ app.factory('ArticlesFactory', function ($http, $state) {
 				return recommendedArticlesCache;
 			})
 			.catch(function(err) {
-				$state.go('offline');
+				$state.go('articles');
 			})
 	}
 
@@ -104,10 +104,19 @@ app.factory('ArticlesFactory', function ($http, $state) {
 	}
 
 	// TODO: sync when back online...
-	ArticlesFactory.favoriteArticle = function (id) {
-		return $http.put('api/pages/' + id + '/favorite')
+	ArticlesFactory.favoriteArticle = function (article) {
+		var ref;
+		if (typeof article === 'string') {
+			ref = _.find(allArticlesCache, function(art) {
+				return art._id === article;
+			});
+		} else {
+			ref = article;
+		}
+		return $http.put('api/pages/' + ref._id + '/favorite')
 			.then(function (response) {
-				console.log(response.data)
+				console.log('Adding to cache...');
+				userArticlesCache.push(ref);
 				return response.data;
 			})
 	}

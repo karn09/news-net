@@ -36,7 +36,7 @@ function tryOrFallback(fakeResponse) {
 				// As the fake response will be reused but Response objects
 				// are one use only, we need to clone it each time we use it.
 				// return fakeResponse.clone();
-				return cacheHandler(req, fakeResponse.clone());
+				return fakeResponse.clone();
 			});
 		}
 
@@ -162,7 +162,7 @@ function cachePage(request, values, options) {
 	};
 	if (request.method === 'POST') {
 		return openCache(options).then(function (cache) {
-			console.log('POST Cache: ', cache.match(request));
+			// console.log('POST Cache: ', cache.match(request));
 			return cache.match(request);
 		});
 	};
@@ -205,7 +205,7 @@ function fetchAndCachePage(request, options) {
 
 		//
 		if (request.method === 'GET' && successResponses.test(response.status)) {
-			console.log('GET: ', request, response)
+			// console.log('GET: ', request, response)
 			response.clone().json().then(function (page) {
 
 				openCache(options).then(function (cache) {
@@ -291,9 +291,25 @@ toolbox.router.post(/\/api\/pages(\/|)/, pageHandler, {
 
 
 
-toolbox.router.post('/api/comments/page/:id', tryOrFallback(new Response(null, {
-	status: 202
-})));
+// toolbox.router.post('/api/comments/page/:id', tryOrFallback(new Response(null, {
+// 	status: 202
+// })));
+
+toolbox.router.post('/api/comments/page/:id', tryOrFallback(new Response(
+	JSON.stringify(
+	{
+		
+  	    text: 'Pending comment..',
+  	    dateStamp: 'Pending',
+  	    user: {
+  	      email: 'Pending'
+  	    }
+  	  
+	}
+	)
+	)));
+
+toolbox.router.get('/flush', flushQueue());
 
 toolbox.router.put('/api/pages/:id/favorite', tryOrFallback(new Response(null, {
 	status: 204
@@ -315,6 +331,9 @@ toolbox.router.put('/api/comments/:id/downvote', tryOrFallback(new Response({
 	status: 204
 })));
 
+toolbox.router.delete('/api/subscriptions/:id', tryOrFallback(new Response({
+	status: 204
+})));
 
 // toolbox.router.get('/api/users/me', tryOrFallback(new Response(JSON.stringify({
 // 	_id: '99999999',

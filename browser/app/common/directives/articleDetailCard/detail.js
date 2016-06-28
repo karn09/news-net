@@ -21,7 +21,7 @@ app.controller('ArticleDetailCtrl', function($scope, ArticlesFactory) {
         })
     } else {
       article.liked = true;
-      ArticlesFactory.favoriteArticle(article._id)
+      ArticlesFactory.favoriteArticle(article)
       .then(function(data) {
         console.log(data)
       })

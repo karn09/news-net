@@ -1,10 +1,14 @@
 app.factory('CommentsFactory', function($http) {
   var CommentsFactory = {};
-
+  var pageCache = {};
   CommentsFactory.fetchAllForPage = function(id) {
     return $http.get('api/comments/page/' + id)
     .then(function(response){
-      return response.data;
+      if (!pageCache[id]) {
+        pageCache[id] = [];
+      }
+      angular.copy(response.data, pageCache[id])
+      return pageCache[id];
     })
   };
 
@@ -18,6 +22,13 @@ app.factory('CommentsFactory', function($http) {
   CommentsFactory.postCommentToArticle = function(id, text){
   	return $http.post('/api/comments/page/' + id, {text: text})
   	.then(function(response){
+  	 // pageCache[id].comments.push({
+  	 //   text: text,
+  	 //   dateStamp: 'Pending',
+  	 //   user: {
+  	 //     email: 'Pending'
+  	 //   }
+  	 // })
   		return response.data;
   	})
   }
