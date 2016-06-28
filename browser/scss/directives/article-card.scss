@@ -1,7 +1,9 @@
+$image-height: 190px;
+
 md-card {
 
 	.md-card-image {
-		height: 190px !important;
+		height: $image-height !important;
 	}
 
 	.md-headline {
@@ -28,4 +30,13 @@ md-card {
 
 .article-detail-card {
 	height: 500px;
+
+}
+
+#remove-from-button{
+	float:right;
+	position: relative;
+	top: -#{$image-height};
+	padding: 0;
+	margin: 0;
 }

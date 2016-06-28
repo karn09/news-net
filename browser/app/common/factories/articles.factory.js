@@ -1,8 +1,9 @@
-app.factory('ArticlesFactory', function ($http) {
+app.factory('ArticlesFactory', function ($http, $state) {
 	var ArticlesFactory = {};
 	var allArticlesCache = [];
 	var userArticlesCache = [];
 	var userArticlesArray = [];
+	var recommendedArticlesCache = [];
 
 	ArticlesFactory.fetchAll = function () {
 		return $http.get("/api/pages")
@@ -11,6 +12,19 @@ app.factory('ArticlesFactory', function ($http) {
 					angular.copy(response.data, allArticlesCache);
 				}
 				return allArticlesCache;
+			})
+	}
+
+	ArticlesFactory.fetchRecommendedArticles = function () {
+		return $http.get("/api/pages/recommended")
+			.then(function(response) {
+				if (recommendedArticlesCache !== response.data) {
+					angular.copy(response.data, recommendedArticlesCache);
+				}
+				return recommendedArticlesCache;
+			})
+			.catch(function(err) {
+				$state.go('offline');
 			})
 	}
 

@@ -13,7 +13,8 @@
 
  		<div id="{{category.description | lowercase}}" class="row cards-container">
  			<div ng-repeat="page in category.pages" class="col-md-4">
- 				<article-detail article="page"></article-detail>
+ 				<article-detail ng-if="pass" article="page" remove-item-from-function="removeItemFromSection({categoryId: category._id})"></article-detail>
+ 				<article-detail ng-if="!pass" article="page"></article-detail>
  		 </div>
  		</div>
 

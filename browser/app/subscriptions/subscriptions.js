@@ -20,9 +20,15 @@ app.config(function ($stateProvider) {
 });
 
 
-app.controller('SubscriptionsCtrl', function($scope, categories) {
+app.controller('SubscriptionsCtrl', function($scope, categories, CategoriesFactory) {
 
 	$scope.categories = categories;
+
+	$scope.removeFromSubscription = function(categoryId, pageId){
+		var cId = categoryId.categoryId; var pId = pageId.pageId;
+		console.log("Subscriptions Control - Remove From\n" + "categoryId", cId, "pageId", pId)
+		CategoriesFactory.removeFromSubscription(cId, pId);
+	}
 
 });
 
