@@ -24,9 +24,10 @@ app.controller('FoldersCtrl', function($scope, categories, CategoriesFactory) {
 
 	$scope.categories = categories;
 
-	$scope.removeFromFolder = function(categoryId, articleId){
-		console.log("Folders Control - Remove From")
-		// CategoriesFactory.removeFromFolder(categoryId, articleId);
+	$scope.removeFromFolder = function(categoryId, pageId){
+		var cId = categoryId.categoryId; var pId = pageId.pageId;
+		console.log("Folders Control - Remove From\n" + "categoryId", cId, "pageId", pId)
+		CategoriesFactory.removeFromFolder(cId, pId);
 	}
 
 });

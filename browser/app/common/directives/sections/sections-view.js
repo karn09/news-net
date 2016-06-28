@@ -25,7 +25,7 @@ app.directive('sectionsView', function (CategoriesFactory) {
 
 					return function removePageFromSection(pageId){
 						// console.log("Inner Function with Category: ", categoryId, " & Page: ", pageId);
-						return scope.removeFromFunction(categoryId, pageId);
+						return scope.removeFromFunction({categoryId: categoryId, pageId: pageId});
 					}
 				}
 			}else{

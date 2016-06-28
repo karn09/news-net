@@ -143,6 +143,7 @@ app.factory('CategoriesFactory', function ($http) {
 	}
 
 	CategoriesFactory.removeFromFolder = function(categoryId, articleId){
+
 		return $http.delete('/api/folder/' + categoryId + '/pages/' + articleId)
 		.then(function(response){
 
@@ -157,6 +158,7 @@ app.factory('CategoriesFactory', function ($http) {
 			//Remove page from index
 			currentFolders[cfIndex].pages.splice(cfPageIndex, 1);
 			currentFoldersDetailed[cfdIndex].pages.splice(cfdPageIndex, 1);
+
 
 			return response.data;
 		})
