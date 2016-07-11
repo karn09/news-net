@@ -359,7 +359,7 @@ gulp.task('generateServiceWorker', function (callback) {
 		dynamicUrlToDependencies: dependencies,
 		runtimeCaching: runtimeCachingOptions,
 		verbose: true,
-		handleFetch: false,
+		handleFetch: true,
 	}, callback);
 });
 
