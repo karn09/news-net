@@ -273,6 +273,15 @@ gulp.task('generateServiceWorker', function (callback) {
 				}
 			}
 		}, {
+			urlPattern: /\/api\/pages(\/|)/,
+			handler: 'fastest'
+		}, {
+			urlPattern: /\/api\/subscriptions\/user\/me\?long=true/,
+			handler: 'fastest'
+		}, {
+			urlPattern: /\/api\/folders\/user\/me\?long=true/,
+			handler: 'fastest'
+		}, {
 			urlPattern: /\/articles/,
 			handler: 'fastest',
 			options: {
@@ -358,7 +367,8 @@ gulp.task('generateServiceWorker', function (callback) {
 		stripPrefix: rootDir,
 		dynamicUrlToDependencies: dependencies,
 		runtimeCaching: runtimeCachingOptions,
-		verbose: true
+		verbose: true,
+		handleFetch: true,
 	}, callback);
 });
 
@@ -394,13 +404,13 @@ gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction', 'buildI
 
 // gulp.task('build', function () {
 //     runSeq(['buildJS', 'buildCSS', 'copyImages', 'buildIDB', 'copyFonts', 'copyHTML', 'generateServiceWorker', 'copyExtensionAssets']);
-    
+
 //     if (process.env.NODE_ENV === 'production') {
 //         runSeq(['buildJSProduction', 'buildCSSProduction', 'buildIDB', 'copyImages', 'copyFonts', 'copyHTML', 'generateServiceWorker', 'copyExtensionAssets']);
 //     } else {
 //         runSeq(['buildJS', 'buildCSS', 'copyImages', 'buildIDB', 'copyFonts', 'copyHTML', 'generateServiceWorker', 'copyExtensionAssets']);
 //     }
-    
+
 // });
 
 

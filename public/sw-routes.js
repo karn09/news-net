@@ -235,7 +235,7 @@ function fetchAndCachePage(request, options) {
 
 // fetch and cache, whichever is fastest return.
 function pageHandler(request, values, options) {
-
+	console.log(request)
 	return new Promise(function (resolve, reject) {
 		var rejected = false;
 		var reasons = [];
@@ -281,13 +281,13 @@ function cacheHandler(request, response) {
 // pageHandler will resolve the new page ID and cache to matching ID within
 // storage. Both "fetchAndCachePage" and "cachePage" are called.
 
-toolbox.router.post(/\/api\/pages(\/|)/, pageHandler, {
-	debug: true,
-	cache: {
-		name: 'saved-page-cache',
-		maxEntries: 100
-	}
-})
+// toolbox.router.post(/\/api\/pages(\/|)/, pageHandler, {
+// 	debug: true,
+// 	cache: {
+// 		name: 'saved-page-cache',
+// 		maxEntries: 100
+// 	}
+// })
 
 
 
@@ -348,13 +348,16 @@ toolbox.router.delete('/api/subscriptions/:id', tryOrFallback(new Response({
 // 	}
 // })));
 
-toolbox.router.get(/\/api\/pages\/([1-9].*|[a-z].*)/, pageHandler, {
-	debug: true,
-	cache: {
-		name: 'saved-page-cache',
-		maxEntries: 100
-	}
-})
+
+// toolbox.router.get(/\/api\/pages\/([1-9].*|[a-z].*)/, pageHandler, {
+// 	debug: true,
+// 	cache: {
+// 		name: 'saved-page-cache',
+// 		maxEntries: 100
+// 	}
+// })
+
+
 //
 // toolbox.router.get('/api/pages/recommended', tryOrFallback(new Response(JSON.stringify([{
 // 	_id: '99999998',
@@ -386,13 +389,13 @@ toolbox.router.get('/api/pages/recommended', pageHandler, {
 	}
 })
 
-toolbox.router.get('/api/pages', pageHandler, {
-	debug: true,
-	cache: {
-		name: 'aggregate-page-cache',
-		maxEntries: 50,
-	}
-})
+// toolbox.router.get('/api/pages', pageHandler, {
+// 	debug: true,
+// 	cache: {
+// 		name: 'aggregate-page-cache',
+// 		maxEntries: 50,
+// 	}
+// })
 
 // toolbox.router.get(/\/api\/*./, pageHandler, {
 // 	debug: true,

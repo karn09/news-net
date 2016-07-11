@@ -6,12 +6,12 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 			user: function (AuthService) {
 				return AuthService.getLoggedInUser();
 			},
-			articles: function (ArticlesFactory) {
-				return ArticlesFactory.fetchRecommendedArticles();
-			},
-      allArticles: function(ArticlesFactory) {
-        return ArticlesFactory.fetchAll();
-      }
+			// recommendedArticles: function (ArticlesFactory) {
+			// 	return ArticlesFactory.fetchRecommendedArticles();
+			// },
+    		articles: function(ArticlesFactory) {
+        		return ArticlesFactory.fetchAll();
+    		}
 		},
 		controller: 'HomepageCtrl'
 	});
