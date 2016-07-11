@@ -255,7 +255,7 @@ gulp.task('generateServiceWorker', function (callback) {
 		'/assets/icons/ic_thumb_up_black_24px.svg': ["public/assets/icons/ic_thumb_up_black_24px.svg"],
 		'/assets/icons/menu.svg': ["public/assets/icons/menu.svg"],
 		'/assets/icons/more_vert.svg': ["public/assets/icons/more_vert.svg"],
-		'/assets/icons/icon-news.png': ["public/assets/icons/icon-news.png"],
+		// '/assets/icons/icon-news.png': ["public/assets/icons/icon-news.png"],
 // 		'/assets/icons/newspaper.png': ["public/assets/icons/newspaper.png"],
 		'/assets/icons/sidebar_home.svg': ["public/assets/icons/sidebar_home.svg"],
 		'/assets/images/news.jpg': ["public/assets/images/news.jpg"],
