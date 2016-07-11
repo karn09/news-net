@@ -231,7 +231,7 @@ gulp.task('generateServiceWorker', function (callback) {
 		'/app/my-collections/collections.html': ["public/app/my-collections/collections.html"],
 		// '/app/pages/pages.html': ["public/app/pages/pages.html"],
 		'/app/parser/parser.html': ["public/app/parser/parser.html"],
-		'/app/popup-dialog/popup-dialog.html': ["public/app/popup-dialog/popup-dialog.html"],
+		// '/app/popup-dialog/popup-dialog.html': ["public/app/popup-dialog/popup-dialog.html"],
 		'/app/style.css': ["public/app/style.css"],
 		'/app/subscriptions/subscriptions.html': ["public/app/subscriptions/subscriptions.html"],
 		'/assets/fonts/Roboto.css': ["public/assets/fonts/Roboto.css"],

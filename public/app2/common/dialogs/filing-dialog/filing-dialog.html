@@ -1,0 +1,26 @@
+<md-dialog layout-padding>
+    <md-dialog-content>
+        <div layout-gt-xs="row">
+            <md-input-container>
+                 <label>{{item.name}}</label>
+                <md-select ng-model="categoryData">
+                    <md-optgroup label="Folders">
+                        <md-option ng-repeat="folder in dialog.folders" ng-value="folder">{{folder.description}}</md-option>
+                    </md-optgroup>
+                    <md-optgroup label="Subscriptions">
+                        <md-option ng-repeat="subscription in dialog.subscriptions" ng-value="subscription">{{subscription.description}}</md-option>
+                    </md-optgroup>
+                </md-select>
+            </md-input-container>
+        </div>
+
+        <div layout-gt-xs="row" class="md-actions">
+            <md-button aria-label="Close dialog" ng-click="dialog.close()" class="md-primary">
+                Cancel
+            </md-button>
+            <md-button aria-label="Submit dialog" ng-click="dialog.submit(item.data.id, categoryData)" class="md-primary">
+                Submit
+            </md-button>
+        </div>
+    </md-dialog-content>
+</md-dialog>

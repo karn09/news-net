@@ -1,0 +1,17 @@
+<md-dialog layout-padding>
+    <md-dialog-content>
+        <p></p>
+        <md-input-container md-no-float>
+            <label>Edit Comment</label>
+            <input placeholder="{{comment.text}}" ng-model="data">
+        </md-input-container>
+        <div class="md-actions">
+            <md-button aria-label="Close dialog" ng-click="edit.close()" class="md-primary">
+                Cancel
+            </md-button>
+            <md-button aria-label="Submit dialog" ng-click="edit.submit($index, data)" class="md-primary">
+                Submit
+            </md-button>
+        </div>
+    </md-dialog-content>
+</md-dialog>

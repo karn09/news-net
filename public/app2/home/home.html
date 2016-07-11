@@ -1,0 +1,113 @@
+<div id="homewithoutuser" ng-if="!user">
+    <div id="head">
+        <a ui-sref="home">
+            <img id="logo" src="/assets/images/news-icon.png" height=50 width=50>
+            <div id="title">News-Net</div>
+        </a>
+        <a id="login" ui-sref="login" class="btn btn-default">Log In</a>
+    </div>
+    <div>
+        <img src="/assets/images/news.jpg" width=100%>
+    </div>
+    <div id="signup">
+        <div id="box" class="container">
+            <div class="title">Sign Up</div>
+            <hr>
+            <a id="google" href="/auth/google">
+                <span class="logo"></span>
+                <span class="text">Sign Up with Google</span>
+            </a>
+            <div><a id="email" href="/">Sign Up with email</a></div>
+            <p>Already have an acount? <a ui-sref="login">Log in now</a></p>
+        </div>
+    </div>
+</div>
+
+<div id="homewithuser" ng-if="user">
+    <div class="container">
+        <div>
+                <img src="/assets/images/news.jpg" width=100%>
+            </div>
+        <div id="welcome">
+            
+            <img id="logo" src="/assets/images/news-icon.png" height=40 width=40>
+            <!--<div id="title">News-Net</div>-->
+            <br>
+            <p>Hi, <b>{{user.email}}!</b></p>
+        </div>
+    </div>
+    <hr>
+    <!-- md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="6"
+    md-row-height-gt-md="1:1" md-row-height="4:3"
+    md-gutter="12px" md-gutter-gt-sm="12px" > -->
+    <!-- md-rowspan="{{tile.span.row}}"
+    md-colspan="{{tile.span.col}}"  -->
+    <md-grid-list class="grid" md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6" md-row-height-gt-md="1:1" md-row-height="2:2" md-gutter="12px" md-gutter-gt-sm="8px">
+
+        <md-grid-tile ng-repeat="tile in tiles"
+        md-colspan-sm="1" md-colspan-xs="1" class="tile">
+            <!-- md-rowspan-sm="1"
+                          md-colspan-md="1"
+                          md-rowspan-xs="1"
+                          md-rowspan-md="1" -->
+            <img class="img-responsive" src="{{tile.image}}" height="100%" width="100%">
+            <a ui-sref="article({id: tile._id})">
+                <md-grid-tile-footer>
+                    <h3>{{tile.title}}</h3></md-grid-tile-footer>
+            </a>
+        </md-grid-tile>
+
+    </md-grid-list>
+    <hr>
+    <div class="list">
+        <!-- <div class="column"> -->
+        <div  layout-lg="row" layout-xs="column" layout-align="center center">
+            <!-- <div flex="5"></div> -->
+            <!-- <div flex="5"></div> -->
+            <div flex-lg="10" flex-xl="10" flex-md="30"></div>
+
+            <md-list flex-xl="40" flex-lg="50" flex-md="70" flex-xs="100" class="listbox">
+                <md-list-item class="md-3-line" ng-repeat="article in articles.slice(0,7)" ng-click="listArticles(article._id)">
+                    <img class="md-avatar" src="{{article.leadImageUrl}}">
+                    <div class="md-list-item-text" layout="column">
+                        <h4>{{article.title}}</h4>
+                        <p>{{article.excerpt}}</p>
+                    </div>
+                </md-list-item>
+            </md-list>
+            <hr>
+            <!-- </div> -->
+                <!-- style="margin-top:20px" -->
+                <!-- <div flex="5"></div>
+                <div flex="5"></div> -->
+
+                <div flex-xl="10" flex-lg="10" flex-md="30"></div>
+                <md-list flex-xl="40" flex-lg="40" flex-md="70" flex-xs="100" class="listbox">
+                    <md-list-item class="md-3-line" ng-repeat="article in articles.slice(0,4)" ng-click="listArticles(article._id)">
+                        <img class="md-avatar" src="{{article.leadImageUrl}}">
+                        <div class="md-list-item-text" layout="column">
+                            <h4>{{article.title}}</h4>
+                            <p>{{article.excerpt}}</p>
+                        </div>
+                    </md-list-item>
+                </md-list>
+
+                <hr>
+                <div flex-lg="10" flex-xl="10" flex-md="30"></div>
+
+                <!-- <div flex-lg="10" flex-xl="10" flex-md="30"></div>
+                <md-list flex-xl="100" flex-lg="100" flex-md="70" flex-xs="100" class="listbox">
+                    <md-list-item ng-repeat="article in articles.slice(0,3)" ng-click="listArticles(article._id)">
+                        <img class="md-avatar" src="{{article.leadImageUrl}}">
+                        <div class="md-list-item-text" layout="column">
+                            <h4>{{article.title}}</h4>
+                        </div>
+                    </md-list-item>
+                </md-list>
+                <div flex-lg="10" flex-xl="10" flex-md="30"></div> -->
+
+            </div>
+        </div>
+    </div>
+
+</div>

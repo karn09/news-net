@@ -1,0 +1,60 @@
+<div class="container">
+	<md-card>
+
+		<md-list flex>
+			<md-subheader class="md-no-sticky">
+				<h4>Comments for "{{comments.for}}"</h4>
+			</md-subheader>
+
+			<md-list-item class="md-3-line" ng-repeat="comment in comments.comments" ng-click="null">
+				<div class="md-list-item-text" layout="column">
+
+					<div class="comment-text">
+						{{comment.text}}
+						<br>
+						<span ng-show="{{comments.type =='page'}}"><i>by <a ui-sref="userComments({id: comment.user._id})">{{comment.user.email}}</a></i></span>
+						<span ng-show="{{comments.type =='user'}}"><i>on <a ui-sref="article({id: comment.page._id})">{{comment.page.title}}</a> </i></span> on {{comment.dateStamp | date : 'short'}}
+					</div>
+
+					<div class="comment-panel">
+						<span class="voteCount"><b>{{comment.voteCount }}</b></span>
+						<span class="comment-buttons modify" ng-show="{{user._id == comment.user._id}}">
+					<md-button class="md-icon-button" ng-click="editComment()" aria-label="Edit">
+						 <md-icon md-svg-icon="assets/icons/ic_mode_edit_black_24px.svg"></md-icon>
+					</md-button>
+					<md-button class="md-icon-button" ng-click="removeComment($index, comment._id)" aria-label="Delete">
+						 <md-icon md-svg-icon="assets/icons/ic_delete_black_24px.svg"></md-icon>
+					</md-button>
+				</span>
+						<span class="comment-buttons vote" ng-show="{{user}}">
+					<md-button class="md-icon-button" ng-click="vote(comment._id, 'up')" aria-label="Like">
+						 <md-icon md-svg-icon="assets/icons/ic_thumb_up_black_24px.svg"></md-icon>
+					</md-button>
+					<md-button class="md-icon-button" ng-click="vote(comment._id, 'down')" aria-label="Dislike">
+						 <md-icon md-svg-icon="assets/icons/ic_thumb_down_black_24px.svg"></md-icon>
+					</md-button>
+				</span>
+					</div>
+				</div>
+			</md-list-item>
+		</md-list>
+
+		<md-card-actions layout="column" layout-align="center center">
+
+			<form name="commentSubmissionForm" ng-show="{{comments.type =='page'}}">
+				<md-input-container>
+					<label>Enter a comment</label>
+					<input name="comment" ng-model="input" md-minlength="10">
+					<div ng-messages="commentSubmissionFrom.input.$error" ng-show="commentSubmissionForm.input.$dirty" md-minlength="10">
+						<div ng-message="required">This is required!</div>
+						<div ng-message="md-minlength">Comment must be at least 10 characters long.</div>
+					</div>
+				</md-input-container>
+				<md-button aria-label="Submit comment button" ng-click="submitComment()" class="md-primary">Submit</md-button>
+
+			</form>
+		</md-card-actions>
+
+
+	</md-card>
+</div>

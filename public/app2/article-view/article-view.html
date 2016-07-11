@@ -1,0 +1,23 @@
+<!-- {{content}} -->
+<div layout="row">
+    <div flex></div>
+​
+    <section layout-margin flex="90" flex-gt-md="66">
+        <md-card>
+            <md-card-header>
+                <md-card-avatar>
+                    <img ng-src="{{current.leadImageUrl}}" alt="">
+                </md-card-avatar>
+                <md-card-header-test>
+                    <md-card-title-text><span class="md-headline">{{current.title}}</span></md-card-title-text>
+                </md-card-header-test>
+            </md-card-header>
+            <md-card-content>
+                <div bind-compiled-html="content" class="img-responsive center-block"></div>
+            </md-card-content>
+        </md-card>
+    </section>
+
+
+    <div flex></div>
+</div>
