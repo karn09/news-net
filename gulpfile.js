@@ -273,6 +273,15 @@ gulp.task('generateServiceWorker', function (callback) {
 				}
 			}
 		}, {
+			urlPattern: /\/api\/pages(\/|)/,
+			handler: 'fastest'
+		}, {
+			urlPattern: /\/api\/subscriptions\/user\/me\?long=true/,
+			handler: 'fastest'
+		}, {
+			urlPattern: /\/api\/folders\/user\/me\?long=true/,
+			handler: 'fastest'
+		}, {
 			urlPattern: /\/articles/,
 			handler: 'fastest',
 			options: {

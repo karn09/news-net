@@ -25,11 +25,15 @@
 
 <div id="homewithuser" ng-if="user">
     <div class="container">
+        <div>
+                <img src="/assets/images/news.jpg" width=100%>
+            </div>
         <div id="welcome">
+            
             <img id="logo" src="/assets/images/news-icon.png" height=40 width=40>
-            <div id="title">News-Net</div>
+            <!--<div id="title">News-Net</div>-->
             <br>
-            <p>Hi, <b>{{user.email}}</b>, cache your articles!</p>
+            <p>Hi, <b>{{user.email}}!</b></p>
         </div>
     </div>
     <hr>
